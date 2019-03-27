@@ -14,6 +14,9 @@ export class Tab1Page {
   ngOnInit(){
     this.segment.value='new';
   }
+  segmentChanged(ev: any) {
+    console.log('Segment changed', ev);
+  }
  
   
 }
