@@ -1,0 +1,36 @@
+<ion-header>
+  <!--<ion-toolbar text-center>
+    <ion-title>Add</ion-title>
+  </ion-toolbar>-->
+</ion-header>
+
+<ion-content padding>
+  <form>
+    <ion-label class="titles">Task Name</ion-label>
+    <ion-input placeholder="Name"></ion-input>
+  
+    <ion-label class="titles">#Tag</ion-label>
+    <!--<ion-textarea placeholder="Item description" required></ion-textarea>-->
+
+    <!--<ion-tabs>
+      <ion-tab-bar>
+        <ion-tab-button>Hola</ion-tab-button>
+        <ion-tab-button>Hola 2</ion-tab-button>
+        <ion-tab-button>Hola 3</ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>-->
+   
+    <ion-label class="titles">Date: </ion-label>
+    <ion-textarea placeholder="date"></ion-textarea>
+    
+    
+    <ion-row>
+      
+      <ion-col text-center>
+        <ion-button>Add Item</ion-button>
+        <ion-button (click)="closeModal()">Close</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+  
+</ion-content>

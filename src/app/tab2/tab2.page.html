@@ -6,4 +6,27 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content ion-padding>
+  <ion-searchbar></ion-searchbar>
+  <ion-label>My Tasks<ion-icon name="checkbox-outline"></ion-icon></ion-label>
+  <ion-list>
+    <ion-item-sliding>
+    <ion-item >
+      <ion-label>Task 1</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-label>Task 2</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Task 3</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Task 4</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Task 5</ion-label>
+      </ion-item>
+    </ion-item-sliding>
+  </ion-list>
+  <ion-button (click)="openModal()">Prueba</ion-button>
+</ion-content>

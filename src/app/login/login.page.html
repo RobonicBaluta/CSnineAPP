@@ -1,0 +1,21 @@
+<ion-header>
+  <!--<ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>-->
+</ion-header>
+
+<ion-content id="login">
+  <ion-input type="email" placeholder="Email"> </ion-input>
+  <ion-input type="password" placeholder="Password"> </ion-input>
+  <ion-select placeholder="Select a server">
+    <ion-select-option>Server 1</ion-select-option>
+    <ion-select-option>Server 2</ion-select-option>
+    <ion-select-option>Server 3</ion-select-option>
+    <ion-select-option>Server 4</ion-select-option>
+  </ion-select>
+  <ion-checkbox></ion-checkbox>
+  <ion-label>Remember</ion-label>
+  <ion-button id="buttonl" (click)="presentAlert()">Login</ion-button>
+
+  <ion-text color="primary" routerLink="/remember" id="buttonl">Forgot your password?</ion-text>
+</ion-content>
