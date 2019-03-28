@@ -7,7 +7,10 @@
   </ion-header>
   
   <ion-content>
-      <ion-searchbar animated></ion-searchbar>
+      <ion-row>
+          <ion-searchbar animated class="search" side='start'></ion-searchbar> 
+          <ion-icon  side='end' class="searchLogo" src="assets/logo.svg"></ion-icon>
+        </ion-row>
     <!-- Default Segment -->
     <ion-list>
       <ion-item-sliding *ngFor="let item of (results|async)" >
@@ -17,7 +20,7 @@
         </ion-item>
         <ion-item-options side="end" >
           <ion-buttons end>
-            <ion-button ion-button color="warning" (click)="openModal()">
+            <ion-button ion-button color="warning" (click)="noteModal()">
                 <ion-icon name="today"></ion-icon>
             </ion-button>
             <ion-button ion-button >
@@ -31,7 +34,11 @@
         </ion-item-sliding>
         
       </ion-list>
-      
+      <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button (click)="addCompanyModal()">
+          <ion-icon name="add" id="add" ></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
       
     </ion-content>
     

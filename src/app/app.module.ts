@@ -9,12 +9,13 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { NoteModalPageModule } from './note-modal/note-modal.module';
+import { NoteModalPageModule } from './modals/note-modal/note-modal.module';
+import { AddCompanyModalPageModule } from './modals/add-company-modal/add-company-modal.module'
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule,NoteModalPageModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule,NoteModalPageModule,AddCompanyModalPageModule],
   providers: [
     StatusBar,
     SplashScreen,

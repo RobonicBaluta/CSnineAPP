@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { RestApiService } from '../rest-api.service';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { IonSegment } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab4',
@@ -11,7 +12,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class Tab4Page implements OnInit {
 
-
+  @ViewChild (IonSegment) segment:IonSegment;
 
 items:any;
 results: Observable<any>;
@@ -40,6 +41,7 @@ constructor(public api: RestApiService,private alertController: AlertController 
   
   ngOnInit() {
     this.getItems();
+    this.segment.value='cs';
   }
 
   async importAlert(){
@@ -63,6 +65,29 @@ constructor(public api: RestApiService,private alertController: AlertController 
       ]
     });
     await alert.present();
+
+}
+async importAllAlert(){
+  const alert = await this.alertController.create({
+    header: 'Confirm!',
+    message: '<strong>Do you want to export ALL contacts?</strong>',
+    buttons: [
+      {
+        text: 'Cancel',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: (blah) => {
+          console.log('Confirm Cancel: blah');
+        }
+      }, {
+        text: 'Okay',
+        handler: () => {
+          console.log('Confirm Okay');
+        }
+      }
+    ]
+  });
+  await alert.present();
 
 }
   // async openModal() {

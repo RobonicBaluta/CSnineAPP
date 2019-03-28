@@ -5,7 +5,8 @@ import {Observable} from 'rxjs';
 import { RestApiService } from '../rest-api.service';
 import { ModalController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NoteModalPage } from '../note-modal/note-modal.page';
+import { NoteModalPage } from '../modals/note-modal/note-modal.page';
+import { AddCompanyModalPage } from '../modals/add-company-modal/add-company-modal.page';
 
 @Component({
   selector: 'app-tab3',
@@ -65,9 +66,10 @@ export class Tab3Page {
     // }
 
 
-    async openModal() {
+    async  noteModal() {
       const modal = await this.modalController.create({
         component: NoteModalPage,
+        cssClass: 'my-custom-modal-css',
       });
       modal.onDidDismiss().then((dataReturned) => {
         if (dataReturned !== null) {
@@ -77,7 +79,19 @@ export class Tab3Page {
       
       return await modal.present();
     }
-
+    async  addCompanyModal() {
+      const modal = await this.modalController.create({
+        component: AddCompanyModalPage,
+        cssClass: 'my-custom-modal-css',
+      });
+      modal.onDidDismiss().then((dataReturned) => {
+        if (dataReturned !== null) {
+          console.log('Modal Sent Data :', dataReturned);
+        }
+      });
+      
+      return await modal.present();
+    }
 
     async presentAlertPrompt() {
       const alert = await this.alertController.create({
