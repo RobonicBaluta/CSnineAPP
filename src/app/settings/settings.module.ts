@@ -1,17 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { TaskModalPage } from './task-modal.page';
-import { BrowserModule } from '@angular/platform-browser';
+import { SettingsPage } from './settings.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: TaskModalPage
+    component: SettingsPage
   }
 ];
 
@@ -20,10 +19,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    FormsModule, 
-    ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [TaskModalPage]
+  declarations: [SettingsPage]
 })
-export class TaskModalPageModule {}
+export class SettingsPageModule {}

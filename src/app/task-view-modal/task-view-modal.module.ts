@@ -5,13 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { TaskModalPage } from './task-modal.page';
-import { BrowserModule } from '@angular/platform-browser';
+import { TaskViewModalPage } from './task-view-modal.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: TaskModalPage
+    component: TaskViewModalPage
   }
 ];
 
@@ -19,11 +18,11 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
-    IonicModule,
+    IonicModule, 
     FormsModule, 
     ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [TaskModalPage]
+  declarations: [TaskViewModalPage]
 })
-export class TaskModalPageModule {}
+export class TaskViewModalPageModule {}

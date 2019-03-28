@@ -9,11 +9,12 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { TaskViewModalPageModule } from './task-view-modal/task-view-modal.module';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, TaskModalPageModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, TaskModalPageModule, TaskViewModalPageModule],
   providers: [
     StatusBar,
     SplashScreen,
