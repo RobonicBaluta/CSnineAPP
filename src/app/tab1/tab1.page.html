@@ -7,30 +7,43 @@
 </ion-header>
 
 <ion-content>
- <!-- Default Segment -->
-<ion-segment (ionChange)="segmentChanged($event)">
-  <ion-segment-button value="new">
-    <ion-label>New</ion-label>
-    <ion-icon name="notifications-outline"></ion-icon>
-
-  </ion-segment-button>
-  <ion-segment-button value="later">
-    <ion-label>See Later</ion-label>
-    <ion-icon name="time"></ion-icon>
-  </ion-segment-button>
-</ion-segment>
-
-<ion-list>
-        <ion-item-sliding *ngFor="let item of (results|async)" >
-          <ion-item>
-            {{item.name}}
-          </ion-item>
-          <ion-item-options side="end">
-            
-            <ion-button color="primary" [routerLink]="['/','detail',item.id]"><ion-icon name="eye"></ion-icon></ion-button>
-            <ion-button  color="danger" (click)="delete(item.id)"><ion-icon name="trash"></ion-icon></ion-button>
-          </ion-item-options>
+  <!-- Default Segment -->
+  <ion-segment (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="new">
+      <ion-label>New</ion-label>
+      <ion-icon name="notifications-outline"></ion-icon>
       
-        </ion-item-sliding>
-      </ion-list>
-</ion-content>
+    </ion-segment-button>
+    <ion-segment-button value="later">
+      <ion-label>See Later</ion-label>
+      <ion-icon name="time"></ion-icon>
+    </ion-segment-button>
+  </ion-segment>
+  <br>
+  <ion-list>
+    <ion-item-sliding *ngFor="let item of (results|async)" >
+      
+      
+      <ion-item>
+        {{item.name}}
+      </ion-item>
+      <ion-item-options side="end" >
+        <ion-buttons end>
+          <ion-button ion-button color="primary">
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+          </ion-button>
+          <ion-button ion-button color="primary">
+            <ion-icon name="time"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        
+        <!-- <ion-button color="primary" [routerLink]="['/','detail',item.id]"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
+          <ion-button  color="danger" (click)="delete(item.id)"><ion-icon name="time"></ion-icon></ion-button> -->
+        </ion-item-options> 
+      </ion-item-sliding>
+      
+    </ion-list>
+    
+    
+  </ion-content>
+  

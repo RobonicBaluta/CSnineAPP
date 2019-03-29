@@ -1,9 +1,44 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Companies
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+    <ion-toolbar>
+      <ion-title>
+       Companies
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+      <ion-row>
+          <ion-searchbar animated class="search" side='start'></ion-searchbar> 
+          <ion-icon  side='end' class="searchLogo" src="assets/logo.svg"></ion-icon>
+        </ion-row>
+    <!-- Default Segment -->
+    <ion-list>
+      <ion-item-sliding *ngFor="let item of (results|async)" >
 
-<ion-content></ion-content>
+        <ion-item>
+          {{item.name}}
+        </ion-item>
+        <ion-item-options side="end" >
+          <ion-buttons end>
+            <ion-button ion-button color="warning" (click)="noteModal()">
+                <ion-icon name="today"></ion-icon>
+            </ion-button>
+            <ion-button ion-button >
+                <ion-icon name="clipboard"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+          
+          <!-- <ion-button color="primary" [routerLink]="['/','detail',item.id]"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
+            <ion-button  color="danger" (click)="delete(item.id)"><ion-icon name="time"></ion-icon></ion-button> -->
+          </ion-item-options> 
+        </ion-item-sliding>
+        
+      </ion-list>
+      <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button (click)="addCompanyModal()">
+          <ion-icon name="add" id="add" ></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+      
+    </ion-content>
+    

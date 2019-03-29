@@ -1,0 +1,27 @@
+
+
+  <ion-content padding class='myModal'>
+    <ion-grid>
+      <ion-row>
+        <ion-col text-center>
+          Add new note
+        </ion-col>
+      </ion-row>
+      
+    </ion-grid>
+    <form >
+      <ion-label class="titles">Title: </ion-label>
+      <ion-input type="text" class="title" placeholder="title" required></ion-input>
+    
+      <ion-label class="titles">Note: </ion-label>
+      <ion-textarea class="myTextArea" placeholder="note" ></ion-textarea>
+      
+      <ion-row>
+        <ion-col text-center>
+          <ion-button (click)="addItem()">Add Item</ion-button>
+          <ion-button (click)="closeModal()">Close</ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+    
+  </ion-content>
