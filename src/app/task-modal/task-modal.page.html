@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar text-center>
+    <ion-title>Add Task</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form>
+    <ion-label class="titles">Task Name</ion-label>
+      <ion-input placeholder="Name"></ion-input>
+    <ion-label class="titles">Tag</ion-label>
+      <ion-input placeholder="#tag"></ion-input>
+    <ion-segment> <!--(ionChange)="segmentChanged($event)"-->
+        <ion-segment-button value="description">
+          <ion-label>Description</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="file">
+          <ion-label>File</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="notes">
+            <ion-label>Notes</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+      <ion-input>To: </ion-input>
+      <ion-label>Me: <ion-checkbox></ion-checkbox></ion-label>
+    <!--<ion-textarea placeholder="Item description" required></ion-textarea>-->
+
+    <!--<ion-tabs>
+      <ion-tab-bar>
+        <ion-tab-button>Hola</ion-tab-button>
+        <ion-tab-button>Hola 2</ion-tab-button>
+        <ion-tab-button>Hola 3</ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>-->
+   
+    <ion-label class="titles">Date: </ion-label>
+    <ion-datetime display-format="MM/DD/YYYY" placeholder="Select date"></ion-datetime>
+    
+    
+    <ion-row>
+      
+      <ion-col text-center>
+        <ion-button (click)="closeModal()" fill="clear"><ion-icon name="close-circle" color="dark"></ion-icon></ion-button>
+        <ion-button (click)="closeModal()" fill="clear"><ion-icon name="save" color="dark"></ion-icon></ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+  
+</ion-content>
