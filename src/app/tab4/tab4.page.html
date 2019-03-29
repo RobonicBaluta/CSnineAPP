@@ -38,17 +38,21 @@
     <ion-item-sliding *ngFor="let item of (results|async)" >
       
       <ion-item>
+          <ion-avatar size='end' class="contactAvatar">   
+              <img src="https://www.w3schools.com/howto/img_avatar.png">
+           </ion-avatar>
+           <ion-title>
         {{item.name}}
+      </ion-title>
       </ion-item>
+ 
       <ion-item-options side="end" >
         <ion-buttons end>
           <ion-button ion-button color="primary" (click)="importAlert()">
             <ion-icon name="git-compare"></ion-icon>
            
           </ion-button>
-          <ion-avatar class="contactAvatar">   
-              <img src="https://www.w3schools.com/howto/img_avatar.png">
-           </ion-avatar>
+          
         </ion-buttons>
         
         <!-- <ion-button color="primary" [routerLink]="['/','detail',item.id]"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
