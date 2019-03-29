@@ -1,10 +1,13 @@
 <ion-header>
+    
+
   <ion-toolbar>
+    
     <ion-title>
       Contacts
-      
+    
     </ion-title>
-    <ion-button (click)="importAllAlert()"><ion-icon  side='end' name="git-compare"  ></ion-icon></ion-button>
+    
   </ion-toolbar>
  
 </ion-header>
@@ -14,7 +17,7 @@
     <ion-searchbar animated class="search" side='start'></ion-searchbar> 
     <ion-icon  side='end' class="searchLogo" src="assets/logo.svg"></ion-icon>
   </ion-row>
-  
+  <ion-button (click)="importAllAlert()" id="importAll" expand="block" ><ion-icon  name="git-compare"  ></ion-icon></ion-button>
   
   <!-- Default Segment -->
   <ion-row>
@@ -41,7 +44,11 @@
         <ion-buttons end>
           <ion-button ion-button color="primary" (click)="importAlert()">
             <ion-icon name="git-compare"></ion-icon>
+           
           </ion-button>
+          <ion-avatar class="contactAvatar">   
+              <img src="https://www.w3schools.com/howto/img_avatar.png">
+           </ion-avatar>
         </ion-buttons>
         
         <!-- <ion-button color="primary" [routerLink]="['/','detail',item.id]"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>

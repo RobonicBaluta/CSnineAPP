@@ -9,12 +9,14 @@ import { IonSegment, ModalController } from '@ionic/angular';
 export class AddCompanyModalPage implements OnInit {
 
   @ViewChild (IonSegment) segment:IonSegment;
+  
   constructor(private modalController: ModalController,) { 
+    
   
   }
 
   ngOnInit() {
-    this.segment.value='info';
+    this.segment.value="'info'";
   }
   async closeModal() {
     const onClosedData: string = "Wrapped Up!";

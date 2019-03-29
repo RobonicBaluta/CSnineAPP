@@ -76,6 +76,10 @@
   --ion-color-light-tint: #f5f6f9;
 }
 
-.my-custom-modal-css .modal-wrapper {
+.note-custom-modal .modal-wrapper {
   width: 90%; height: 60%; top: 40%; left: 5%; right: 5%; bottom: 60%; border-radius: 10px;
+}
+
+.addCompanyCustom .modal-wrapper{
+  width: 90%; height: 70%; top: 40%; left: 5%; right: 5%; bottom: 60%; border-radius: 10px;
 }
