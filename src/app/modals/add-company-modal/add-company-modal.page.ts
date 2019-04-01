@@ -9,9 +9,10 @@ import { IonSegment, ModalController } from '@ionic/angular';
 export class AddCompanyModalPage implements OnInit {
 
   @ViewChild (IonSegment) segment:IonSegment;
+  company: string;
   
   constructor(private modalController: ModalController,) { 
-    
+    this.company='info';
   
   }
 

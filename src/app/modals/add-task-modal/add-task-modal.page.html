@@ -19,13 +19,13 @@
         <ion-row>
             <ion-toolbar color="light" >
                 <ion-segment color="dark" [(ngModel)]="task">
-                    <ion-segment-button value="info" checked='true'>
+                    <ion-segment-button value="description" checked='true'>
                         Description
                     </ion-segment-button>
-                    <ion-segment-button value="location">
+                    <ion-segment-button value="file">
                         File
                     </ion-segment-button>
-                    <ion-segment-button value="contact">
+                    <ion-segment-button value="note">
                         Notes
                     </ion-segment-button>
                 </ion-segment>
@@ -37,26 +37,24 @@
 
             <!-- General info -->
             <div *ngSwitchCase="'description'" >
-                <ion-textarea class="prueba" placeholder='Enter a description'></ion-textarea>
+                <ion-textarea class="noteTextArea" placeholder='Enter a description'></ion-textarea>
             </div>
             <!-- End general info -->
 
             <!-- Location -->
-            <div *ngSwitchCase="'location'" >
+            <div *ngSwitchCase="'file'" >
 
 
-                <ion-input  type='Text'  placeholder='Country'></ion-input>
-                <ion-input  type='Text'  placeholder='Region'></ion-input>
-                <ion-input  type='Text'  placeholder='City'></ion-input>
-                <ion-input  type='Text'  placeholder='Street'></ion-input>
-                <ion-input  type='Text'  placeholder='Zip'></ion-input>
+                <ion-input  type='file'  ><ion-icon name="attach" size="large"></ion-icon></ion-input>
+                
+                
             </div>
             <!--End Location -->
 
             <!-- Contact -->
-            <div *ngSwitchCase="'contact'">
-                <ion-input  type='Text'  placeholder='Telephone number'></ion-input>
-                <ion-input  type='Text'  placeholder='Email'></ion-input>
+            <div *ngSwitchCase="'note'">
+                <ion-input  type='Text' class="title" placeholder=' Title'></ion-input>
+                <ion-textarea class="noteTextArea" placeholder='Enter here a note'></ion-textarea>
             </div>
             <!-- End contact -->
 
