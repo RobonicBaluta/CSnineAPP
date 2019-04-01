@@ -12,7 +12,7 @@
   <ion-list>
      <!-- Sliding item with text options on both sides -->
     <ion-item-sliding>
-      <ion-item>
+      <ion-item (click)="openModal2()">
         <ion-label>Task 1</ion-label>
       </ion-item>
   
@@ -21,7 +21,7 @@
       </ion-item-options>
     </ion-item-sliding>
     <ion-item-sliding>
-      <ion-item (click)="openModal()">
+      <ion-item (click)="openModal2()">
           <ion-label>Task 2</ion-label>
       </ion-item>
     
@@ -30,7 +30,7 @@
       </ion-item-options>
     </ion-item-sliding>
     <ion-item-sliding>
-      <ion-item (click)="openModal()">
+      <ion-item (click)="openModal2()">
           <ion-label>Task 3</ion-label>
       </ion-item>
       
@@ -39,7 +39,7 @@
       </ion-item-options>
     </ion-item-sliding>
     <ion-item-sliding>
-        <ion-item (click)="openModal()">
+        <ion-item (click)="openModal2()">
             <ion-label>Task 4</ion-label>
         </ion-item>
         
@@ -48,7 +48,7 @@
             </ion-item-options>
     </ion-item-sliding>
       <ion-item-sliding>
-        <ion-item (click)="openModal()">
+        <ion-item (click)="openModal2()">
                 <ion-label>Task 5</ion-label>
               </ion-item>
           
@@ -58,7 +58,7 @@
     </ion-item-sliding>
   </ion-list>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-      <ion-fab-button (click)="openModal2()">
+      <ion-fab-button (click)="openModal()">
         <ion-icon name="add" id="adds" ></ion-icon>
       </ion-fab-button>
     </ion-fab>
