@@ -10,6 +10,7 @@ export class AddTaskModalPage implements OnInit {
   constructor() { }
 
   ngOnInit() {
+     
   }
 
 }
