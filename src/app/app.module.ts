@@ -13,11 +13,25 @@ import { TaskViewModalPageModule } from './task-view-modal/task-view-modal.modul
 import { HttpClientModule } from '@angular/common/http';
 import { NoteModalPageModule } from './modals/note-modal/note-modal.module';
 import { AddCompanyModalPageModule } from './modals/add-company-modal/add-company-modal.module'
+import { AuthModule } from  './auth/auth.module';
+import { FormsModule } from '@angular/forms';
+import { IonicStorageModule } from '@ionic/storage';
+
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,TaskModalPageModule, TaskViewModalPageModule, HttpClientModule,NoteModalPageModule,AddCompanyModalPageModule],
+  imports: [BrowserModule, 
+    IonicModule.forRoot(), 
+    AppRoutingModule,
+    TaskModalPageModule, 
+    TaskViewModalPageModule,
+     HttpClientModule,
+     NoteModalPageModule,
+     AddCompanyModalPageModule,
+     AuthModule,
+     FormsModule,
+     IonicStorageModule.forRoot()],
   providers: [
     StatusBar,
     SplashScreen,
