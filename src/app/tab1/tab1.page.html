@@ -8,7 +8,7 @@
 
 <ion-content>
   <!-- Default Segment -->
-  <ion-segment (ionChange)="segmentChanged($event)">
+  <ion-segment (ionChange)="segmentChanged($event)" >
     <ion-segment-button value="new">
       <ion-label>New</ion-label>
       <ion-icon name="notifications-outline"></ion-icon>
@@ -25,17 +25,20 @@
       
       
       <ion-item>
-        {{item.name}}
+        <ion-title >
+          {{item.name}}
+        </ion-title>
+
       </ion-item>
       <ion-item-options side="end" >
-        <ion-buttons end>
-          <ion-button ion-button color="primary">
-            <ion-icon name="checkmark-circle-outline"></ion-icon>
-          </ion-button>
-          <ion-button ion-button color="primary">
-            <ion-icon name="time"></ion-icon>
-          </ion-button>
-        </ion-buttons>
+        
+        <ion-button ion-button color="primary"   class='sliderButtons'>
+          <ion-icon name="checkbox"></ion-icon>
+        </ion-button>
+        <ion-button ion-button color="secondary"  class='sliderButtons' >
+          <ion-icon name="time"></ion-icon>
+        </ion-button>
+        
         
         <!-- <ion-button color="primary" [routerLink]="['/','detail',item.id]"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
           <ion-button  color="danger" (click)="delete(item.id)"><ion-icon name="time"></ion-icon></ion-button> -->
