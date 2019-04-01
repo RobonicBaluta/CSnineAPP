@@ -13,11 +13,19 @@ import { TaskViewModalPageModule } from './task-view-modal/task-view-modal.modul
 import { HttpClientModule } from '@angular/common/http';
 import { NoteModalPageModule } from './modals/note-modal/note-modal.module';
 import { AddCompanyModalPageModule } from './modals/add-company-modal/add-company-modal.module'
+import { AddTaskModalPageModule } from './modals/add-task-modal/add-task-modal.module'
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,TaskModalPageModule, TaskViewModalPageModule, HttpClientModule,NoteModalPageModule,AddCompanyModalPageModule],
+  imports: [BrowserModule, IonicModule.forRoot(), 
+    AppRoutingModule,
+    TaskModalPageModule, 
+    TaskViewModalPageModule, 
+    HttpClientModule,
+    NoteModalPageModule,
+    AddCompanyModalPageModule,
+    AddTaskModalPageModule],
   providers: [
     StatusBar,
     SplashScreen,

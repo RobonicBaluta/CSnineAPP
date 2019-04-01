@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: 'task-view-modal', loadChildren: './task-view-modal/task-view-modal.module#TaskViewModalPageModule' },
   { path: 'note-modal', loadChildren: './modals/note-modal/note-modal.module#NoteModalPageModule' },
   { path: 'add-company-modal', loadChildren: './modals/add-company-modal/add-company-modal.module#AddCompanyModalPageModule' },
+  { path: 'add-task-modal', loadChildren: './modals/add-task-modal/add-task-modal.module#AddTaskModalPageModule' },
 
 
 ];

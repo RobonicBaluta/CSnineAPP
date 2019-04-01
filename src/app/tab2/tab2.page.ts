@@ -6,6 +6,10 @@ import { ModalController } from '@ionic/angular';
 import { TaskModalPage } from '../task-modal/task-modal.page';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaskViewModalPage } from '../task-view-modal/task-view-modal.page';
+import { AddTaskModalPage } from '../modals/add-task-modal/add-task-modal.page';
+import { RestApiService } from '../rest-api.service';
+
+
 
 @Component({
   selector: 'app-tab2',
@@ -13,30 +17,35 @@ import { TaskViewModalPage } from '../task-view-modal/task-view-modal.page';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
-
+  
+  items:any;
+  results: Observable<any>;
+  
+  ngOnInit() {
+    this.getItems();
+  }
+  
+  async getItems() {
+    this.results=this.api.getItems();
+  }
+  
+  
   constructor(public modalController: ModalController,
+    public api: RestApiService,private alertController: AlertController ,
     public router: Router,) {}
-
-  async openModal() {
-    const modal = await this.modalController.create({
-      component: TaskModalPage,
-    });
-    modal.onDidDismiss().then((dataReturned) => {
-      if (dataReturned !== null) {
-        console.log('Modal Sent Data :', dataReturned);
-      }
-    });
-    return await modal.present();
+    
+    async  addTaskModal() {
+      const modal = await this.modalController.create({
+        component: AddTaskModalPage,
+        cssClass: 'addCompanyCustom',
+      });
+      modal.onDidDismiss().then((dataReturned) => {
+        if (dataReturned !== null) {
+          console.log('Modal Sent Data :', dataReturned);
+        }
+      });
+      
+      return await modal.present();
+    }
   }
-  async openModal2() {
-    const modal = await this.modalController.create({
-      component: TaskViewModalPage,
-    });
-    modal.onDidDismiss().then((dataReturned) => {
-      if (dataReturned !== null) {
-        console.log('Modal Sent Data :', dataReturned);
-      }
-    });
-    return await modal.present();
-  }
-}
+  
