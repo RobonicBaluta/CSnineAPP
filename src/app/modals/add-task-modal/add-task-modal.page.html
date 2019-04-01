@@ -35,13 +35,13 @@
         
         <div [ngSwitch]="task">
             
-            <!-- General info -->
+            
             <div *ngSwitchCase="'description'" >
                 <ion-textarea class="noteTextArea" placeholder='Enter a description'></ion-textarea>
             </div>
-            <!-- End general info -->
             
-            <!-- Location -->
+            
+            
             <div *ngSwitchCase="'file'" >
                 
                 
@@ -49,33 +49,33 @@
                 
                 
             </div>
-            <!--End Location -->
             
-            <!-- Contact -->
+            
+            
             <div *ngSwitchCase="'note'">
                 <ion-input  type='Text' class="title" placeholder=' Title'></ion-input>
                 <ion-textarea class="noteTextArea" placeholder='Enter here a note'></ion-textarea>
             </div>
-            <!-- End contact -->
             
-            <!-- <div *ngSwitchCase="'note'">
-                <br>
-                <ion-label class="titles">Title: </ion-label>
-                <ion-input type="text" class="title" placeholder=" title" required></ion-input>
-                
-                <ion-label class="titles">Note: </ion-label>
-                <ion-textarea class="myTextArea" clearOnEdit="true" placeholder='Write a note'></ion-textarea>
-                
-            </div> -->
             
-            <div style="width:60%;">
-              
-               To: <ion-input   type='Text'  placeholder='ander'></ion-input>
-            </div>
-            <ion-button color="light" >Me: <ion-checkbox checked></ion-checkbox></ion-button>
+            
+            <ion-row  >
+                <div >
+                    <ion-item >
+                        <ion-label>To:</ion-label>
+                        <ion-input placeholder='ander' type='text'></ion-input>
+                        <ion-button color="primary"  >Me: <ion-checkbox checked style="margin: auto;"></ion-checkbox></ion-button>
+                    </ion-item>
+                    
+                </div>
+                
+                
+            </ion-row>
             <div>
-                <ion-label>Date:</ion-label>
-                <ion-datetime display-format="MM/DD/YYYY" placeholder="Select date" style="width:60%">Date:</ion-datetime>
+                <ion-item>
+                    <ion-label>Date:</ion-label>
+                    <ion-datetime display-format="MM/DD/YYYY" placeholder="Select date" style="width:60%">Date:</ion-datetime>
+                </ion-item>
             </div>
             
         </div>
