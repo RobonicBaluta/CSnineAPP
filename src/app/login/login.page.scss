@@ -1,7 +1,25 @@
 #login{
-    border-top: 10%;
-    border-left: 10%;
+    text-align: center;
 }
-#buttonl{
-    border-top: 25%;
+#login-title{
+    font-size: 2.5em;
+    margin-top: 40%;
+}
+.log-form{
+    margin-top: 10%;
+}
+.remember{
+    margin-top: 10%;
+    margin-left: 5%;
+    //margin-right: 50%;
+}
+#forgot-pass{
+    margin-top: 15%;
+    margin-bottom: 5%;
+    margin-left: 25%;
+}
+#btnlogin{
+    margin-top: 10%;
+    margin-left: 30%;
+    margin-right: 15%;
 }
