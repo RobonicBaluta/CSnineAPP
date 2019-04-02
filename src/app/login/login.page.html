@@ -1,28 +1,43 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>LOGIN</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>LOGIN</ion-title>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content ion-padding>
-  <div id="login">
-    <ion-input required type="email" placeholder="Email" class="log-form"></ion-input>
-    <ion-input required type="password" placeholder="Password" class="log-form"> </ion-input>
-    <ion-select required placeholder="Select a server" class="log-form">
-      <ion-select-option>Server 1</ion-select-option>
-      <ion-select-option>Server 2</ion-select-option>
-      <ion-select-option>Server 3</ion-select-option>
-      <ion-select-option>Server 4</ion-select-option>
-    </ion-select>
-  </div>
-  <ion-checkbox class="remember"></ion-checkbox>
-  <ion-label class="remember">Remember</ion-label>
-  <ion-row>
-    <ion-col>
-      <ion-button (click)="presentAlert()" class="log-form">Login</ion-button>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-text color="primary" routerLink="/remember" class="log-form" id="forgot-pass">Forgot your password?</ion-text>
-  </ion-row>
+<ion-content>
+    <ion-item class="ion-margin-top">
+        <ion-label>Email</ion-label>
+        <ion-input required type="email" placeholder="Email" class="ion-padding"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Password</ion-label>
+        <ion-input required type="password" placeholder="Password" class="ion-padding"> </ion-input>
+    </ion-item>
+
+    <ion-row class="ion-margin-top">
+        <ion-select required placeholder="Select a server">
+            <ion-select-option>Server 1</ion-select-option>
+            <ion-select-option>Server 2</ion-select-option>
+            <ion-select-option>Server 3</ion-select-option>
+            <ion-select-option>Server 4</ion-select-option>
+        </ion-select>
+    </ion-row>
+
+    <ion-row class="ion-padding">
+        <ion-label>Remember</ion-label>
+        <ion-checkbox class="ion-margin-start"></ion-checkbox>
+    </ion-row>
+
+    <ion-row>
+        <ion-col>
+            <ion-button (click)="presentAlert()" class="ion-padding ion-float-right">Login</ion-button>
+        </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-justify-content-center ion-margin-top">
+        <ion-col size="8">
+            <ion-text color="primary" routerLink="/remember">Forgot your password?</ion-text>
+        </ion-col>
+    </ion-row>
+
 </ion-content>
