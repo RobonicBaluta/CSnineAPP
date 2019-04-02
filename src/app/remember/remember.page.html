@@ -5,7 +5,10 @@
 </ion-header>
 
 <ion-content>
-  <ion-label>Recover your password</ion-label>
-  <ion-input type="email" placeholder="Email"> </ion-input>
-  <ion-button (click)="presentAlert()">Recover</ion-button>
+  <ion-button id="btnback" fill="clear" routerLink="/login"><ion-icon name="arrow-back" color="dark"></ion-icon></ion-button>
+  <div id="remember-email">
+    <ion-label >Recover your password</ion-label>
+    <ion-input type="email" placeholder="Email"> </ion-input>
+  </div>
+  <ion-button (click)="presentAlert()" id="btnremember" block>Recover</ion-button>
 </ion-content>

@@ -20,12 +20,12 @@
     </ion-segment-button>
   </ion-segment>
   <br>
-  <ion-list>
+  <ion-list >
     <ion-item-sliding *ngFor="let item of (results|async)" >
       
       
       <ion-item>
-        <ion-title >
+        <ion-title mode='md' >
           {{item.name}}
         </ion-title>
 

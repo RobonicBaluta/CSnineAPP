@@ -16,7 +16,9 @@
       <ion-item-sliding *ngFor="let item of (results|async)" >
 
         <ion-item>
-          {{item.name}}
+          <ion-title mode='md'>
+            {{item.name}}
+          </ion-title>
         </ion-item>
         <ion-item-options side="end" >
         

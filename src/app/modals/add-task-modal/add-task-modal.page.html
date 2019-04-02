@@ -31,53 +31,63 @@
                 </ion-segment>
             </ion-toolbar>
         </ion-row>
-
-
+        
+        
         <div [ngSwitch]="task">
-
-            <!-- General info -->
+            
+            
             <div *ngSwitchCase="'description'" >
                 <ion-textarea class="noteTextArea" placeholder='Enter a description'></ion-textarea>
             </div>
-            <!-- End general info -->
-
-            <!-- Location -->
+            
+            
+            
             <div *ngSwitchCase="'file'" >
-
-
+                
+                
                 <ion-input  type='file'  ><ion-icon name="attach" size="large"></ion-icon></ion-input>
                 
                 
             </div>
-            <!--End Location -->
-
-            <!-- Contact -->
+            
+            
+            
             <div *ngSwitchCase="'note'">
                 <ion-input  type='Text' class="title" placeholder=' Title'></ion-input>
                 <ion-textarea class="noteTextArea" placeholder='Enter here a note'></ion-textarea>
             </div>
-            <!-- End contact -->
-
-            <!-- <div *ngSwitchCase="'note'">
-            <br>
-            <ion-label class="titles">Title: </ion-label>
-            <ion-input type="text" class="title" placeholder=" title" required></ion-input>
-
-            <ion-label class="titles">Note: </ion-label>
-            <ion-textarea class="myTextArea" clearOnEdit="true" placeholder='Write a note'></ion-textarea>
-
-        </div> -->
-
-    </div>
-
-
-    <ion-row>
-        <ion-col text-center>
-            <ion-button color="danger" (click)="closeModal()"> <ion-icon name="close-circle"> </ion-icon> </ion-button>
-            <ion-button color="success" ><ion-icon name="save"></ion-icon> </ion-button>
-
-        </ion-col>
-    </ion-row>
-</ion-grid>
-
+            
+            
+            
+            <ion-row  >
+                <div >
+                    <ion-item >
+                        <ion-label>To:</ion-label>
+                        <ion-input placeholder='ander' type='text'></ion-input>
+                        <ion-button color="primary"  >Me: <ion-checkbox checked id="meCheck" ></ion-checkbox></ion-button>
+                    </ion-item>
+                    
+                </div>
+                
+                
+            </ion-row>
+            <div>
+                <ion-item>
+                    <ion-label>Date:</ion-label>
+                    <ion-datetime display-format="MM/DD/YYYY" placeholder="Select date">Date:</ion-datetime>
+                </ion-item>
+            </div>
+            
+        </div>
+        
+        
+        <ion-row>
+            <ion-col text-center>
+                <ion-button color="danger" (click)="closeModal()"> <ion-icon name="close-circle"> </ion-icon> </ion-button>
+                <ion-button color="success" ><ion-icon name="save"></ion-icon> </ion-button>
+                
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    
 </ion-content>
