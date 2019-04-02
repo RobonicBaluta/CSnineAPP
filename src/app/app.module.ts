@@ -21,7 +21,7 @@ import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 export function jwtOptionsFactory(storage) {
   return {
     tokenGetter: () => {
-      return storage.get('access_token');
+      return storage.get('accessToken');
     },
     whitelistedDomains: ['http://csapi.soltystudio.com/api/v1']
   }

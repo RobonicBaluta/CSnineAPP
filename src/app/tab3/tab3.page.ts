@@ -69,7 +69,7 @@ export class Tab3Page {
     async  noteModal() {
       const modal = await this.modalController.create({
         component: NoteModalPage,
-        cssClass: 'my-custom-modal-css',
+        cssClass: 'note-custom-modal',
       });
       modal.onDidDismiss().then((dataReturned) => {
         if (dataReturned !== null) {
@@ -82,7 +82,7 @@ export class Tab3Page {
     async  addCompanyModal() {
       const modal = await this.modalController.create({
         component: AddCompanyModalPage,
-        cssClass: 'my-custom-modal-css',
+        cssClass: 'addCompanyCustom',
       });
       modal.onDidDismiss().then((dataReturned) => {
         if (dataReturned !== null) {

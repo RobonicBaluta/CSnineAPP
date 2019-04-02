@@ -11,9 +11,9 @@
   
   
   
-  <ion-toolbar color="light" mode="md">
-    <ion-segment color="dark" mode="md" [(ngModel)]="company">
-      <ion-segment-button value="info" checked>
+  <ion-toolbar color="light" >
+    <ion-segment color="dark" [(ngModel)]="company">
+      <ion-segment-button value="info" checked='true'>
         General info
       </ion-segment-button>
       <ion-segment-button value="location">
@@ -28,13 +28,13 @@
   <div [ngSwitch]="company">
     
     <!-- General info -->
-    <div *ngSwitchCase="'info'"> 
+    <div *ngSwitchCase="'info'" checked > 
 
         <ion-input  type='Text'  placeholder='Company Name'></ion-input>
         <ion-input  type='Text'  placeholder='Code'></ion-input>
         <ion-input  type='Text'  placeholder='Website'></ion-input>
         <ion-input  type='Text'  placeholder='Tax number'></ion-input>
-        <ion-input  type='Text'  placeholder='Tax rate'></ion-input>
+        <ion-input  type='Text'  placeholder='Category'></ion-input>
 
   </div>
     <!-- End general info -->
@@ -53,8 +53,7 @@
     
     <!-- Contact -->
     <div *ngSwitchCase="'contact'">
-        <ion-input  type='Text'  placeholder='Telephoone number'></ion-input>
-        <ion-input  type='Text'  placeholder='Mobile'></ion-input>
+        <ion-input  type='Text'  placeholder='Telephone number'></ion-input>
         <ion-input  type='Text'  placeholder='Email'></ion-input>
     </div>
     <!-- End contact -->

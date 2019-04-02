@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment';
 import { tap, catchError } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
  
-const TOKEN_KEY = 'access_token';
+const TOKEN_KEY = 'accessToken';
  
 @Injectable({
   providedIn: 'root'
@@ -41,21 +41,20 @@ export class AuthService {
     });
   }
  
-
  
   login(credentials) {
     return this.http.post(`${this.url}/Account/Login`, credentials)
       .pipe(
         tap(res => {
-          this.storage.set(TOKEN_KEY, res['token']);
-          this.user = this.helper.decodeToken(res['token']);
+          this.storage.set(TOKEN_KEY, res['accessToken']);
+          this.user = this.helper.decodeToken(res['accessToken']);
           this.authenticationState.next(true);
         }),
         catchError(e => {
           this.showAlert(e.error.msg);
           throw new Error(e);
         })
-      );
+     );
   }
  
   logout() {
