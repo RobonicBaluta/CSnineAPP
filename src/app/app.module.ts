@@ -13,11 +13,19 @@ import { TaskViewModalPageModule } from './task-view-modal/task-view-modal.modul
 import { HttpClientModule } from '@angular/common/http';
 import { NoteModalPageModule } from './modals/note-modal/note-modal.module';
 import { AddCompanyModalPageModule } from './modals/add-company-modal/add-company-modal.module'
-import { AuthModule } from  './auth/auth.module';
 import { FormsModule } from '@angular/forms';
-import { IonicStorageModule } from '@ionic/storage';
+import { Storage, IonicStorageModule } from '@ionic/storage';
+import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 
+export function jwtOptionsFactory(storage) {
+  return {
+    tokenGetter: () => {
+      return storage.get('access_token');
+    },
+    whitelistedDomains: ['http://csapi.soltystudio.com/api/v1']
+  }
+}
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -29,9 +37,17 @@ import { IonicStorageModule } from '@ionic/storage';
      HttpClientModule,
      NoteModalPageModule,
      AddCompanyModalPageModule,
-     AuthModule,
      FormsModule,
-     IonicStorageModule.forRoot()],
+     HttpClientModule,
+
+     IonicStorageModule.forRoot(),
+     JwtModule.forRoot({
+       jwtOptionsProvider: {
+         provide: JWT_OPTIONS,
+         useFactory: jwtOptionsFactory,
+         deps: [Storage],
+       }
+     })],
   providers: [
     StatusBar,
     SplashScreen,
