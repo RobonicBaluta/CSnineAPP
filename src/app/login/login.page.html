@@ -1,24 +1,28 @@
 <ion-header>
-  <!--<ion-toolbar>
-    <ion-title>login</ion-title>
-  </ion-toolbar>-->
-
+  <ion-toolbar>
+    <ion-title>LOGIN</ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content ion-padding>
   <div id="login">
-  <ion-label id="login-title">Login</ion-label>
-  <ion-input type="email" placeholder="Email" class="log-form"> </ion-input>
-  <ion-input type="password" placeholder="Password" class="log-form"> </ion-input>
-  <ion-select placeholder="Select a server" class="log-form">
-    <ion-select-option>Server 1</ion-select-option>
-    <ion-select-option>Server 2</ion-select-option>
-    <ion-select-option>Server 3</ion-select-option>
-    <ion-select-option>Server 4</ion-select-option>
-  </ion-select>
+    <ion-input required type="email" placeholder="Email" class="log-form"></ion-input>
+    <ion-input required type="password" placeholder="Password" class="log-form"> </ion-input>
+    <ion-select required placeholder="Select a server" class="log-form">
+      <ion-select-option>Server 1</ion-select-option>
+      <ion-select-option>Server 2</ion-select-option>
+      <ion-select-option>Server 3</ion-select-option>
+      <ion-select-option>Server 4</ion-select-option>
+    </ion-select>
   </div>
   <ion-checkbox class="remember"></ion-checkbox>
   <ion-label class="remember">Remember</ion-label>
-  <ion-button id="btnlogin" (click)="presentAlert()" class="log-form">Login</ion-button>
-  <ion-text color="primary" routerLink="/remember" class="log-form" id="forgot-pass">Forgot your password?</ion-text>
+  <ion-row>
+    <ion-col>
+      <ion-button (click)="presentAlert()" class="log-form">Login</ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-text color="primary" routerLink="/remember" class="log-form" id="forgot-pass">Forgot your password?</ion-text>
+  </ion-row>
 </ion-content>
