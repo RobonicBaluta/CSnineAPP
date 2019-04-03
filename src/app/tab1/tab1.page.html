@@ -19,6 +19,8 @@
       <ion-icon name="time"></ion-icon>
     </ion-segment-button>
   </ion-segment>
+  <ion-button expand="full" (click)="logout()">Logout</ion-button>
+
   <br>
   <ion-list >
     <ion-item-sliding *ngFor="let item of (results|async)" >
