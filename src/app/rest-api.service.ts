@@ -7,7 +7,7 @@ import { catchError, tap, map } from 'rxjs/operators';
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
-const apiUrl = 'http://localhost:3000/items';
+const apiUrl = 'http://csapi.soltystudio.com/api/v1/Companies/Get';
 @Injectable({
   providedIn: 'root'
 })

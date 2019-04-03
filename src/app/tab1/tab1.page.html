@@ -19,11 +19,13 @@
       <ion-icon name="time"></ion-icon>
     </ion-segment-button>
   </ion-segment>
+  <ion-button expand="full" (click)="logout()">Logout</ion-button>
+
   <br>
   <ion-list >
     <ion-item-sliding *ngFor="let item of (results|async)" >
       
-<!--       
+      
       <ion-item>
         <ion-title mode='md' >
           {{item.name}}
@@ -40,12 +42,12 @@
         </ion-button>
         
         
-        <ion-button color="primary" [routerLink]="['/','detail',item.id]"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
-          <ion-button  color="danger" (click)="delete(item.id)"><ion-icon name="time"></ion-icon></ion-button>
+        <!-- <ion-button color="primary" [routerLink]="['/','detail',item.id]"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
+          <ion-button  color="danger" (click)="delete(item.id)"><ion-icon name="time"></ion-icon></ion-button> -->
         </ion-item-options> 
       </ion-item-sliding>
       
-    </ion-list> -->
+    </ion-list>
     
     
   </ion-content>
