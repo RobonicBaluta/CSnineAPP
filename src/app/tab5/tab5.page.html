@@ -5,18 +5,28 @@
 </ion-header>
 
 <ion-content>
-  <ion-button id="settings" fill="clear"><ion-icon name="settings" color="dark"></ion-icon></ion-button>
-  <ion-img ><ion-icon name="airplane"></ion-icon></ion-img>
-  <ion-input placeholder="First name"></ion-input>
-  <ion-input placeholder="Last name"></ion-input>
-  <ion-input placeholder="email" type="email"></ion-input>
-  <ion-label text-align="center">------Your personal info------</ion-label>
-  <ion-input placeholder="Phone"></ion-input>
-  <ion-input placeholder="Company"></ion-input>
-  <ion-input placeholder="Street"></ion-input>
-  <ion-input placeholder="City"></ion-input>
-  <ion-input placeholder="State"></ion-input>
-  <ion-input placeholder="Zip code"></ion-input>
-  <ion-input placeholder="Fax"></ion-input>
-  <ion-button>Save</ion-button>
+  <ion-button id="settings" fill="clear" routerLink="/settings"><ion-icon name="settings" color="dark"></ion-icon></ion-button>
+  <div >
+    <ion-img id="profile-photo" src="assets/logo.svg"></ion-img>
+  </div>
+  <div class="profile-info">
+    <ion-input placeholder="First name"></ion-input>
+    <ion-input placeholder="Last name"></ion-input>
+    <ion-input placeholder="email" type="email"></ion-input>
+  </div>
+  <div class="btnsavep">
+    <ion-label text-align="center"><b>Your personal info</b></ion-label>
+  </div>
+  <div class="profile-info">
+    <ion-input placeholder="Phone"></ion-input>
+    <ion-input placeholder="Company"></ion-input>
+    <ion-input placeholder="Street"></ion-input>
+    <ion-input placeholder="City"></ion-input>
+    <ion-input placeholder="State"></ion-input>
+    <ion-input placeholder="Zip code"></ion-input>
+    <ion-input placeholder="Fax"></ion-input>
+  </div>
+  <div class="btnsavep">
+    <ion-button color="success"><ion-icon name="save"></ion-icon></ion-button>
+  </div>
 </ion-content>
