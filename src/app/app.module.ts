@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { Storage, IonicStorageModule } from '@ionic/storage';
 import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { InterceptorService } from './services/interceptor.service';
+import { AddTaskModalPageModule } from './modals/add-task-modal/add-task-modal.module';
 
 
 export function jwtOptionsFactory(storage) {
@@ -40,7 +41,7 @@ export function jwtOptionsFactory(storage) {
      AddCompanyModalPageModule,
      FormsModule,
      HttpClientModule,
-
+    AddTaskModalPageModule,
      IonicStorageModule.forRoot(),
      JwtModule.forRoot({
        jwtOptionsProvider: {

@@ -5,7 +5,7 @@ import {Observable} from 'rxjs';
 import { RestApiService } from '../rest-api.service';
 import { ModalController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+
 
 @Component({
   selector: 'app-tab1',
@@ -19,7 +19,7 @@ export class Tab1Page {
   constructor(public api: RestApiService, 
     public modalController: ModalController,
     public router: Router,
-    private authService: AuthService) {
+    ) {
       this.getItems();
     }
     
@@ -39,9 +39,7 @@ export class Tab1Page {
     //   location.reload();
     // }
     
-    logout() {
-      this.authService.logout();
-    }
+   
     ngOnInit() {
       this.getItems();
       this.segment.value='new';
