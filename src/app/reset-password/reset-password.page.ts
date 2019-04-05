@@ -3,11 +3,11 @@ import { AlertController} from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-remember',
-  templateUrl: './remember.page.html',
-  styleUrls: ['./remember.page.scss'],
+  selector: 'app-reset-password',
+  templateUrl: './reset-password.page.html',
+  styleUrls: ['./reset-password.page.scss'],
 })
-export class RememberPage implements OnInit {
+export class ResetPasswordPage implements OnInit {
 
   constructor( private alertCtrl: AlertController, public navCtrl: NavController ) { }
 
@@ -35,5 +35,4 @@ export class RememberPage implements OnInit {
 
   ngOnInit() {
   }
-
 }

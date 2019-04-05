@@ -3,9 +3,7 @@ import {Observable} from 'rxjs';
 import { AlertController} from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
-import { TaskModalPage } from '../task-modal/task-modal.page';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TaskViewModalPage } from '../task-view-modal/task-view-modal.page';
 import { AddTaskModalPage } from '../modals/add-task-modal/add-task-modal.page';
 import { RestApiService } from '../rest-api.service';
 
