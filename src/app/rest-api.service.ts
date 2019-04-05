@@ -7,7 +7,7 @@ import { catchError, tap, map } from 'rxjs/operators';
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
-const apiUrl = ' http://csapi.soltystudio.com/api/v1/Companies/Get';
+const apiUrl = ' http://csapi.soltystudio.com/api/v1';
 @Injectable({
   providedIn: 'root'
 })
@@ -22,6 +22,28 @@ export class RestApiService {
     return this.http.get(apiUrl);
     
   }
+
+
+  getCompanies() :Observable <any>{
+
+    return this.http.get(apiUrl+'/Companies/Get');
+  }
+
+  getCompanyById(id:number) :Observable <any>{
+    const url = `${apiUrl}/Companies/Get/${id}`;
+    return this.http.get(url);
+  }
+
+  getTasks(): Observable <any>{
+
+    return this.http.get(apiUrl+'/Tasks')
+  }
+
+  getProfile(): Observable <any>{
+
+    return this.http.get(apiUrl+'/Account/MyContactInfo')
+  }
+
   getItemById(id: string): Observable<any> {
     const url = `${apiUrl}/${id}`;
     return this.http.get(url, httpOptions).pipe(

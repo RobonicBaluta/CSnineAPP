@@ -13,11 +13,11 @@
       </ion-row>
   <!-- Default Segment -->
   <ion-list>
-    <ion-item-sliding *ngFor="let item of (results|async)" >
+    <ion-item-sliding *ngFor="let company of (results|async)" >
 
       <ion-item>
         <ion-title mode='md'>
-          {{item.name}}
+          {{company.name}}
         </ion-title>
       </ion-item>
       <ion-item-options side="end" >

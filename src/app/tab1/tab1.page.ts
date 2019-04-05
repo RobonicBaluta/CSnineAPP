@@ -41,7 +41,7 @@ export class Tab1Page {
     
    
     ngOnInit() {
-      this.getItems();
+      // this.getItems();
       this.segment.value='new';
     }
     // async openModal() {

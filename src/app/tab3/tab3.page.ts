@@ -26,6 +26,9 @@ export class Tab3Page {
     async getItems() {
       this.results=this.api.getItems();
     }
+    async getCompanies(){
+      this.results=this.api.getCompanies();
+    }
     
     // async delete(itemId:string){
     //   // this.api.deleteItem(itemId);
@@ -41,7 +44,7 @@ export class Tab3Page {
     
     
     ngOnInit() {
-      this.getItems();
+      this.getCompanies();
     }
     // async openModal() {
     //   const modal = await this.modalController.create({

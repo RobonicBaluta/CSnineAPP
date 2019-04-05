@@ -22,11 +22,17 @@ export class Tab2Page {
   results: Observable<any>;
   
   ngOnInit() {
-    this.getItems();
+    // this.getItems();
+    // this.getTasks();
   }
   
   async getItems() {
     this.results=this.api.getItems();
+  
+  }
+
+  async getTasks() {
+    this.results=this.api.getTasks();
   }
   
   

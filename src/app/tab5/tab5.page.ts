@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { RestApiService } from '../rest-api.service';
+import { Profile } from 'selenium-webdriver/firefox';
 
 @Component({
   selector: 'app-tab5',
@@ -7,9 +10,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Tab5Page implements OnInit {
 
-  constructor() { }
+  info=null;
+  company=null;
+  
 
+  constructor(public api: RestApiService,) { }
+ 
   ngOnInit() {
+
+    this.getProfile();
+   // this.getCompanyInfo(id);
+  }
+
+  async getProfile() {
+ return this.api.getProfile().subscribe(profile=>{this.info=profile});
+
+    
+  }
+
+  async getCompanyInfo(id:number){
+
+    this.api.getCompanyById(id).subscribe(result=>{
+      this.company=result;
+    })
   }
 
 }
