@@ -21,7 +21,6 @@ const routes: Routes = [
   // { path: '', loadChildren: './tabs/tabs.module#TabsPageModule' },
 
   //{ path: 'login', loadChildren: './login/login.module#LoginPageModule' },
-  { path: 'remember', loadChildren: './remember/remember.module#RememberPageModule' },
   { path: 'reset', loadChildren: './reset-password/reset-password.module#ResetPasswordPageModule' },
   
   { path: 'settings', loadChildren: './settings/settings.module#SettingsPageModule' },

@@ -13,7 +13,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NoteModalPageModule } from './modals/note-modal/note-modal.module';
 import { AddCompanyModalPageModule } from './modals/add-company-modal/add-company-modal.module'
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Storage, IonicStorageModule } from '@ionic/storage';
 import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { InterceptorService } from './services/interceptor.service';
@@ -38,6 +38,7 @@ export function jwtOptionsFactory(storage) {
      NoteModalPageModule,
      AddCompanyModalPageModule,
      FormsModule,
+     ReactiveFormsModule,
      HttpClientModule,
     AddTaskModalPageModule,
      IonicStorageModule.forRoot(),

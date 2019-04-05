@@ -81,6 +81,17 @@ export class RestApiService {
       );
   }
 
+  resetPassword(data): Observable<any> {
+    const url = `${apiUrl}/Account/RequestResetPassword`;
+    return this.http.post(url, data, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+
+    
+  }
+
+
   updateItem(id: string, data): Observable<any> {
     const url = `${apiUrl}/${id}`;
     return this.http.put(url, data, httpOptions)
