@@ -12,7 +12,7 @@
   
   
   <ion-toolbar color="light" >
-    <ion-segment color="dark" [(ngModel)]="company">
+    <ion-segment color="dark" [(ngModel)]="companyTab">
       <ion-segment-button value="info" checked='true'>
         General info
       </ion-segment-button>
@@ -24,41 +24,65 @@
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
-  <form>
-  <div [ngSwitch]="company">
-    
-    <!-- General info -->
-    <div *ngSwitchCase="'info'" checked > 
+  
+  
+  <form [formGroup]='company'>
+    <div [ngSwitch]="companyTab">
+      
+      <!-- General info -->
+      <div *ngSwitchCase="'info'" checked > 
+        
+        <ion-input  type='Text'  placeholder='Company Name' formControlName='name'></ion-input>
+        <ion-input  type='Text'  placeholder='Code' formControlName='code'></ion-input>
+        <ion-input  type='Text'  placeholder='Website'formControlName='website'></ion-input>
+        <ion-input  type='Text'  placeholder='Tax number' formControlName='taxNumber'></ion-input>
+        
+        
+        
+        <div>
+        <ion-select [compareWith]="compareWith" placeholder="Categories">
+          <ion-select-option *ngFor="let category of (categories|async)" value='{{category.name}}' >{{category.name}}</ion-select-option>
+        </ion-select>
+      </div>
+        <!-- <div formArrayName="categories"><ion-input  type='Text'  placeholder='Category'  formControlName='name'></ion-input></div> -->
+        
+      </div>
+      <!-- End general info -->
+      
+      <!-- Location -->
+      <div *ngSwitchCase="'location'" >
+        
+        <div [formGroup]='address'>
+          
+          <div [formGroup]='country'>
+            <ion-input  type='Text'  placeholder='Country' formControlName='name'></ion-input>
+          </div>
+          
+          <div [formGroup]='region'>
+            <ion-input  type='Text'  placeholder='Region' formControlName='name'></ion-input>
+          </div>
+          
+          <div [formGroup]='city'>
+            <ion-input  type='Text'  placeholder='City' formControlName='name'></ion-input>
+          </div>
+          
+          <div [formGroup]='zip'>
+            <ion-input  type='Text'  placeholder='Country' formControlName='number'></ion-input>
+          </div>
 
-        <ion-input  type='Text'  placeholder='Company Name'></ion-input>
-        <ion-input  type='Text'  placeholder='Code'></ion-input>
-        <ion-input  type='Text'  placeholder='Website'></ion-input>
-        <ion-input  type='Text'  placeholder='Tax number'></ion-input>
-        <ion-input  type='Text'  placeholder='Category'></ion-input>
-
-  </div>
-    <!-- End general info -->
-    
-    <!-- Location -->
-    <div *ngSwitchCase="'location'" >
-
-
-        <ion-input  type='Text'  placeholder='Country'></ion-input>
-        <ion-input  type='Text'  placeholder='Region'></ion-input>
-        <ion-input  type='Text'  placeholder='City'></ion-input>
-        <ion-input  type='Text'  placeholder='Street'></ion-input>
-        <ion-input  type='Text'  placeholder='Zip'></ion-input>
-    </div>
-    <!--End Location -->
-    
-    <!-- Contact -->
-    <div *ngSwitchCase="'contact'">
+          <ion-input  type='Text'  placeholder='Street' formControlName='street'></ion-input>
+        </div>
+      </div>
+      <!--End Location -->
+      
+      <!-- Contact -->
+      <div *ngSwitchCase="'contact'">
         <ion-input  type='Text'  placeholder='Telephone number'></ion-input>
         <ion-input  type='Text'  placeholder='Email'></ion-input>
-    </div>
-    <!-- End contact -->
-
-    <!-- <div *ngSwitchCase="'note'">
+      </div>
+      <!-- End contact -->
+      
+      <!-- <div *ngSwitchCase="'note'">
         <br>
         <ion-label class="titles">Title: </ion-label>
         <ion-input type="text" class="title" placeholder=" title" required></ion-input>
@@ -67,17 +91,17 @@
         <ion-textarea class="myTextArea" clearOnEdit="true" placeholder='Write a note'></ion-textarea>
         
       </div> -->
+      
+    </div>
     
-  </div>
-
     
-  <ion-row>
+    <ion-row>
       <ion-col text-center>
-          <ion-button color="danger" (click)="closeModal()"> <ion-icon name="close-circle"> </ion-icon> </ion-button>
-          <ion-button color="success" ><ion-icon name="save"></ion-icon> </ion-button>
-         
+        <ion-button color="danger" (click)="closeModal()"> <ion-icon name="close-circle"> </ion-icon> </ion-button>
+        <ion-button color="success" (click)='addCompany()' ><ion-icon name="save"></ion-icon> </ion-button>
+        
       </ion-col>
     </ion-row>
-  
+    
   </form>
 </ion-content>

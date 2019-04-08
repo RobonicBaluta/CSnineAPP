@@ -81,6 +81,18 @@ export class RestApiService {
       );
   }
 
+  addCompany(data): Observable<any> {
+    const url = `${apiUrl}/Companies`;
+    return this.http.post(url, data, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+    
+  }
+  getCategories(): Observable <any>{
+
+    return this.http.get(apiUrl+'/Companies/Categories')
+  }
   resetPassword(data): Observable<any> {
     const url = `${apiUrl}/Account/RequestResetPassword`;
     return this.http.post(url, data, httpOptions)
