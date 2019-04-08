@@ -50,7 +50,7 @@ export class AddCompanyModalPage implements OnInit {
             'number': [null],
           }),
           'street': [''],
-          
+
           'telephone': [''],
           'email': [''],
          
@@ -80,10 +80,10 @@ export class AddCompanyModalPage implements OnInit {
     
     
     async addCompany(){
-      await this.api.resetPassword(this.company.value)
+      await this.api.addCompany(this.company.value)
       .subscribe(res => {
         // this.presentAlert();
-        this.router.navigate(['/login']);
+        // this.router.navigate(['/login']);
         
       }, (err) => {
         console.log(err);
