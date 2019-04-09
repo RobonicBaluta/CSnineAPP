@@ -49,18 +49,19 @@ export class AddCompanyModalPage implements OnInit {
           'zip': this.formBuilder.group({
             'number': [null],
           }),
-          'street': [''],
+          'street': [null],
 
-          'telephone': [''],
-          'email': [''],
          
         }),
-        // 'categories' : new FormArray([
-        //   this.formBuilder.group({
-        //     'id': null,
-        //     'name': null
-        //   })
-        // ]),
+        'telephone': [null],
+        'email': [null],
+        'categories' : this.formBuilder.array([
+         this.formBuilder.control({
+            'name': [null],
+          })
+        ]),
+
+        
 
       });
       
@@ -82,6 +83,8 @@ export class AddCompanyModalPage implements OnInit {
     async addCompany(){
       await this.api.addCompany(this.company.value)
       .subscribe(res => {
+        this.closeModal();
+        this.createCompanyAlert();
         // this.presentAlert();
         // this.router.navigate(['/login']);
         
@@ -100,6 +103,28 @@ export class AddCompanyModalPage implements OnInit {
       const onClosedData: string = "Wrapped Up!";
       await this.modalController.dismiss(onClosedData);
     }
+
+    async createCompanyAlert() {
+      
+      const alert = await this.alertCtrl.create({
+        header: 'Add',
+        message: 'Company successfully created',
+        buttons: [
+          {
+            text: 'Ok',
+            cssClass: 'secondary',
+            handler: (blah) => {
+              console.log('Confirm Cancel: blah');
+            }
+          }
+        ]
+      });
+  
+      await alert.present();
+    }
   }
+  
+  
+  
   
   

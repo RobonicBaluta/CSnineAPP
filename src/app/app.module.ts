@@ -39,7 +39,6 @@ export function jwtOptionsFactory(storage) {
      AddCompanyModalPageModule,
      FormsModule,
      ReactiveFormsModule,
-     HttpClientModule,
     AddTaskModalPageModule,
      IonicStorageModule.forRoot(),
      JwtModule.forRoot({

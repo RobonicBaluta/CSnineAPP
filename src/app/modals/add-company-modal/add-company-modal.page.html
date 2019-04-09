@@ -1,4 +1,3 @@
-
 <ion-content padding class='myModal'>
   <ion-grid>
     <ion-row>
@@ -39,10 +38,12 @@
         
         
         
-        <div>
-        <ion-select [compareWith]="compareWith" placeholder="Categories">
-          <ion-select-option *ngFor="let category of (categories|async)" value='{{category.name}}' >{{category.name}}</ion-select-option>
+        <div formArrayName="categories">
+          <ion-item>
+        <ion-select [(ngModel)]="category" [compareWith]="compareWith" placeholder="Categories" multiple="true">
+          <ion-select-option *ngFor="let category of (categories|async)" value='{{category.name}}' formControlName='{{category.name}}'>{{category.name}}</ion-select-option>
         </ion-select>
+      </ion-item>
       </div>
         <!-- <div formArrayName="categories"><ion-input  type='Text'  placeholder='Category'  formControlName='name'></ion-input></div> -->
         
@@ -52,22 +53,22 @@
       <!-- Location -->
       <div *ngSwitchCase="'location'" >
         
-        <div [formGroup]='address'>
+        <div formGroupName='address'>
           
-          <div [formGroup]='country'>
+          <div formGroupName='country'>
             <ion-input  type='Text'  placeholder='Country' formControlName='name'></ion-input>
           </div>
           
-          <div [formGroup]='region'>
+          <div formGroupName='region'>
             <ion-input  type='Text'  placeholder='Region' formControlName='name'></ion-input>
           </div>
           
-          <div [formGroup]='city'>
+          <div formGroupName='city'>
             <ion-input  type='Text'  placeholder='City' formControlName='name'></ion-input>
           </div>
           
-          <div [formGroup]='zip'>
-            <ion-input  type='Text'  placeholder='Country' formControlName='number'></ion-input>
+          <div formGroupName='zip'>
+            <ion-input  type='Text'  placeholder='Zip' formControlName='number'></ion-input>
           </div>
 
           <ion-input  type='Text'  placeholder='Street' formControlName='street'></ion-input>
@@ -77,8 +78,8 @@
       
       <!-- Contact -->
       <div *ngSwitchCase="'contact'">
-        <ion-input  type='Text'  placeholder='Telephone number'></ion-input>
-        <ion-input  type='Text'  placeholder='Email'></ion-input>
+        <ion-input  type='Text'  placeholder='Telephone number'  formControlName='telephone'></ion-input>
+        <ion-input  type='Text'  placeholder='Email'  formControlName='email'></ion-input>
       </div>
       <!-- End contact -->
       
