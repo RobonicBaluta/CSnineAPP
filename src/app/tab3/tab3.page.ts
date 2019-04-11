@@ -7,6 +7,7 @@ import { ModalController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NoteModalPage } from '../modals/note-modal/note-modal.page';
 import { AddCompanyModalPage } from '../modals/add-company-modal/add-company-modal.page';
+import { EditCompanyModalPage } from '../modals/edit-company-modal/edit-company-modal.page';
 
 @Component({
   selector: 'app-tab3',
@@ -16,18 +17,23 @@ import { AddCompanyModalPage } from '../modals/add-company-modal/add-company-mod
 export class Tab3Page {
 
   items:any;
-  results: Observable<any>;
+  companies: Observable<any>;
+  companyId: number;
   constructor(public api: RestApiService, 
     public modalController: ModalController,
     public router: Router, private alertController: AlertController) {
-      this.getItems();
+  
     }
     
-    async getItems() {
-      this.results=this.api.getItems();
-    }
+  
     async getCompanies(){
-      this.results=this.api.getCompanies();
+      this.companies=this.api.getCompanies();
+    }
+
+    setCompanyId(id:number){
+      this.companyId=id;
+      // console.log(this.companyId);
+      this.editModal();
     }
     
     // async delete(itemId:string){
@@ -46,18 +52,24 @@ export class Tab3Page {
     ngOnInit() {
       this.getCompanies();
     }
-    // async openModal() {
-    //   const modal = await this.modalController.create({
-    //     component: AddModalPage,
-    //   });
-    //   modal.onDidDismiss().then((dataReturned) => {
-    //     if (dataReturned !== null) {
-    //       console.log('Modal Sent Data :', dataReturned);
-    //     }
-    //   });
-      
-    //   return await modal.present();
-    // }
+    async editModal() {
+      const modal = await this.modalController.create({
+        component: EditCompanyModalPage,
+        cssClass: 'addCompanyCustom',
+        componentProps:{
+          companyId: this.companyId,
+        
+        }
+      });
+      modal.onDidDismiss().then((dataReturned) => {
+        if (dataReturned !== null) {
+          console.log('Modal Sent Data :', dataReturned);
+        }
+      });     
+      return await modal.present();
+    }
+
+
     // doRefresh(event) {
     //   this.getItems();
     //   console.log('Begin async operation');

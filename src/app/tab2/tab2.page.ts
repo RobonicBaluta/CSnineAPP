@@ -17,20 +17,17 @@ import { RestApiService } from '../rest-api.service';
 export class Tab2Page {
   
   items:any;
-  results: Observable<any>;
+  tasks: Observable<any>;
   
   ngOnInit() {
     // this.getItems();
-    // this.getTasks();
+    this.getTasks();
   }
   
-  async getItems() {
-    this.results=this.api.getItems();
-  
-  }
+ 
 
   async getTasks() {
-    this.results=this.api.getTasks();
+    this.tasks=this.api.getCompanies();
   }
   
   

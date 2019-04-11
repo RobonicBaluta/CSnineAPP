@@ -36,7 +36,8 @@ const routes: Routes = [
   { path: '', redirectTo: 'tabs', pathMatch: 'full' },
     { path: 'tabs', loadChildren: './tabs/tabs.module#TabsPageModule',
     canActivate: [AuthGuardService] },
-  { path: 'reset-password', loadChildren: './reset-password/reset-password.module#ResetPasswordPageModule' }
+  { path: 'reset-password', loadChildren: './reset-password/reset-password.module#ResetPasswordPageModule' },
+  { path: 'edit-company-modal', loadChildren: './modals/edit-company-modal/edit-company-modal.module#EditCompanyModalPageModule' }
 
 
 

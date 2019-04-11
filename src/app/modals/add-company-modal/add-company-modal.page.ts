@@ -55,11 +55,11 @@ export class AddCompanyModalPage implements OnInit {
         }),
         'telephone': [null],
         'email': [null],
-        'categories':  this.formBuilder.array([
-          this.formBuilder.group({
-            'name':['']
-          })
-        ]),
+        // 'categories':  this.formBuilder.array([
+        //   this.formBuilder.group({
+        //     'name':['']
+        //   })
+        // ]),
         
         
         

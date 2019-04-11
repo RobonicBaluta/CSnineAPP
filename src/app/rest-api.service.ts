@@ -30,7 +30,7 @@ export class RestApiService {
   }
 
   getCompanyById(id:number) :Observable <any>{
-    const url = `${apiUrl}/Companies/Get/${id}`;
+    const url = `${apiUrl}/Companies/${id}`;
     return this.http.get(url);
   }
 

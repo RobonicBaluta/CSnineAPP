@@ -27,7 +27,7 @@ constructor(public api: RestApiService,private alertController: AlertController 
   }
   
   async getItems() {
-    this.results=this.api.getItems();
+    this.results=this.api.getCompanies();
   }
   
   // async delete(itemId:string){
