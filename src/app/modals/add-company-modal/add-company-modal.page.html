@@ -31,17 +31,20 @@
       <!-- General info -->
       <div *ngSwitchCase="'info'" checked > 
         
-        <ion-input  type='Text'  placeholder='Company Name' formControlName='name'></ion-input>
-        <ion-input  type='Text'  placeholder='Code' formControlName='code'></ion-input>
-        <ion-input  type='Text'  placeholder='Website'formControlName='website'></ion-input>
-        <ion-input  type='Text'  placeholder='Tax number' formControlName='taxNumber'></ion-input>
+        <ion-input  type='Text'  placeholder='Company Name' formControlName='name' value='teeeest'></ion-input>
+        <ion-input  type='Text'  placeholder='Code' formControlName='code' value='dfassdf'></ion-input>
+        <ion-input  type='Text'  placeholder='Website'formControlName='website' value='dfassdf'></ion-input>
+        <ion-input  type='Text'  placeholder='Tax number' formControlName='taxNumber' value='dfassdf'></ion-input>
         
         
         
-        <div formArrayName="categories">
-          <ion-item>
-        <ion-select [(ngModel)]="category" [compareWith]="compareWith" placeholder="Categories" multiple="true">
-          <ion-select-option *ngFor="let category of (categories|async)" value='{{category.name}}' formControlName='{{category.name}}'>{{category.name}}</ion-select-option>
+        <div >
+          <ion-item >
+        <ion-select [compareWith]="compareWith" placeholder="Categories" 
+        multiple="true" formArrayName="categories">
+          <ion-select-option *ngFor="let category of categoriesList|async;" value='{{category}}' name='name'>
+         {{category.name}}
+          </ion-select-option>
         </ion-select>
       </ion-item>
       </div>
@@ -50,36 +53,44 @@
       </div>
       <!-- End general info -->
       
+      <!-- <ion-list formArrayName="categories" *ngFor="let cat of company.get('categories').controls; let i=index">
+          <ion-item *ngFor="let category of categoriesList |async"   >
+            <ion-label  >{{category.name}}</ion-label>
+            <ion-checkbox slot="end" [(ngModel)]="category.isChecked"  ></ion-checkbox>
+          </ion-item>
+        </ion-list> -->
+
+     
       <!-- Location -->
       <div *ngSwitchCase="'location'" >
         
         <div formGroupName='address'>
           
           <div formGroupName='country'>
-            <ion-input  type='Text'  placeholder='Country' formControlName='name'></ion-input>
+            <ion-input  type='Text'  placeholder='Country' formControlName='name' value='dfassdf'></ion-input>
           </div>
           
           <div formGroupName='region'>
-            <ion-input  type='Text'  placeholder='Region' formControlName='name'></ion-input>
+            <ion-input  type='Text'  placeholder='Region' formControlName='name' value='dfassdf'></ion-input>
           </div>
           
           <div formGroupName='city'>
-            <ion-input  type='Text'  placeholder='City' formControlName='name'></ion-input>
+            <ion-input  type='Text'  placeholder='City' formControlName='name' value='dfassdf'></ion-input>
           </div>
           
           <div formGroupName='zip'>
-            <ion-input  type='Text'  placeholder='Zip' formControlName='number'></ion-input>
+            <ion-input  type='Text'  placeholder='Zip' formControlName='number' value='1234'></ion-input>
           </div>
 
-          <ion-input  type='Text'  placeholder='Street' formControlName='street'></ion-input>
+          <ion-input  type='Text'  placeholder='Street' formControlName='street' value='dfassdf'></ion-input>
         </div>
       </div>
       <!--End Location -->
       
       <!-- Contact -->
       <div *ngSwitchCase="'contact'">
-        <ion-input  type='Text'  placeholder='Telephone number'  formControlName='telephone'></ion-input>
-        <ion-input  type='Text'  placeholder='Email'  formControlName='email'></ion-input>
+        <ion-input  type='Text'  placeholder='Telephone number'  formControlName='telephone'value='123456789'></ion-input>
+        <ion-input  type='Text'  placeholder='Email'  formControlName='email' value='aaa@aaaatest.com'></ion-input>
       </div>
       <!-- End contact -->
       

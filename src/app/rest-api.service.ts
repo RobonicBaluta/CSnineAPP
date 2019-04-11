@@ -112,8 +112,19 @@ export class RestApiService {
       );
   }
 
+  updateProfile(data): Observable<any> {
+    const url = `${apiUrl}/Account/MyContactInfo`;
+    return this.http.put(url, data, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+      
+  }
+
   private extractData(res: Response) {
     let body = res;
     return body || { };
   }
+
+  
 }

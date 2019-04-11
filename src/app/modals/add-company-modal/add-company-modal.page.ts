@@ -19,7 +19,8 @@ export class AddCompanyModalPage implements OnInit {
   @ViewChild (IonSegment) segment:IonSegment;
   companyTab: string;
   company:FormGroup;
-  categories: Observable<any>;
+  categoriesList: Observable<any>;
+  cat=[];
   
   constructor(private modalController: ModalController
     ,private alertCtrl: AlertController, 
@@ -29,13 +30,13 @@ export class AddCompanyModalPage implements OnInit {
     public api: RestApiService,  ) { 
       this.companyTab='info';
       
+      
       this.company = this.formBuilder.group({
         'name' : [null],
         'code':[null],
         'website': [null],
         'taxNumber':[null],
         
-
         'address': this.formBuilder.group({
           'country': this.formBuilder.group({
             'name': [null],
@@ -50,25 +51,46 @@ export class AddCompanyModalPage implements OnInit {
             'number': [null],
           }),
           'street': [null],
-
-         
+          
         }),
         'telephone': [null],
         'email': [null],
-        'categories' : this.formBuilder.array([
-         this.formBuilder.control({
-            'name': [null],
+        'categories':  this.formBuilder.array([
+          this.formBuilder.group({
+            'name':['']
           })
         ]),
-
         
-
+        
+        
       });
       
     }
+    
+    addCategory(): void {
+      (<FormArray>this.company.get('categories')).push(this.addCategoryFormGroup());
+    }
+    
+    addCategoryFormGroup(): FormGroup {
+      return this.formBuilder.group({
+        'name': [''],
+        
+      });
+    }
+    // createCategory(): FormGroup {
+    //   return this.formBuilder.group({
+    //  'name':[null]
+    //   });
+    // }
     compareWithFn = (o1, o2) => {
       return o1 && o2 ? o1.id === o2.id : o1 === o2;
     };
+    
+    showselected(selected_value)
+{
+console.log(this.cat);
+}
+    
     
     compareWith = this.compareWithFn;
     
@@ -93,7 +115,7 @@ export class AddCompanyModalPage implements OnInit {
       });
     }
     async getCategories(){
-      this.categories=this.api.getCategories();
+      this.categoriesList=this.api.getCategories();
     }
     ngOnInit() {
       this.segment.value="'info'";
@@ -103,7 +125,7 @@ export class AddCompanyModalPage implements OnInit {
       const onClosedData: string = "Wrapped Up!";
       await this.modalController.dismiss(onClosedData);
     }
-
+    
     async createCompanyAlert() {
       
       const alert = await this.alertCtrl.create({
@@ -119,7 +141,7 @@ export class AddCompanyModalPage implements OnInit {
           }
         ]
       });
-  
+      
       await alert.present();
     }
   }
