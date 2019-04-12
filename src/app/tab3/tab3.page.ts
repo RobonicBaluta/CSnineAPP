@@ -36,6 +36,9 @@ export class Tab3Page {
       this.editModal();
     }
     
+    trackByFn(index, item) {
+      return index; // or item.id
+    }
     // async delete(itemId:string){
     //   // this.api.deleteItem(itemId);
       

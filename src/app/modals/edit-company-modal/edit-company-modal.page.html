@@ -2,7 +2,7 @@
   <ion-grid>
     <ion-row>
       <ion-col text-center>
-        {{company.name}}
+        {{company?.name}}
       </ion-col>
     </ion-row>
     
@@ -33,22 +33,22 @@
 
         <ion-item class="ion-margin-top">
           <ion-label><strong>Name: </strong></ion-label>
-          <ion-input  type='Text'  placeholder='Company Name' value='{{company.name}}'></ion-input>
+          <ion-input  type='Text'  placeholder='Company Name' value='{{company?.name}}'></ion-input>
         </ion-item>
 
         <ion-item class="ion-margin-top">
           <ion-label><strong>Code: </strong></ion-label>
-          <ion-input  type='Text'  placeholder='Code'  value='{{company.code}}'></ion-input>
+          <ion-input  type='Text'  placeholder='Code'  value='{{company?.code}}'></ion-input>
         </ion-item>
         
         <ion-item class="ion-margin-top">
           <ion-label><strong>Website: </strong></ion-label>
-          <ion-input  type='Text'  placeholder='Website'value='{{company.website}}'></ion-input>
+          <ion-input  type='Text'  placeholder='Website'value='{{company?.website}}'></ion-input>
         </ion-item>
 
         <ion-item class="ion-margin-top">
           <ion-label><strong>Tax Number: </strong></ion-label>
-          <ion-input  type='Text'  placeholder='Tax number'  value='{{company.taxNumber}}'></ion-input>
+          <ion-input  type='Text'  placeholder='Tax number'  value='{{company?.taxNumber}}'></ion-input>
         </ion-item>
         
         
@@ -83,33 +83,33 @@
         <div >
           <ion-item class="ion-margin-top">
             <ion-label><strong>Country: </strong></ion-label>
-            <ion-input  type='Text'  placeholder='Country'  value='{{company.address.country.name}}'></ion-input>
+            <ion-input  type='Text'  placeholder='Country'  value='{{company?.address.country.name}}'></ion-input>
           </ion-item>
         </div>
         
         <div >
           <ion-item class="ion-margin-top">
             <ion-label><strong>Region: </strong></ion-label>
-            <ion-input  type='Text'  placeholder='Region' value='{{company.address.region.name}}'></ion-input>
+            <ion-input  type='Text'  placeholder='Region' value='{{company?.address.region.name}}'></ion-input>
           </ion-item>
         </div>
         
         <div >
           <ion-item class="ion-margin-top">
             <ion-label><strong>City: </strong></ion-label>
-            <ion-input  type='Text'  placeholder='City'  value='{{company.address.city.name}}'></ion-input>
+            <ion-input  type='Text'  placeholder='City'  value='{{company?.address.city.name}}'></ion-input>
           </ion-item>
         </div>
         
         <div >
           <ion-item class="ion-margin-top">
             <ion-label><strong>Zip: </strong></ion-label>
-            <ion-input  type='Text'  placeholder='Zip'  value='{{company.address.zip.number}}'></ion-input>
+            <ion-input  type='Text'  placeholder='Zip'  value='{{company?.address.zip.number}}'></ion-input>
           </ion-item>
         </div>
         <ion-item class="ion-margin-top">
           <ion-label><strong>Street: </strong></ion-label>
-          <ion-input  type='Text'  placeholder='Street'  value='{{company.address.street}}'></ion-input>
+          <ion-input  type='Text'  placeholder='Street'  value='{{company?.address.street}}'></ion-input>
         </ion-item>
       </div>
     </div>
@@ -119,11 +119,11 @@
     <div *ngSwitchCase="'contact'">
       <ion-item class="ion-margin-top">
         <ion-label><strong>Telephone: </strong></ion-label>
-        <ion-input  type='Text'  placeholder='Telephone number'   value='{{company.telephone}}'></ion-input>
+        <ion-input  type='Text'  placeholder='Telephone number'   value='{{company?.telephone}}'></ion-input>
       </ion-item>
       <ion-item class="ion-margin-top">
         <ion-label><strong>Email: </strong></ion-label>
-        <ion-input  type='Text'  placeholder='Email'  value='{{company.email}}'></ion-input>
+        <ion-input  type='Text'  placeholder='Email'  value='{{company?.email}}'></ion-input>
       </ion-item>
     </div>
     <!-- End contact -->

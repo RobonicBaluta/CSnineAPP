@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { catchError, tap, map } from 'rxjs/operators';
+import { catchError, tap, map ,retryWhen, retry} from 'rxjs/operators';
+
 
 
 const httpOptions = {
@@ -26,8 +27,14 @@ export class RestApiService {
 
   getCompanies() :Observable <any>{
 
-    return this.http.get(apiUrl+'/Companies/Get');
-  }
+    return this.http.get(apiUrl+'/Companies/Get').pipe(
+      tap(() => console.log(apiUrl)),
+      retry(3),  // retry the failed request up to 3 times
+      catchError(err => {
+          console.log(err);
+          return of(null);
+      })
+    )}
 
   getCompanyById(id:number) :Observable <any>{
     const url = `${apiUrl}/Companies/${id}`;
