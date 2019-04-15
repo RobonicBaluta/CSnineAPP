@@ -58,12 +58,12 @@ export class Tab5Page implements OnInit {
     
   }
 
-  async getCompanyInfo(id:number){
+  // async getCompanyInfo(id:number){
 
-    this.api.getCompanyById(id).subscribe(result=>{
-      this.company=result;
-    })
-  }
+  //   this.api.getCompanyById(id).subscribe(result=>{
+  //     this.company=result;
+  //   })
+  // }
 
   async presentAlert() {
     const alert = await this.alertController.create({

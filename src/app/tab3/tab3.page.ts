@@ -25,36 +25,24 @@ export class Tab3Page {
   
     }
     
-  
+    ngOnInit() {
+      this.getCompanies();
+    }
+
     async getCompanies(){
       this.companies=this.api.getCompanies();
     }
 
+
+    // Establish the company id when click to pass the variable to the modal to get caught in the modal page
     setCompanyId(id:number){
       this.companyId=id;
       // console.log(this.companyId);
       this.editModal();
     }
     
-    trackByFn(index, item) {
-      return index; // or item.id
-    }
-    // async delete(itemId:string){
-    //   // this.api.deleteItem(itemId);
-      
-    //   this.api.deleteItem(itemId)
-    //   .subscribe(res => {
-    //     this.router.navigate(['/home']);
-    //   }, err => {
-    //     console.log(err);
-    //   });
-    //   location.reload();
-    // }
     
-    
-    ngOnInit() {
-      this.getCompanies();
-    }
+  
     async editModal() {
       const modal = await this.modalController.create({
         component: EditCompanyModalPage,

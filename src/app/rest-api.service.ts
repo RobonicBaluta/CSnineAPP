@@ -100,6 +100,10 @@ export class RestApiService {
 
     return this.http.get(apiUrl+'/Companies/Categories')
   }
+
+
+
+
   resetPassword(data): Observable<any> {
     const url = `${apiUrl}/Account/RequestResetPassword`;
     return this.http.post(url, data, httpOptions)
@@ -111,8 +115,8 @@ export class RestApiService {
   }
 
 
-  updateItem(id: string, data): Observable<any> {
-    const url = `${apiUrl}/${id}`;
+  updateCompany(data): Observable<any> {
+    const url = `${apiUrl}/Companies`;
     return this.http.put(url, data, httpOptions)
       .pipe(
         catchError(this.handleError)
