@@ -8,12 +8,12 @@
 
 <ion-content>
   <ion-row>
-    <ion-searchbar  class="search" side='start'></ion-searchbar> 
+    <ion-searchbar  class="search" side='start' [(ngModel)]="comps"></ion-searchbar> 
     <ion-icon  side='end' class="searchLogo" src="assets/logo.svg"></ion-icon>
   </ion-row>
   <!-- Default Segment -->
   <ion-list>
-    <ion-item-sliding *ngFor="let company of (companies|async)" >
+    <ion-item-sliding *ngFor="let company of companies|async| search : comps" >
       
       <ion-item (click)='setCompanyId(company.id)'>
         <ion-title mode='md'>
