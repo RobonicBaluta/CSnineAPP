@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSegment, ModalController } from '@ionic/angular';
+import { IonSegment, ModalController, Events } from '@ionic/angular';
 import { AlertController, NavParams} from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -17,6 +17,7 @@ import { Observable } from 'rxjs';
 })
 export class EditCompanyModalPage implements OnInit {
   company: Observable<any>;
+  notes: Observable <any>;
   companyForm: FormGroup;
   companyId: null;
   companyTab: string;
@@ -26,10 +27,10 @@ export class EditCompanyModalPage implements OnInit {
     public navCtrl: NavController, 
     private formBuilder: FormBuilder, 
     public alertController: AlertController,
-    public api: RestApiService, private navParams:NavParams) {
+    public api: RestApiService, private navParams:NavParams,private events:Events) {
       
       this.companyTab='info';
-
+      
       this.companyForm = this.formBuilder.group({
         'id':[null],
         'name' : [null],
@@ -64,53 +65,94 @@ export class EditCompanyModalPage implements OnInit {
         
         
       });
-     }
-
-  ngOnInit() {
+    }
     
-    this.getCompanyInfo();
-  }
+    ngOnInit() {
+      
+      this.getCompanyInfo();
+      this.getCompanyNotes()
+    }
+    
+    // @Input() set showWhen(value) {
+    //     this.ref.nativeElement.hidden = !value;
+    //   }
+    //   get showWhen() {
+    //     return !this.ref.nativeElement.hidden;
+    //   }
+    
+    
+    
+    //Get the company info with id passed from the view
+    async getCompanyInfo(){
+      this.companyId=this.navParams.get('companyId');
+      await this.api.getCompanyById(this.companyId).subscribe(result=>{
+        this.company=result;
+      })
+    }
+    
+    
+    async getCompanyNotes(){
+      this.companyId=this.navParams.get('companyId');
+      this.notes= this.api.getNotes(this.companyId)
+      
+    }
+    
+    
+    async deleteNote(itemId:number){
+      this.api.deleteNote(itemId)
+      .subscribe(res => {
+        this.deleteAlert();
+        this.doRefresh(this.events);
+        // this.router.navigate(['/home']);
+      }, err => {
+        console.log(err);
+      });
+    }
 
-// @Input() set showWhen(value) {
-//     this.ref.nativeElement.hidden = !value;
-//   }
-//   get showWhen() {
-//     return !this.ref.nativeElement.hidden;
-//   }
 
-
-
-//Get the company info with id passed from the view
-  async getCompanyInfo(){
-    this.companyId=this.navParams.get('companyId');
-   await this.api.getCompanyById(this.companyId).subscribe(result=>{
-      this.company=result;
-    })
-  }
-
-  async updateCompany(){
-    await this.api.updateCompany( this.companyForm.value)
-    .subscribe(res => {
-  
-        this.presentAlert();
-       // window.location.reload();
+    async updateCompany(){
+      await this.api.updateCompany( this.companyForm.value)
+      .subscribe(res => {
+        
+        this.updateAlert();
+        this.closeModal();
+        // window.location.reload();
         //this.router.navigate(['/home']);
       }, (err) => {
         console.log(err);
       });
-  }
+    }
+    
+    
+    async updateAlert() {
+      const alert = await this.alertController.create({
+        header: 'Alert',
+        message: 'Changes succesfully saved',
+        buttons: ['OK']
+      });
+      alert.present();
+    }
+    async deleteAlert() {
+      const alert = await this.alertController.create({
+        header: 'Alert',
+        message: 'Note successfully deleted',
+        buttons: ['OK'],
+      });
+      alert.present();
+    }
+    async closeModal() {
+      const onClosedData: string = "Wrapped Up!";
+      await this.modalController.dismiss(onClosedData);
+    }
 
-
-  async presentAlert() {
-    const alert = await this.alertController.create({
-      header: 'Alert',
-      message: 'Changes succesfully saved',
-      buttons: ['OK']
-    });
-   
+    doRefresh(event) {
+      this.getCompanyNotes();
+      console.log('Begin async operation');
+      
+      setTimeout(() => {
+        console.log('Async operation has ended');
+        event.target.complete();
+      }, 2000);
+    }
   }
-  async closeModal() {
-    const onClosedData: string = "Wrapped Up!";
-    await this.modalController.dismiss(onClosedData);
-  }
-}
+  
