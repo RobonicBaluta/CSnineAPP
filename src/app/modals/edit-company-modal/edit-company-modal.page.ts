@@ -107,6 +107,7 @@ export class EditCompanyModalPage implements OnInit {
       message: 'Changes succesfully saved',
       buttons: ['OK']
     });
+   
   }
   async closeModal() {
     const onClosedData: string = "Wrapped Up!";

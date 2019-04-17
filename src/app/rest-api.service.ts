@@ -101,7 +101,22 @@ export class RestApiService {
     return this.http.get(apiUrl+'/Companies/Categories')
   }
 
+  updateCompany(data): Observable<any> {
+    const url = `${apiUrl}/Companies`;
+    return this.http.put(url, data, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
 
+  addNote(data): Observable<any> {
+    const url = `${apiUrl}/Notes`;
+    return this.http.post(url, data, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+    
+  }
 
 
   resetPassword(data): Observable<any> {
@@ -115,22 +130,16 @@ export class RestApiService {
   }
 
 
-  updateCompany(data): Observable<any> {
-    const url = `${apiUrl}/Companies`;
-    return this.http.put(url, data, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
+
 
   updateProfile(data): Observable<any> {
     const url = `${apiUrl}/Account/MyContactInfo`;
     return this.http.put(url, data, httpOptions)
       .pipe(
         catchError(this.handleError)
-      );
-      
+      );  
   }
+
 
   private extractData(res: Response) {
     let body = res;

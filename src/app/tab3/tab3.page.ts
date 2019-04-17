@@ -40,6 +40,12 @@ export class Tab3Page {
       // console.log(this.companyId);
       this.editModal();
     }
+
+    setCompanyIdNote(id:number){
+      this.companyId=id;
+      console.log(this.companyId);
+      this.noteModal();
+    }
     
     
   
@@ -61,21 +67,14 @@ export class Tab3Page {
     }
 
 
-    // doRefresh(event) {
-    //   this.getItems();
-    //   console.log('Begin async operation');
-      
-    //   setTimeout(() => {
-    //     console.log('Async operation has ended');
-    //     event.target.complete();
-    //   }, 2000);
-    // }
-
-
     async  noteModal() {
       const modal = await this.modalController.create({
         component: NoteModalPage,
         cssClass: 'note-custom-modal',
+        componentProps:{
+          companyId: this.companyId,
+        
+        }
       });
       modal.onDidDismiss().then((dataReturned) => {
         if (dataReturned !== null) {
@@ -98,44 +97,16 @@ export class Tab3Page {
       
       return await modal.present();
     }
-
-    async presentAlertPrompt() {
-      const alert = await this.alertController.create({
-        header: 'Write a note',
-        inputs: [
-          {
-            name: 'title',
-            type: 'text',
-            placeholder: 'title'
-          },
-          {
-            name: 'note',
-            type: 'text',
-            // id: 'name2-id',
-            // value: 'hello',
-            placeholder: 'Note'
-          },
-
-        ],
-        buttons: [
-          {
-            text: 'Cancel',
-            role: 'cancel',
-            cssClass: 'secondary',
-            handler: () => {
-              console.log('Confirm Cancel');
-            }
-          }, {
-            text: 'Ok',
-            handler: () => {
-              console.log('Confirm Ok');
-            }
-          }
-        ]
-      });
-  
-      await alert.present();
-    }
+   // doRefresh(event) {
+    //   this.getItems();
+    //   console.log('Begin async operation');
+      
+    //   setTimeout(() => {
+    //     console.log('Async operation has ended');
+    //     event.target.complete();
+    //   }, 2000);
+    // }
+    
 }
 
 
