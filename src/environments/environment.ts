@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  // url: 'http://webapi.contentshare.biz/api/v1'
+  url: 'http://csapi.soltystudio.com/api/v1'
 };
 
 /*

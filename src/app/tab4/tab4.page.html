@@ -1,20 +1,23 @@
 <ion-header>
+    
+
   <ion-toolbar>
+    
     <ion-title>
       Contacts
-      
+    
     </ion-title>
-    <ion-button (click)="importAllAlert()"><ion-icon  side='end' name="git-compare"  ></ion-icon></ion-button>
+    
   </ion-toolbar>
  
 </ion-header>
 
 <ion-content>
   <ion-row>
-    <ion-searchbar animated class="search" side='start'></ion-searchbar> 
+    <ion-searchbar  class="search" side='start'></ion-searchbar> 
     <ion-icon  side='end' class="searchLogo" src="assets/logo.svg"></ion-icon>
   </ion-row>
-  
+
   
   <!-- Default Segment -->
   <ion-row>
@@ -35,14 +38,22 @@
     <ion-item-sliding *ngFor="let item of (results|async)" >
       
       <ion-item>
+          <ion-avatar size='end' class="contactAvatar">   
+              <img src="https://www.w3schools.com/howto/img_avatar.png">
+           </ion-avatar>
+           <ion-title mode='md'>
         {{item.name}}
+      </ion-title>
       </ion-item>
+ 
       <ion-item-options side="end" >
-        <ion-buttons end>
-          <ion-button ion-button color="primary" (click)="importAlert()">
+        
+          <ion-button ion-button color="primary" (click)="importAlert()" class='sliderButtons'>
             <ion-icon name="git-compare"></ion-icon>
+           
           </ion-button>
-        </ion-buttons>
+          
+     
         
         <!-- <ion-button color="primary" [routerLink]="['/','detail',item.id]"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
           <ion-button  color="danger" (click)="delete(item.id)"><ion-icon name="time"></ion-icon></ion-button> -->
@@ -51,6 +62,13 @@
       
     </ion-list>
     
-    
+ 
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="importAllAlert()">
+      <ion-icon name="git-compare"  ></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  
   </ion-content>
   

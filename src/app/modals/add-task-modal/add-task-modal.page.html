@@ -1,0 +1,83 @@
+
+<ion-content padding class='myModal'>
+    <ion-grid>
+        <ion-row>
+            <ion-col text-center>
+                Add new task
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col text-center>
+                <ion-label color="primary">Task Title</ion-label>
+                <ion-input  type='Text'  placeholder='My new Task'></ion-input>
+            </ion-col>
+            
+        </ion-row>
+        <ion-row>
+            <ion-toolbar color="light" >
+                <ion-segment color="dark" [(ngModel)]="taskTab">
+                    <ion-segment-button value="description" checked='true'>
+                        Description
+                    </ion-segment-button>
+                    <ion-segment-button value="file">
+                        File
+                    </ion-segment-button>
+                </ion-segment>
+            </ion-toolbar>
+        </ion-row>
+        
+        
+        <div [ngSwitch]="taskTab">
+            
+            
+            <div *ngSwitchCase="'description'" >
+                <ion-item >
+                    <ion-label>Description:</ion-label>
+                    <ion-textarea  placeholder='Enter a description'></ion-textarea>
+                </ion-item>
+            </div>
+            
+            
+            
+            <div *ngSwitchCase="'file'" >
+                
+                
+                <ion-input  type='file'  ><ion-icon name="attach" size="large"></ion-icon></ion-input>
+                
+                
+            </div>
+            
+            
+            
+            <ion-row  >
+                <div >
+                    <ion-item >
+                        <ion-label>To:</ion-label>
+                        <ion-input placeholder='ander' type='text'></ion-input>
+                        <ion-button color="primary"  >Me: <ion-checkbox checked id="meCheck" ></ion-checkbox></ion-button>
+                    </ion-item>
+                    
+                </div>
+                
+                
+            </ion-row>
+            <div>
+                <ion-item>
+                    <ion-label>Date:</ion-label>
+                    <ion-datetime display-format="MM/DD/YYYY" placeholder="Select date">Date:</ion-datetime>
+                </ion-item>
+            </div>
+            
+        </div>
+        
+        
+        <ion-row>
+            <ion-col text-center>
+                <ion-button color="warning" (click)="closeModal()"> <ion-icon name="close-circle"> </ion-icon> </ion-button>
+                <ion-button color="primary" ><ion-icon name="save"></ion-icon> </ion-button>
+                
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    
+</ion-content>

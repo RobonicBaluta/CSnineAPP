@@ -21,9 +21,13 @@ constructor(public api: RestApiService,private alertController: AlertController 
   public router: Router,) {
     this.getItems();
   }
+  ngOnInit() {
+    this.getItems();
+    this.segment.value='cs';
+  }
   
   async getItems() {
-    this.results=this.api.getItems();
+    this.results=this.api.getCompanies();
   }
   
   // async delete(itemId:string){
@@ -39,10 +43,7 @@ constructor(public api: RestApiService,private alertController: AlertController 
   // }
   
   
-  ngOnInit() {
-    this.getItems();
-    this.segment.value='cs';
-  }
+ 
 
   async importAlert(){
     const alert = await this.alertController.create({

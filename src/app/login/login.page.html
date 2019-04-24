@@ -1,21 +1,62 @@
 <ion-header>
-  <!--<ion-toolbar>
-    <ion-title>login</ion-title>
-  </ion-toolbar>-->
+    <ion-toolbar>
+        <ion-title>LOGIN</ion-title>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content id="login" ion-padding>
-  <ion-input type="email" placeholder="Email"> </ion-input>
-  <ion-input type="password" placeholder="Password"> </ion-input>
-  <ion-select placeholder="Select a server">
-    <ion-select-option>Server 1</ion-select-option>
-    <ion-select-option>Server 2</ion-select-option>
-    <ion-select-option>Server 3</ion-select-option>
-    <ion-select-option>Server 4</ion-select-option>
-  </ion-select>
-  <ion-checkbox></ion-checkbox>
-  <ion-label>Remember</ion-label>
-  <ion-button id="buttonl" (click)="presentAlert()">Login</ion-button>
-
-  <ion-text color="primary" routerLink="/remember" id="buttonl">Forgot your password?</ion-text>
+<ion-content>
+        <ion-img id="profile-photo" src="assets/logo.svg"></ion-img>
+    <form [formGroup]="credentialsForm" (ngSubmit)="onSubmit()">
+        <ion-item class="ion-margin-top">
+            <ion-label>Email</ion-label>
+            <ion-input required type="email" placeholder="Email" class="ion-padding" formControlName="username" ></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Password</ion-label>
+            <ion-input required type="password" placeholder="Password" class="ion-padding" formControlName="password"> </ion-input>
+        </ion-item>
+        
+        <ion-row class="ion-margin-top">
+            <ion-select required placeholder="Select a server">
+                <ion-select-option>Server 1</ion-select-option>
+                <ion-select-option>Server 2</ion-select-option>
+                <ion-select-option>Server 3</ion-select-option>
+                <ion-select-option>Server 4</ion-select-option>
+            </ion-select>
+        </ion-row>
+        
+        <ion-row class="ion-padding">
+            <ion-label>Remember</ion-label>
+            <ion-checkbox class="ion-margin-start"></ion-checkbox>
+        </ion-row>
+        
+        <ion-row>
+            <ion-col>
+                <ion-button type="submit" [disabled]="!credentialsForm.valid" class="ion-padding" expand='block'>Login</ion-button>
+            </ion-col>
+        </ion-row>
+        
+    </form>
+    <ion-row class="ion-justify-content-center ion-margin-top">
+        <ion-col size="8">
+            <ion-text color="primary" routerLink="/reset">Forgot your password?</ion-text>
+        </ion-col>
+    </ion-row>
+    
+    <!-- <form [formGroup]="credentialsForm" (ngSubmit)="onSubmit()">
+        
+        <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input type="email" formControlName="username"></ion-input>
+        </ion-item>
+        
+        <ion-item>
+            <ion-label position="floating">Password</ion-label>
+            <ion-input type="password" formControlName="password"></ion-input>
+        </ion-item>
+        
+        <ion-button expand="full" type="submit" [disabled]="!credentialsForm.valid">Login</ion-button>
+        
+        
+    </form> -->
 </ion-content>

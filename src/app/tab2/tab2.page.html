@@ -1,65 +1,44 @@
-<!--<ion-header>
+<ion-header>
   <ion-toolbar>
     <ion-title>
-      Tasks
+     Tasks
     </ion-title>
   </ion-toolbar>
-</ion-header>-->
+</ion-header>
 
-<ion-content ion-padding>
-  <ion-searchbar></ion-searchbar>
-  <ion-label>My Tasks<ion-icon name="checkbox-outline"></ion-icon></ion-label>
+<ion-content>
+    <ion-row>
+        <ion-searchbar  class="search" side='start'></ion-searchbar> 
+        <ion-icon  side='end' class="searchLogo" src="assets/logo.svg"></ion-icon>
+      </ion-row>
+  <!-- Default Segment -->
+  <!-- {{tasks?.items[0].title}} -->
   <ion-list>
-     <!-- Sliding item with text options on both sides -->
-    <ion-item-sliding>
+    <ion-item-sliding *ngFor="let task of (tasks?.items)" >
+
       <ion-item>
-        <ion-label>Task 1</ion-label>
+        <ion-title mode='md'>
+         {{task.title}}
+        </ion-title>
       </ion-item>
-  
-      <ion-item-options side="end">
-        <ion-item-option >Done</ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
-    <ion-item-sliding>
-      <ion-item (click)="openModal()">
-          <ion-label>Task 2</ion-label>
-      </ion-item>
-    
-      <ion-item-options side="end">
-        <ion-item-option >Done</ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
-    <ion-item-sliding>
-      <ion-item (click)="openModal()">
-          <ion-label>Task 3</ion-label>
-      </ion-item>
+      <ion-item-options side="end" >
       
-      <ion-item-options side="end">
-          <ion-item-option >Done</ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
-    <ion-item-sliding>
-        <ion-item (click)="openModal()">
-            <ion-label>Task 4</ion-label>
-        </ion-item>
+ 
+          <ion-button ion-button  size='large' class='sliderButtons'>
+              <ion-icon name="checkbox" ></ion-icon>
+          </ion-button>
+      
         
-      <ion-item-options side="end">
-            <ion-item-option >Done</ion-item-option>
-            </ion-item-options>
-    </ion-item-sliding>
-      <ion-item-sliding>
-        <ion-item (click)="openModal()">
-                <ion-label>Task 5</ion-label>
-              </ion-item>
-          
-              <ion-item-options side="end">
-                <ion-item-option >Done</ion-item-option>
-              </ion-item-options>
-    </ion-item-sliding>
-  </ion-list>
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-      <ion-fab-button (click)="openModal2()">
-        <ion-icon name="add" id="adds" ></ion-icon>
+
+        </ion-item-options>   
+     </ion-item-sliding> 
+      
+   </ion-list> 
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="addTaskModal()">
+        <ion-icon name="add" id="add" ></ion-icon>
       </ion-fab-button>
     </ion-fab>
-</ion-content>
+    
+  </ion-content>
+  
