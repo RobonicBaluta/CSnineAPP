@@ -1,8 +1,8 @@
 {
   "name": "CS9App",
-  "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "version": "0.4.0",
+  "author": "Ander Laboreo, Borja Bueno, Robert Baluta",
+  "homepage": "https://csnine.dev.cs.team/",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -22,6 +22,7 @@
     "@angular/router": "^7.2.2",
     "@auth0/angular-jwt": "^2.1.0",
     "@babel/polyfill": "^7.4.3",
+    "@ionic-native/contacts": "^5.5.0",
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/local-notifications": "^5.5.0",
     "@ionic-native/splash-screen": "^5.0.0",
@@ -31,6 +32,7 @@
     "cordova-android": "8.0.0",
     "cordova-ios": "5.0.1",
     "cordova-plugin-badge": "0.8.8",
+    "cordova-plugin-contacts": "3.0.1",
     "cordova-plugin-device": "2.0.2",
     "cordova-plugin-ionic-keyboard": "^2.1.3",
     "cordova-plugin-ionic-webview": "^3.1.2",
@@ -41,7 +43,8 @@
     "cordova-sqlite-storage": "^3.2.0",
     "core-js": "^2.0.0",
     "rxjs": "~6.4.0",
-    "zone.js": "~0.9.0"
+    "zone.js": "~0.9.0",
+    "tslint": "~5.16.0"
   },
   "devDependencies": {
     "@angular-devkit/architect": "~0.13.7",
@@ -70,7 +73,7 @@
     "tslint": "~5.16.0",
     "typescript": "~3.1.6"
   },
-  "description": "An Ionic project",
+  "description": "Mobile APP for CS Nine, solution for task and contact management",
   "cordova": {
     "plugins": {
       "cordova-sqlite-storage": {},
@@ -82,7 +85,8 @@
       "cordova-plugin-ionic-webview": {
         "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
       },
-      "cordova-plugin-ionic-keyboard": {}
+      "cordova-plugin-ionic-keyboard": {},
+      "cordova-plugin-contacts": {}
     },
     "platforms": [
       "ios",

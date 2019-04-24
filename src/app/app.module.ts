@@ -20,7 +20,7 @@ import { InterceptorService } from './services/interceptor.service';
 import { AddTaskModalPageModule } from './modals/add-task-modal/add-task-modal.module';
 
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
-
+import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts/ngx';
 
 export function jwtOptionsFactory(storage) {
   return {
@@ -33,7 +33,7 @@ export function jwtOptionsFactory(storage) {
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, 
+  imports: [BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
      HttpClientModule,
@@ -56,9 +56,9 @@ export function jwtOptionsFactory(storage) {
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
-    LocalNotifications
+    LocalNotifications,
   ],
-  
+
   bootstrap: [AppComponent]
 })
 export class AppModule {}
