@@ -1,27 +1,38 @@
 
 
-  <ion-content padding class='myModal'>
-    <ion-grid>
-      <ion-row>
-        <ion-col text-center>
-          Add new note
-        </ion-col>
-      </ion-row>
-      
-    </ion-grid>
-    <form >
+<ion-content padding class='myModal'>
+  <ion-grid>
+    <ion-row>
+      <ion-col text-center>
+        Add new note
+      </ion-col>
+    </ion-row>
+    
+  </ion-grid>
+  <form [formGroup]="noteForm" id='foorm'>
+    <!-- <ion-item>
       <ion-label class="titles">Title: </ion-label>
-      <ion-input type="text" class="title" placeholder=" title" required></ion-input>
-    
-      <ion-label class="titles">Note: </ion-label>
-      <ion-textarea class="noteTextArea" placeholder="note" ></ion-textarea>
       
-      <ion-row>
-        <ion-col text-center>
-          <ion-button (click)="addItem()">Add Note</ion-button>
-          <ion-button (click)="closeModal()">Close</ion-button>
-        </ion-col>
-      </ion-row>
-    </form>
+      <ion-input type="text" placeholder=" title" ></ion-input>
+    </ion-item> --> 
+    <ion-input type='text' hidden [(ngModel)]="entityId" formControlName="entityId"></ion-input>
+    <ion-input  type='text' hidden [(ngModel)]="defaultTitle" formControlName="title"></ion-input>
+    <ion-input  type='text'  hidden [(ngModel)]="entityType" formControlName="entityType"></ion-input>
+    <ion-input  type='text' hidden [(ngModel)]="noteHtml" value="{{note}}" formControlName="NoteHtml"></ion-input>
+      <ion-label class="titles">Note: </ion-label>
+      <ion-item>
+     
+      <ion-textarea  placeholder="note" [(ngModel)]="note" formControlName="note" ></ion-textarea>
+   
     
-  </ion-content>
+    </ion-item>
+    <ion-row>
+      <ion-col text-center>
+        <ion-button color="warning" (click)="closeModal()"> <ion-icon name="close-circle"> </ion-icon> </ion-button>
+        <ion-button color="primary" (click)="addNote()"><ion-icon name="save"></ion-icon> </ion-button>
+        
+      </ion-col>
+    </ion-row>
+  </form>
+  
+</ion-content>

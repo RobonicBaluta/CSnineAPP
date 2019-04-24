@@ -18,8 +18,10 @@ import { Storage, IonicStorageModule } from '@ionic/storage';
 import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { InterceptorService } from './services/interceptor.service';
 import { AddTaskModalPageModule } from './modals/add-task-modal/add-task-modal.module';
-
+import { EditCompanyModalPageModule } from './modals/edit-company-modal/edit-company-modal.module';
+import { SearchPipe } from './search.pipe'
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+
 
 
 export function jwtOptionsFactory(storage) {
@@ -36,29 +38,31 @@ export function jwtOptionsFactory(storage) {
   imports: [BrowserModule, 
     IonicModule.forRoot(),
     AppRoutingModule,
-     HttpClientModule,
-     NoteModalPageModule,
-     AddCompanyModalPageModule,
-     FormsModule,
-     ReactiveFormsModule,
-     HttpClientModule,
+    HttpClientModule,
+    NoteModalPageModule,
+    AddCompanyModalPageModule,
+    EditCompanyModalPageModule,
+    FormsModule,
+    ReactiveFormsModule,
     AddTaskModalPageModule,
-     IonicStorageModule.forRoot(),
-     JwtModule.forRoot({
-       jwtOptionsProvider: {
-         provide: JWT_OPTIONS,
-         useFactory: jwtOptionsFactory,
-         deps: [Storage],
-       }
-     })],
-  providers: [
-    StatusBar,
-    SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
-    LocalNotifications
-  ],
+    IonicStorageModule.forRoot(),
+    JwtModule.forRoot({
+      jwtOptionsProvider: {
+        provide: JWT_OPTIONS,
+        useFactory: jwtOptionsFactory,
+        deps: [Storage],
+      }
+    })],
+    providers: [
+      StatusBar,
+      SplashScreen,
+      SearchPipe,
+      { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+      { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
+      LocalNotifications
+    ],
+    
+    bootstrap: [AppComponent]
+  })
+  export class AppModule {}
   
-  bootstrap: [AppComponent]
-})
-export class AppModule {}

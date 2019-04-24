@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  // url: 'http://webapi.contentshare.biz/api/v1'
   url: 'http://csapi.soltystudio.com/api/v1'
 };
 
