@@ -11,29 +11,23 @@
                 <ion-label color="primary">Task Title</ion-label>
                 <ion-input  type='Text'  placeholder='My new Task'></ion-input>
             </ion-col>
-            <ion-col text-center>
-                <ion-label color="primary">Task Tag</ion-label>
-                <ion-input  type='Text'  placeholder='#tag'></ion-input>
-            </ion-col>
+            
         </ion-row>
         <ion-row>
             <ion-toolbar color="light" >
-                <ion-segment color="dark" [(ngModel)]="task">
+                <ion-segment color="dark" [(ngModel)]="taskTab">
                     <ion-segment-button value="description" checked='true'>
                         Description
                     </ion-segment-button>
                     <ion-segment-button value="file">
                         File
                     </ion-segment-button>
-                    <ion-segment-button value="note">
-                        Notes
-                    </ion-segment-button>
                 </ion-segment>
             </ion-toolbar>
         </ion-row>
         
         
-        <div [ngSwitch]="task">
+        <div [ngSwitch]="taskTab">
             
             
             <div *ngSwitchCase="'description'" >
@@ -51,19 +45,6 @@
                 <ion-input  type='file'  ><ion-icon name="attach" size="large"></ion-icon></ion-input>
                 
                 
-            </div>
-            
-            
-            
-            <div *ngSwitchCase="'note'">
-                <ion-item >
-                    <ion-label>Title:</ion-label>
-                    <ion-input  type='Text' placeholder=' Title'></ion-input>
-                </ion-item>
-                <ion-item >
-                    <ion-label>Note:</ion-label>
-                    <ion-textarea placeholder='Enter here a note'></ion-textarea>
-                </ion-item>
             </div>
             
             

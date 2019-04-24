@@ -6,6 +6,7 @@ import { ModalController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddTaskModalPage } from '../modals/add-task-modal/add-task-modal.page';
 import { RestApiService } from '../rest-api.service';
+import { map } from 'rxjs/operators';
 
 
 
@@ -16,7 +17,7 @@ import { RestApiService } from '../rest-api.service';
 })
 export class Tab2Page {
   
-  items:any;
+  items:[];
   tasks: Observable<any>;
   
   ngOnInit() {
@@ -26,9 +27,18 @@ export class Tab2Page {
   
  
 
-  async getTasks() {
-    this.tasks=this.api.getCompanies();
-  }
+ 
+  //  async getTasks() {
+  //    this.api.getTasks().pipe(map(res => {
+  //     this.tasks = res.json();
+  //     return this.tasks;
+  //   }));
+  // }
+  
+
+  // async getTasks() {
+  //   return this.tasks=this.api.getTasks()
+  // }
   
   
   constructor(public modalController: ModalController,
@@ -48,5 +58,11 @@ export class Tab2Page {
       
       return await modal.present();
     }
+
+    async getTasks() {
+      return this.api.getTasks().subscribe(data=>{this.tasks=data
+      console.log(this.tasks)});
+    }
+  
   }
   

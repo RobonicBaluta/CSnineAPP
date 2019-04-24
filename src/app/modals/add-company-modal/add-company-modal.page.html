@@ -52,29 +52,21 @@
         </ion-item>
         
         
-        <div >
+        <div formControlName='categories'>
           <ion-item class="ion-margin-top">
               <ion-label><strong>Category: </strong></ion-label>
             <ion-select [compareWith]="compareWith" placeholder="Categories" 
             multiple="true" > 
             <!-- formArrayName="categories" -->
-            <ion-select-option *ngFor="let category of categoriesList|async;" value='{{category}}' name='name'>
-              {{category.name}}
-            </ion-select-option>
+            <ion-select-option *ngFor="let category of categoriesList|async;" [value]="category">{{category.name}}</ion-select-option>
           </ion-select>
         </ion-item>
       </div>
-      <!-- <div formArrayName="categories"><ion-input  type='Text'  placeholder='Category'  formControlName='name'></ion-input></div> -->
+      
+     
       
     </div>
     <!-- End general info -->
-    
-    <!-- <ion-list formArrayName="categories" *ngFor="let cat of company.get('categories').controls; let i=index">
-      <ion-item *ngFor="let category of categoriesList |async"   >
-        <ion-label  >{{category.name}}</ion-label>
-        <ion-checkbox slot="end" [(ngModel)]="category.isChecked"  ></ion-checkbox>
-      </ion-item>
-    </ion-list> -->
     
     
     <!-- Location -->
@@ -132,15 +124,6 @@
     </div>
     <!-- End contact -->
     
-    <!-- <div *ngSwitchCase="'note'">
-      <br>
-      <ion-label class="titles">Title: </ion-label>
-      <ion-input type="text" class="title" placeholder=" title" required></ion-input>
-      
-      <ion-label class="titles">Note: </ion-label>
-      <ion-textarea class="myTextArea" clearOnEdit="true" placeholder='Write a note'></ion-textarea>
-      
-    </div> -->
     
   </div>
   

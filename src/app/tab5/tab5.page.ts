@@ -53,7 +53,8 @@ export class Tab5Page implements OnInit {
   }
 
   async getProfile() {
- return this.api.getProfile().subscribe(profile=>{this.info=profile});
+ return this.api.getProfile().subscribe(profile=>{this.info=profile
+console.log(this.info)});
 
     
   }

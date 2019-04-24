@@ -21,6 +21,7 @@ export class EditCompanyModalPage implements OnInit {
   companyForm: FormGroup;
   companyId: null;
   companyTab: string;
+  regionName: any;
   constructor(private modalController: ModalController
     ,private alertCtrl: AlertController, 
     public router: Router, 
@@ -70,7 +71,7 @@ export class EditCompanyModalPage implements OnInit {
     ngOnInit() {
       
       this.getCompanyInfo();
-      this.getCompanyNotes()
+      this.getCompanyNotes();
     }
     
     // @Input() set showWhen(value) {
@@ -94,7 +95,6 @@ export class EditCompanyModalPage implements OnInit {
     async getCompanyNotes(){
       this.companyId=this.navParams.get('companyId');
       this.notes= this.api.getNotes(this.companyId)
-      
     }
     
     
@@ -108,8 +108,8 @@ export class EditCompanyModalPage implements OnInit {
         console.log(err);
       });
     }
-
-
+    
+    
     async updateCompany(){
       await this.api.updateCompany( this.companyForm.value)
       .subscribe(res => {
@@ -144,7 +144,7 @@ export class EditCompanyModalPage implements OnInit {
       const onClosedData: string = "Wrapped Up!";
       await this.modalController.dismiss(onClosedData);
     }
-
+    
     doRefresh(event) {
       this.getCompanyNotes();
       console.log('Begin async operation');

@@ -52,7 +52,7 @@ export class AuthService {
           this.authenticationState.next(true);
         }),
         catchError(e => {
-          this.showAlert(e.error.msg);
+          // this.showAlert(e.error.msg);
           throw new Error(e);
         })
      );

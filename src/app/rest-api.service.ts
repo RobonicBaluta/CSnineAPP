@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { catchError, tap, map ,retryWhen, retry} from 'rxjs/operators';
+import { catchError, tap, map ,retryWhen, retry, timeout} from 'rxjs/operators';
 
 
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
+// const apiUrl = ' http://webapi.contentshare.biz/api/v1';
 const apiUrl = ' http://csapi.soltystudio.com/api/v1';
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,11 @@ export class RestApiService {
  
   getProfile(): Observable <any>{
 
-    return this.http.get(apiUrl+'/Account/MyContactInfo')
+    return this.http.get(apiUrl+'/Account/MyContactInfo').pipe(
+      timeout(5000),
+      retry(2),
+      catchError(this.handleError)
+    );
   }
 
 
@@ -36,17 +41,26 @@ export class RestApiService {
   getCompanies() :Observable <any>{
 
     return this.http.get(apiUrl+'/Companies/Get').pipe(
-      tap(() => console.log(apiUrl)),
-      retry(3),  // retry the failed request up to 3 times
-      catchError(err => {
-          console.log(err);
-          return of(null);
-      })
+      timeout(5000),
+      retry(2),
+      catchError(this.handleError)
+    
+
+      // tap(() => console.log(apiUrl)),
+      // retry(3),  // retry the failed request up to 3 times
+      // catchError(err => {
+      //     console.log(err);
+      //     return of(null);
+      // })
     )}
 
   getCompanyById(id:number) :Observable <any>{
     const url = `${apiUrl}/Companies/${id}`;
-    return this.http.get(url);
+    return this.http.get(url).pipe(
+      timeout(5000),
+      retry(2),
+      catchError(this.handleError)
+    );
   }
 
  
@@ -91,8 +105,12 @@ export class RestApiService {
 
   getTasks(): Observable <any>{
 
-    return this.http.get(apiUrl+'/Tasks')
+    return this.http.get(apiUrl+'/Tasks?Take=5');
+
+    
   }
+
+
   resetPassword(data): Observable<any> {
     const url = `${apiUrl}/Account/RequestResetPassword`;
     return this.http.post(url, data, httpOptions)
@@ -153,6 +171,7 @@ export class RestApiService {
         `body was: ${error.error}`);
     }
     // return an observable with a user-facing error message
+    // window.alert(error.error.message);
     return throwError('Something bad happened; please try again later.');
   }
 }

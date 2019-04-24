@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NoteModalPage } from '../modals/note-modal/note-modal.page';
 import { AddCompanyModalPage } from '../modals/add-company-modal/add-company-modal.page';
 import { EditCompanyModalPage } from '../modals/edit-company-modal/edit-company-modal.page';
+import { AddTaskModalPage } from '../modals/add-task-modal/add-task-modal.page';
 
 @Component({
   selector: 'app-tab3',
@@ -45,6 +46,12 @@ export class Tab3Page {
       this.companyId=id;
       console.log(this.companyId);
       this.noteModal();
+    }
+
+   setCompanyIdTask(id:number){
+      this.companyId=id;
+      console.log(this.companyId);
+      this.addTaskModal();
     }
     
     
@@ -97,16 +104,36 @@ export class Tab3Page {
       
       return await modal.present();
     }
-   // doRefresh(event) {
-    //   this.getItems();
-    //   console.log('Begin async operation');
+
+
+
+    async  addTaskModal() {
+      const modal = await this.modalController.create({
+        component: AddTaskModalPage,
+        cssClass: 'addCompanyCustom',
+        componentProps:{
+          companyId: this.companyId,
+        
+        }
+      });
+      modal.onDidDismiss().then((dataReturned) => {
+        if (dataReturned !== null) {
+          console.log('Modal Sent Data :', dataReturned);
+        }
+      });
       
-    //   setTimeout(() => {
-    //     console.log('Async operation has ended');
-    //     event.target.complete();
-    //   }, 2000);
-    // }
-    
+      return await modal.present();
+    }
+   doRefresh(event) {
+      this.getCompanies();
+      console.log('Begin async operation');
+      
+      setTimeout(() => {
+        console.log('Async operation has ended');
+        event.target.complete();
+      }, 2000);
+    }
+  
 }
 
 

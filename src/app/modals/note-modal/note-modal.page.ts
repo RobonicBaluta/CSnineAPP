@@ -14,7 +14,6 @@ export class NoteModalPage implements OnInit {
   defaultTitle: any;
   entityId: any;
   entityType: any;
-  noteHtml: any;
   note: any;
   noteForm: FormGroup;
   constructor( 
@@ -41,7 +40,6 @@ export class NoteModalPage implements OnInit {
       this.noteForm.get('NoteHtml').setValue(this.noteForm.get('note'));
       this.defaultTitle = 'Said:';
       this.entityId=this.companyId;
-      this.noteHtml=this.companyId;
       this.entityType='Company';
     }
  

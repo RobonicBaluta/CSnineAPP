@@ -12,12 +12,13 @@
         <ion-icon  side='end' class="searchLogo" src="assets/logo.svg"></ion-icon>
       </ion-row>
   <!-- Default Segment -->
+  <!-- {{tasks?.items[0].title}} -->
   <ion-list>
-    <ion-item-sliding *ngFor="let task of (tasks|async)" >
+    <ion-item-sliding *ngFor="let task of (tasks?.items)" >
 
       <ion-item>
         <ion-title mode='md'>
-          {{task.name}}
+         {{task.title}}
         </ion-title>
       </ion-item>
       <ion-item-options side="end" >
@@ -28,12 +29,11 @@
           </ion-button>
       
         
-        <!-- <ion-button color="primary" [routerLink]="['/','detail',item.id]"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
-          <ion-button  color="danger" (click)="delete(item.id)"><ion-icon name="time"></ion-icon></ion-button> -->
-        </ion-item-options> 
-      </ion-item-sliding>
+
+        </ion-item-options>   
+     </ion-item-sliding> 
       
-    </ion-list>
+   </ion-list> 
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
       <ion-fab-button (click)="addTaskModal()">
         <ion-icon name="add" id="add" ></ion-icon>

@@ -134,16 +134,9 @@
     
     
     <div *ngSwitchCase="'notes'">
-        <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content
-          pullingIcon="arrow-dropdown"
-          pullingText="Pull to refresh"
-          refreshingSpinner="circles"
-          refreshingText="Refreshing...">
-        </ion-refresher-content>
-      </ion-refresher>
+      
       <ion-list>
-        <ion-item-sliding  text-wrap *ngFor="let note of (notes|async)"  style="border: solid 1px black; padding: 10px; margin-bottom: 5px; border-radius: 15px; margin-top: 5px; ">
+        <ion-item-sliding  text-wrap *ngFor="let note of (notes|async)" class="noteFormat">
           
           
           <ion-label><strong>Note: </strong></ion-label>
@@ -156,9 +149,9 @@
           {{note.simpleUser.firstName}} {{note.simpleUser.lastName}}
           
           <ion-button ion-button color="warning" (click)='deleteNote(note.note.id)'  class='sliderButtons'>
-              <ion-icon name="trash"></ion-icon>
-            </ion-button>
-        
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+          
         </ion-item-sliding>
         
       </ion-list>
