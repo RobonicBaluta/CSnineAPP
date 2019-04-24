@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import { RestApiService } from '../rest-api.service';
 import { ModalController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 
 @Component({
@@ -16,8 +17,10 @@ export class Tab1Page {
 @ViewChild (IonSegment) segment:IonSegment;
   items:any;
   results: Observable<any>;
+
   constructor(public api: RestApiService, 
     public modalController: ModalController,
+    public localNotifications: LocalNotifications,
     public router: Router,
     ) {
       this.getItems();
@@ -26,6 +29,7 @@ export class Tab1Page {
     async getItems() {
       this.results=this.api.getItems();
     }
+    
     
     // async delete(itemId:string){
     //   // this.api.deleteItem(itemId);
@@ -43,6 +47,16 @@ export class Tab1Page {
     ngOnInit() {
       // this.getItems();
       this.segment.value='new';
+
+    }
+
+    getNotifications() {
+
+      this.localNotifications.schedule({
+        id: 1,
+        text: 'Single ILocalNotification'
+      });
+
     }
     // async openModal() {
     //   const modal = await this.modalController.create({
