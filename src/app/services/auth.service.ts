@@ -51,10 +51,10 @@ export class AuthService {
           this.user = this.helper.decodeToken(res['accessToken']);
           this.authenticationState.next(true);
         }),
-        // catchError(e => {
-        //   this.showAlert(e.error.msg);
-        //   throw new Error(e);
-        // })
+        catchError(e => {
+          // this.showAlert(e.error.msg);
+          throw new Error(e);
+        })
      );
   }
  

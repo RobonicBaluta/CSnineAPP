@@ -27,7 +27,7 @@ export class Tab4Page implements OnInit {
             this.getItems();
             this.segment.value='cs';
         }
-
+  
         async getItems() {
             this.results=this.api.getCompanies();
         }

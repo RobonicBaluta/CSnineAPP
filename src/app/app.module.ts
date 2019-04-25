@@ -23,6 +23,7 @@ import { SearchPipe } from './search.pipe'
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts/ngx';
 
+
 export function jwtOptionsFactory(storage) {
   return {
     tokenGetter: () => {

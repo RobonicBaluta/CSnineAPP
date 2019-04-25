@@ -7,6 +7,8 @@ import { ModalController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NoteModalPage } from '../modals/note-modal/note-modal.page';
 import { AddCompanyModalPage } from '../modals/add-company-modal/add-company-modal.page';
+import { EditCompanyModalPage } from '../modals/edit-company-modal/edit-company-modal.page';
+import { AddTaskModalPage } from '../modals/add-task-modal/add-task-modal.page';
 
 @Component({
   selector: 'app-tab3',
@@ -16,63 +18,70 @@ import { AddCompanyModalPage } from '../modals/add-company-modal/add-company-mod
 export class Tab3Page {
 
   items:any;
-  results: Observable<any>;
+  companies: Observable<any>;
+  companyId: number;
   constructor(public api: RestApiService, 
     public modalController: ModalController,
     public router: Router, private alertController: AlertController) {
-      this.getItems();
+  
     }
-    
-    async getItems() {
-      this.results=this.api.getItems();
-    }
-    async getCompanies(){
-      this.results=this.api.getCompanies();
-    }
-    
-    // async delete(itemId:string){
-    //   // this.api.deleteItem(itemId);
-      
-    //   this.api.deleteItem(itemId)
-    //   .subscribe(res => {
-    //     this.router.navigate(['/home']);
-    //   }, err => {
-    //     console.log(err);
-    //   });
-    //   location.reload();
-    // }
-    
     
     ngOnInit() {
       this.getCompanies();
     }
-    // async openModal() {
-    //   const modal = await this.modalController.create({
-    //     component: AddModalPage,
-    //   });
-    //   modal.onDidDismiss().then((dataReturned) => {
-    //     if (dataReturned !== null) {
-    //       console.log('Modal Sent Data :', dataReturned);
-    //     }
-    //   });
-      
-    //   return await modal.present();
-    // }
-    // doRefresh(event) {
-    //   this.getItems();
-    //   console.log('Begin async operation');
-      
-    //   setTimeout(() => {
-    //     console.log('Async operation has ended');
-    //     event.target.complete();
-    //   }, 2000);
-    // }
+
+    async getCompanies(){
+      this.companies=this.api.getCompanies();
+    }
+
+
+    // Establish the company id when click to pass the variable to the modal to get caught in the modal page
+    setCompanyId(id:number){
+      this.companyId=id;
+      // console.log(this.companyId);
+      this.editModal();
+    }
+
+    setCompanyIdNote(id:number){
+      this.companyId=id;
+      console.log(this.companyId);
+      this.noteModal();
+    }
+
+   setCompanyIdTask(id:number){
+      this.companyId=id;
+      console.log(this.companyId);
+      this.addTaskModal();
+    }
+    
+    
+  
+    async editModal() {
+      const modal = await this.modalController.create({
+        component: EditCompanyModalPage,
+        cssClass: 'addCompanyCustom',
+        componentProps:{
+          companyId: this.companyId,
+        
+        }
+      });
+      modal.onDidDismiss().then((dataReturned) => {
+        if (dataReturned !== null) {
+          console.log('Modal Sent Data :', dataReturned);
+        }
+      });     
+      return await modal.present();
+    }
 
 
     async  noteModal() {
       const modal = await this.modalController.create({
         component: NoteModalPage,
         cssClass: 'note-custom-modal',
+        componentProps:{
+          companyId: this.companyId,
+        
+        }
       });
       modal.onDidDismiss().then((dataReturned) => {
         if (dataReturned !== null) {
@@ -96,43 +105,35 @@ export class Tab3Page {
       return await modal.present();
     }
 
-    async presentAlertPrompt() {
-      const alert = await this.alertController.create({
-        header: 'Write a note',
-        inputs: [
-          {
-            name: 'title',
-            type: 'text',
-            placeholder: 'title'
-          },
-          {
-            name: 'note',
-            type: 'text',
-            // id: 'name2-id',
-            // value: 'hello',
-            placeholder: 'Note'
-          },
 
-        ],
-        buttons: [
-          {
-            text: 'Cancel',
-            role: 'cancel',
-            cssClass: 'secondary',
-            handler: () => {
-              console.log('Confirm Cancel');
-            }
-          }, {
-            text: 'Ok',
-            handler: () => {
-              console.log('Confirm Ok');
-            }
-          }
-        ]
+
+    async  addTaskModal() {
+      const modal = await this.modalController.create({
+        component: AddTaskModalPage,
+        cssClass: 'addCompanyCustom',
+        componentProps:{
+          companyId: this.companyId,
+        
+        }
       });
-  
-      await alert.present();
+      modal.onDidDismiss().then((dataReturned) => {
+        if (dataReturned !== null) {
+          console.log('Modal Sent Data :', dataReturned);
+        }
+      });
+      
+      return await modal.present();
     }
+   doRefresh(event) {
+      this.getCompanies();
+      console.log('Begin async operation');
+      
+      setTimeout(() => {
+        console.log('Async operation has ended');
+        event.target.complete();
+      }, 2000);
+    }
+  
 }
 
 
