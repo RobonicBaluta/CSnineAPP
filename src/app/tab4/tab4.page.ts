@@ -4,22 +4,24 @@ import { RestApiService } from '../rest-api.service';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { IonSegment } from '@ionic/angular';
+import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts/ngx';
+
 
 @Component({
     selector: 'app-tab4',
     templateUrl: './tab4.page.html',
     styleUrls: ['./tab4.page.scss'],
+    providers: [Contacts]
 })
 export class Tab4Page implements OnInit {
 
     @ViewChild (IonSegment) segment:IonSegment;
-
+    allContacts:any;
     items:any;
     results: Observable<any>;
-    constructor(public api: RestApiService, private alertController: AlertController ,
-
-        public router: Router,) {
-            this.getItems();
+    constructor(public api: RestApiService, private contacts: Contacts,
+        private alertController: AlertController , public router: Router,) {
+            this.getContacts();
         }
         ngOnInit() {
             this.getItems();
@@ -27,7 +29,14 @@ export class Tab4Page implements OnInit {
         }
 
         async getItems() {
-            this.results=this.api.getItems();
+            this.results=this.api.getCompanies();
+        }
+
+        async getContacts() {
+            this.contacts.find(['displayName', 'name', 'phoneNumbers', 'emails'], {filter: "", multiple: true})
+            .then(data => {
+                this.allContacts = data
+            });
         }
 
         // async delete(itemId:string){
@@ -41,6 +50,8 @@ export class Tab4Page implements OnInit {
         //   });
         //   location.reload();
         // }
+
+
 
 
         async importAlert(){
