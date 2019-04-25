@@ -20,17 +20,27 @@ export class EditCompanyModalPage implements OnInit {
   notes: Observable <any>;
   companyForm: FormGroup;
   companyId: null;
-  companyTab: string;
+ 
   regionName: any;
+  categoriesList: Observable<any>;
+
+  info:boolean=true;
+  location:boolean=false;
+  contact:boolean=false;
+  noteList:boolean=false;
+
+  
   constructor(private modalController: ModalController
     ,private alertCtrl: AlertController, 
     public router: Router, 
     public navCtrl: NavController, 
     private formBuilder: FormBuilder, 
     public alertController: AlertController,
-    public api: RestApiService, private navParams:NavParams,private events:Events) {
+    public api: RestApiService,
+    private navParams:NavParams,
+    private events:Events) {
       
-      this.companyTab='info';
+      // this.companyTab='info';
       
       this.companyForm = this.formBuilder.group({
         'id':[null],
@@ -57,12 +67,7 @@ export class EditCompanyModalPage implements OnInit {
         }),
         'telephone': [null],
         'email': [null],
-        // 'categories':  this.formBuilder.array([
-        //   this.formBuilder.group({
-        //     'name':['']
-        //   })
-        // ]),
-        
+        'categories': [null],
         
         
       });
@@ -72,8 +77,35 @@ export class EditCompanyModalPage implements OnInit {
       
       this.getCompanyInfo();
       this.getCompanyNotes();
+      this.getCategories();
+      this.showInfo();
     }
     
+    showInfo(){
+      this.info=true;
+      this.location=false;
+      this.contact=false;
+      this.noteList=false;
+    }
+    showLocation(){
+      this.info=false;
+      this.location=true;
+      this.contact=false;
+      this.noteList=false;
+    }
+
+    showContact(){
+      this.info=false;
+      this.location=false;
+      this.contact=true;
+      this.noteList=false;
+    }
+    showNotes(){
+      this.info=false;
+      this.location=false;
+      this.contact=false;
+      this.noteList=true;
+    }
     // @Input() set showWhen(value) {
     //     this.ref.nativeElement.hidden = !value;
     //   }
@@ -91,6 +123,9 @@ export class EditCompanyModalPage implements OnInit {
       })
     }
     
+    async getCategories(){
+      this.categoriesList=this.api.getCategories();
+    }
     
     async getCompanyNotes(){
       this.companyId=this.navParams.get('companyId');

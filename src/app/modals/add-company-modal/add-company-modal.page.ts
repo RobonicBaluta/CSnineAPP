@@ -3,7 +3,7 @@ import { IonSegment, ModalController } from '@ionic/angular';
 import { AlertController, NavParams} from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { RestApiService } from '../../rest-api.service';
-import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -16,7 +16,6 @@ export class AddCompanyModalPage implements OnInit {
   @ViewChild (IonSegment) segment:IonSegment;
   companyTab: string;
   company:FormGroup;
-  cats: FormArray;
   categoriesList: Observable<any>;
   
   constructor(
@@ -52,10 +51,8 @@ export class AddCompanyModalPage implements OnInit {
         }),
         'telephone': [null],
         'email': [null],
-        'categories':  this.cats,
-          
-       
-     
+        'categories': [null],
+ 
     }); 
   }
   

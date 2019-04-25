@@ -11,17 +11,17 @@
   
   
   <ion-toolbar color="light" >
-    <ion-segment color="dark" [(ngModel)]="companyTab">
-      <ion-segment-button value="info" checked='true'>
+    <ion-segment color="dark" >
+      <ion-segment-button value="info" checked='true' (click)="showInfo()">
         General info
       </ion-segment-button>
-      <ion-segment-button value="location">
+      <ion-segment-button value="location" (click)="showLocation()">
         Location
       </ion-segment-button>
-      <ion-segment-button value="contact">
+      <ion-segment-button value="contact" (click)="showContact()">
         Contact
       </ion-segment-button>
-      <ion-segment-button value="notes">
+      <ion-segment-button value="notes" (click)="showNotes()">
         Notes
       </ion-segment-button>
     </ion-segment>
@@ -29,10 +29,10 @@
   
   
   <form [formGroup]='companyForm'>
-    <div [ngSwitch]="companyTab">
+    <div >
       
       <!-- General info -->
-      <div *ngSwitchCase="'info'" checked > 
+      <div [hidden]="!info == true" > 
         
         <ion-input value='{{company?.id}}' hidden formControlName='id'></ion-input>
         
@@ -43,7 +43,7 @@
         
         <ion-item class="ion-margin-top">
           <ion-label><strong>Code: </strong></ion-label>
-          <ion-input  type='Text'  placeholder='Code'  value='{{company?.code}}'formControlName='code'></ion-input>
+          <ion-input  type='Text'  placeholder='Code'  value='{{company?.code}}' formControlName='code'></ion-input>
         </ion-item>
         
         <ion-item class="ion-margin-top">
@@ -57,38 +57,32 @@
         </ion-item>
         
         
-        <!-- <div >
-          <ion-item >
+          <div >
+          <ion-item class="ion-margin-top">
+              <ion-label><strong>Category: </strong></ion-label>
             <ion-select [compareWith]="compareWith" placeholder="Categories" 
-            multiple="true" formArrayName="categories">
-            <ion-select-option *ngFor="let category of categoriesList|async;" value='{{category}}' name='name'>
-              {{category.name}}
-            </ion-select-option>
+            multiple="true" formControlName="categories"> 
+     
+            <ion-select-option *ngFor="let category of categoriesList|async;" [value]="category">{{category.name}}</ion-select-option>
           </ion-select>
         </ion-item>
-      </div> -->
-      <!-- <div formArrayName="categories"><ion-input  type='Text'  placeholder='Category'  formControlName='name'></ion-input></div> -->
+      </div>
       
     </div>
     <!-- End general info -->
     
-    <!-- <ion-list formArrayName="categories" *ngFor="let cat of company.get('categories').controls; let i=index">
-      <ion-item *ngFor="let category of categoriesList |async"   >
-        <ion-label  >{{category.name}}</ion-label>
-        <ion-checkbox slot="end" [(ngModel)]="category.isChecked"  ></ion-checkbox>
-      </ion-item>
-    </ion-list> -->
+  
     
     
     <!-- Location -->
-    <div *ngSwitchCase="'location'" >
+    <div [hidden]="!location == true" >
       
       <div formGroupName='address'>
         
         <div formGroupName='country' >
           <ion-item class="ion-margin-top">
             <ion-label><strong>Country: </strong></ion-label>
-            <ion-input  type='Text'  placeholder='Country' formControlName='name' value='{{company?.address.country.name}}'></ion-input>
+            <ion-input  type='Text'  placeholder='Country' formControlName='name' value='{{company?.address?.country?.name}}'></ion-input>
           </ion-item>
         </div>
         
@@ -121,7 +115,7 @@
     <!--End Location -->
     
     <!-- Contact -->
-    <div *ngSwitchCase="'contact'">
+    <div [hidden]="!contact == true">
       <ion-item class="ion-margin-top">
         <ion-label><strong>Telephone: </strong></ion-label>
         <ion-input  type='Text'  placeholder='Telephone number'  formControlName='telephone' value='{{company?.telephone}}'></ion-input>
@@ -133,7 +127,7 @@
     </div>
     
     
-    <div *ngSwitchCase="'notes'">
+    <div [hidden]="!noteList == true" >
       
       <ion-list>
         <ion-item-sliding  text-wrap *ngFor="let note of (notes|async)" class="noteFormat">

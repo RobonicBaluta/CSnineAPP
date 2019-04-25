@@ -105,7 +105,7 @@ export class RestApiService {
 
   getTasks(): Observable <any>{
 
-    return this.http.get(apiUrl+'/Tasks?Take=5');
+    return this.http.get(apiUrl+'/Tasks?Take=54');
 
     
   }

@@ -52,17 +52,17 @@
         </ion-item>
         
         
-        <div formControlName='categories'>
+        <div >
           <ion-item class="ion-margin-top">
               <ion-label><strong>Category: </strong></ion-label>
             <ion-select [compareWith]="compareWith" placeholder="Categories" 
-            multiple="true" > 
-            <!-- formArrayName="categories" -->
+            multiple="true" formControlName="categories"> 
+     
             <ion-select-option *ngFor="let category of categoriesList|async;" [value]="category">{{category.name}}</ion-select-option>
           </ion-select>
         </ion-item>
       </div>
-      
+
      
       
     </div>
