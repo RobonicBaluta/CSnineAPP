@@ -21,7 +21,7 @@ import { AddTaskModalPageModule } from './modals/add-task-modal/add-task-modal.m
 import { EditCompanyModalPageModule } from './modals/edit-company-modal/edit-company-modal.module';
 import { SearchPipe } from './search.pipe'
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
-
+import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts/ngx';
 
 
 export function jwtOptionsFactory(storage) {
@@ -35,7 +35,7 @@ export function jwtOptionsFactory(storage) {
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, 
+  imports: [BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
@@ -57,12 +57,13 @@ export function jwtOptionsFactory(storage) {
       StatusBar,
       SplashScreen,
       SearchPipe,
+      LocalNotifications,
+      Contacts,
       { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
       { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
-      LocalNotifications
+
     ],
-    
+
     bootstrap: [AppComponent]
   })
   export class AppModule {}
-  
