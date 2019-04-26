@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap, map ,retryWhen, retry, timeout} from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -9,20 +10,28 @@ const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
 // const apiUrl = ' http://webapi.contentshare.biz/api/v1';
-const apiUrl = ' http://csapi.soltystudio.com/api/v1';
+// const apiUrl = ' http://csapi.soltystudio.com/api/v1';
+
+
 @Injectable({
   providedIn: 'root'
 })
 
 export class RestApiService {
   
-   
+  apiUrl=' http://csapi.soltystudio.com/api/v1';
   constructor(private http: HttpClient) { }
   
- 
+ setSolty(){
+   this.apiUrl=' http://csapi.soltystudio.com/api/v1';
+ }
+ setBiz(){
+  this.apiUrl=' http://webapi.contentshare.biz/api/v1'
+  console.log(this.apiUrl);
+ }
   getProfile(): Observable <any>{
 
-    return this.http.get(apiUrl+'/Account/MyContactInfo').pipe(
+    return this.http.get(this.apiUrl+'/Account/MyContactInfo').pipe(
       timeout(5000),
       retry(2),
       catchError(this.handleError)
@@ -31,7 +40,7 @@ export class RestApiService {
 
 
   updateProfile(data): Observable<any> {
-    const url = `${apiUrl}/Account/MyContactInfo`;
+    const url = `${this.apiUrl}/Account/MyContactInfo`;
     return this.http.put(url, data, httpOptions)
       .pipe(
         catchError(this.handleError)
@@ -40,7 +49,7 @@ export class RestApiService {
 
   getCompanies() :Observable <any>{
 
-    return this.http.get(apiUrl+'/Companies/Get').pipe(
+    return this.http.get(this.apiUrl+'/Companies/Get').pipe(
       timeout(5000),
       retry(2),
       catchError(this.handleError)
@@ -55,7 +64,7 @@ export class RestApiService {
     )}
 
   getCompanyById(id:number) :Observable <any>{
-    const url = `${apiUrl}/Companies/${id}`;
+    const url = `${this.apiUrl}/Companies/${id}`;
     return this.http.get(url).pipe(
       timeout(5000),
       retry(2),
@@ -66,7 +75,7 @@ export class RestApiService {
  
 
   getNotes(id: string): Observable<any> {
-    const url = `${apiUrl}/Notes?EntityId=${id}&EntityType=Company`;
+    const url = `${this.apiUrl}/Notes?EntityId=${id}&EntityType=Company`;
     return this.http.get(url, httpOptions)
   }
 
@@ -74,7 +83,7 @@ export class RestApiService {
 
 
   addCompany(data): Observable<any> {
-    const url = `${apiUrl}/Companies`;
+    const url = `${this.apiUrl}/Companies`;
     return this.http.post(url, data, httpOptions)
       .pipe(
         catchError(this.handleError)
@@ -84,11 +93,11 @@ export class RestApiService {
 
   getCategories(): Observable <any>{
 
-    return this.http.get(apiUrl+'/Companies/Categories')
+    return this.http.get(this.apiUrl+'/Companies/Categories')
   }
 
   updateCompany(data): Observable<any> {
-    const url = `${apiUrl}/Companies`;
+    const url = `${this.apiUrl}/Companies`;
     return this.http.put(url, data, httpOptions)
       .pipe(
         catchError(this.handleError)
@@ -96,23 +105,26 @@ export class RestApiService {
   }
 
   addNote(data): Observable<any> {
-    const url = `${apiUrl}/Notes`;
+    const url = `${this.apiUrl}/Notes`;
     return this.http.post(url, data, httpOptions)
       .pipe(
         catchError(this.handleError)
       ); 
   }
-
+getUrl(){
+  console.log(this.apiUrl);
+  return this.apiUrl;
+}
   getTasks(): Observable <any>{
 
-    return this.http.get(apiUrl+'/Tasks?Take=54');
+    return this.http.get(this.apiUrl+'/Tasks?Take=54');
 
     
   }
 
 
   resetPassword(data): Observable<any> {
-    const url = `${apiUrl}/Account/RequestResetPassword`;
+    const url = `${this.apiUrl}/Account/RequestResetPassword`;
     return this.http.post(url, data, httpOptions)
       .pipe(
         catchError(this.handleError)
@@ -129,24 +141,24 @@ export class RestApiService {
 
   
   getItems(): Observable <any>{
-    return this.http.get(apiUrl);
+    return this.http.get(this.apiUrl);
   }
 
   getItemById(id: string): Observable<any> {
-    const url = `${apiUrl}/${id}`;
+    const url = `${this.apiUrl}/${id}`;
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData))
   }
 
   deleteItem(id:string): Observable<{}>{
-    const url = `${apiUrl}/${id}`;
+    const url = `${this.apiUrl}/${id}`;
     return this.http.delete(url,httpOptions).pipe(
       catchError(this.handleError)
     );
   }
   
   addItem(data): Observable<any> {
-    const url = `${apiUrl}`;
+    const url = `${this.apiUrl}`;
     return this.http.post(url, data, httpOptions)
       .pipe(
         catchError(this.handleError)
@@ -154,7 +166,7 @@ export class RestApiService {
   }
 
   deleteNote(id:number): Observable<{}>{
-    const url = `${apiUrl}/Notes/${id}`;
+    const url = `${this.apiUrl}/Notes/${id}`;
     return this.http.delete(url,httpOptions).pipe(
       catchError(this.handleError)
     );

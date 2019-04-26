@@ -4,7 +4,7 @@ import { AlertController, NavParams} from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RestApiService } from '../../rest-api.service';
-import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import {Directive, ElementRef, Input} from '@angular/core';
 
 import { ReactiveFormsModule } from '@angular/forms';
@@ -44,7 +44,7 @@ export class EditCompanyModalPage implements OnInit {
       
       this.companyForm = this.formBuilder.group({
         'id':[null],
-        'name' : [null],
+        'name' : [null,[Validators.required, Validators.min(1)]],
         'code':[null],
         'website': [null],
         'taxNumber':[null],
@@ -146,6 +146,7 @@ export class EditCompanyModalPage implements OnInit {
     
     
     async updateCompany(){
+      if (this.companyForm.valid){
       await this.api.updateCompany( this.companyForm.value)
       .subscribe(res => {
         
@@ -156,6 +157,9 @@ export class EditCompanyModalPage implements OnInit {
       }, (err) => {
         console.log(err);
       });
+    }else{
+      this.errorAlert();
+    }
     }
     
     
@@ -188,6 +192,25 @@ export class EditCompanyModalPage implements OnInit {
         console.log('Async operation has ended');
         event.target.complete();
       }, 2000);
+    }
+
+    async errorAlert() {
+      
+      const alert = await this.alertCtrl.create({
+        header: 'ERROR',
+        message: 'The name field can not be empty',
+        buttons: [
+          {
+            text: 'Ok',
+            cssClass: 'secondary',
+            handler: (blah) => {
+              console.log('Confirm Cancel: blah');
+            }
+          }
+        ]
+      });
+      
+      await alert.present();
     }
   }
   

@@ -3,6 +3,8 @@ import { AlertController} from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import { environment } from 'src/environments/environment';
+import { RestApiService } from '../rest-api.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,14 @@ import { AuthService } from '../services/auth.service';
 export class LoginPage implements OnInit {
   credentialsForm: FormGroup;
   
-  constructor( private alertCtrl: AlertController, public navCtrl: NavController,private formBuilder: FormBuilder, private authService: AuthService ){ }
+  constructor(public api: RestApiService,
+  private alertCtrl: AlertController,
+  public navCtrl: NavController,
+  private formBuilder: FormBuilder,
+  private authService: AuthService 
+  ){
+
+   }
   
   @ViewChild('myNav') nav: NavController
   async presentAlert() {
@@ -44,6 +53,14 @@ export class LoginPage implements OnInit {
 
   onSubmit() {
     this.authService.login(this.credentialsForm.value).subscribe();
+  }
+
+  soltyStudio(){
+    this.api.setSolty();
+  }
+  csBiz(){
+    this.api.setBiz();
+    
   }
   
 }

@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage';
 import { environment } from '../../environments/environment';
 import { tap, catchError } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
+import { RestApiService } from '../rest-api.service';
  
 const TOKEN_KEY = 'accessToken';
  
@@ -14,11 +15,11 @@ const TOKEN_KEY = 'accessToken';
 })
 export class AuthService {
  
-  url = environment.url;
+  url ;
   user = null;
   authenticationState = new BehaviorSubject(false);
  
-  constructor(private http: HttpClient, private helper: JwtHelperService, private storage: Storage,
+  constructor(private http: HttpClient, private helper: JwtHelperService, public api: RestApiService, private storage: Storage,
     private plt: Platform, private alertController: AlertController) {
     this.plt.ready().then(() => {
       this.checkToken();
@@ -44,6 +45,7 @@ export class AuthService {
 
  
   login(credentials) {
+   this.url=this.api.getUrl();
     return this.http.post(`${this.url}/Account/Login`, credentials)
       .pipe(
         tap(res => {
@@ -52,7 +54,7 @@ export class AuthService {
           this.authenticationState.next(true);
         }),
         catchError(e => {
-          // this.showAlert(e.error.msg);
+          this.showAlert(e.error.msg);
           throw new Error(e);
         })
      );

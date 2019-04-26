@@ -3,7 +3,7 @@ import { IonSegment, ModalController } from '@ionic/angular';
 import { AlertController, NavParams} from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { RestApiService } from '../../rest-api.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -28,7 +28,7 @@ export class AddCompanyModalPage implements OnInit {
       this.companyTab='info';
       
       this.company = this.formBuilder.group({
-        'name' : [null],
+        'name' : [null,[Validators.required, Validators.min(1)]],
         'code':[null],
         'website': [null],
         'taxNumber':[null],
@@ -52,60 +52,84 @@ export class AddCompanyModalPage implements OnInit {
         'telephone': [null],
         'email': [null],
         'categories': [null],
- 
-    }); 
-  }
-  
-  ngOnInit() {
-    this.getCategories();
-  }
-  
-  compareWithFn = (o1, o2) => {
-    return o1 && o2 ? o1.id === o2.id : o1 === o2;
-  };
-  
-  compareWith = this.compareWithFn;
-  
-  async getCategories(){
-    this.categoriesList=this.api.getCategories();
-  }
-  
-  async addCompany(){
-    await this.api.addCompany(this.company.value)
-    .subscribe(res => {
-      this.closeModal();
-      this.createCompanyAlert();
-    }, (err) => {
-      console.log(err);
-    });
-  }
-  
-  
-  async closeModal() {
-    const onClosedData: string = "Wrapped Up!";
-    await this.modalController.dismiss(onClosedData);
-  }
-  
-  async createCompanyAlert() {
+        
+      }); 
+    }
     
-    const alert = await this.alertCtrl.create({
-      header: 'Add',
-      message: 'Company successfully created',
-      buttons: [
-        {
-          text: 'Ok',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
+    ngOnInit() {
+      this.getCategories();
+    }
+    
+    compareWithFn = (o1, o2) => {
+      return o1 && o2 ? o1.id === o2.id : o1 === o2;
+    };
+    
+    compareWith = this.compareWithFn;
+    
+    async getCategories(){
+      this.categoriesList=this.api.getCategories();
+    }
+    
+    async addCompany(){
+      if (this.company.valid){
+        await this.api.addCompany(this.company.value)
+        .subscribe(res => {
+          this.closeModal();
+          this.createCompanyAlert();
+        }, (err) => {
+          console.log(err);
+        });
+      }else{
+        this.errorAlert();
+      }
+    }
+    
+    
+    async closeModal() {
+      const onClosedData: string = "Wrapped Up!";
+      await this.modalController.dismiss(onClosedData);
+    }
+    
+    async createCompanyAlert() {
+      
+      const alert = await this.alertCtrl.create({
+        header: 'Add',
+        message: 'Company successfully created',
+        buttons: [
+          {
+            text: 'Ok',
+            cssClass: 'secondary',
+            handler: (blah) => {
+              console.log('Confirm Cancel: blah');
+            }
           }
-        }
-      ]
-    });
+        ]
+      });
+      
+      await alert.present();
+    }
     
-    await alert.present();
+    async errorAlert() {
+      
+      const alert = await this.alertCtrl.create({
+        header: 'ERROR',
+        message: 'The name field can not be empty',
+        buttons: [
+          {
+            text: 'Ok',
+            cssClass: 'secondary',
+            handler: (blah) => {
+              console.log('Confirm Cancel: blah');
+            }
+          }
+        ]
+      });
+      
+      await alert.present();
+    }
   }
-}
-
-
-
-
+  
+  
+  
+  
+  

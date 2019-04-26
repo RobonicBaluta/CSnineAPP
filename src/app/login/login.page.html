@@ -15,14 +15,30 @@
             <ion-label>Password</ion-label>
             <ion-input required type="password" placeholder="Password" class="ion-padding" formControlName="password"> </ion-input>
         </ion-item>
-        
         <ion-row class="ion-margin-top">
-            <ion-select required placeholder="Select a server">
-                <ion-select-option>Server 1</ion-select-option>
-                <ion-select-option>Server 2</ion-select-option>
-                <ion-select-option>Server 3</ion-select-option>
-                <ion-select-option>Server 4</ion-select-option>
-            </ion-select>
+
+                <ion-radio-group>
+                        <ion-list-header>
+                          <ion-label>Server</ion-label>
+                        </ion-list-header>
+                    
+                        <ion-item>
+                          <ion-label>CS SoltyStudio</ion-label>
+                          <ion-radio slot="start" (ionSelect)="soltyStudio()" value="biff" checked></ion-radio>
+                        </ion-item>
+                    
+                        <ion-item>
+                          <ion-label>Biz</ion-label>
+                          <ion-radio slot="start" (ionSelect)="csBiz()" value="griff"></ion-radio>
+                        </ion-item>
+                    
+
+                      </ion-radio-group>
+            <!-- <ion-select required placeholder="Select a server" >
+                <ion-select-option (ionChange)="soltyStudio()">Solty Studio</ion-select-option>
+                <ion-select-option (ionChange)="csBiz()">CS biz</ion-select-option>
+
+            </ion-select> -->
         </ion-row>
         
         <ion-row class="ion-padding">

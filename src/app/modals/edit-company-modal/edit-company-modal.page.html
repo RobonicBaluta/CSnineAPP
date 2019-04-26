@@ -38,7 +38,7 @@
         
         <ion-item class="ion-margin-top">
           <ion-label><strong>Name: </strong></ion-label>
-          <ion-input  type='Text'  placeholder='Company Name' value='{{company?.name}}' formControlName='name'></ion-input>
+          <ion-input  type='Text'  placeholder='Company Name' value='{{company?.name}}' formControlName='name' required></ion-input>
         </ion-item>
         
         <ion-item class="ion-margin-top">
@@ -82,7 +82,7 @@
         <div formGroupName='country' >
           <ion-item class="ion-margin-top">
             <ion-label><strong>Country: </strong></ion-label>
-            <ion-input  type='Text'  placeholder='Country' formControlName='name' value='{{company?.address?.country?.name}}'></ion-input>
+            <ion-input  type='Text'  placeholder='Country' formControlName='name' value='{{company?.address.country.name}}'></ion-input>
           </ion-item>
         </div>
         
