@@ -1,5 +1,6 @@
 import { LayoutService } from './../layout.service';
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-settings',
@@ -26,7 +27,13 @@ async pruebaFondo(){
   this.themeSwitcher.setTheme('night');
 }
 
+
   ngOnInit() {
+  }
+
+
+  logout() {
+    this.authService.logout();
   }
 
 }

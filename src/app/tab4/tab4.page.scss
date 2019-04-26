@@ -1,16 +1,16 @@
-ion-content {
-    --overflow: hidden;
-}
+//  ion-content {
+//    --overflow: hidden;
+// }
 
-ion-segment{
-    height: 44px;
-}
-ion-segment-button{
-    font-size: 16px;
-    color: var(--ion-color-medium);
-    border: 0px;
-    border-radius: 0px;
-}
+// // ion-segment{
+// //     height: 44px;
+// // }
+//  ion-segment-button{
+// //     font-size: 16px;
+// //     color: var(--ion-color-medium);
+// //     border: 0px;
+// //     border-radius: 0px;
+//  }
 .segment-button-checked{
     background: var(--ion-color-light);
     color: var(--ion-color-primary);
@@ -23,4 +23,12 @@ ion-segment-button{
     margin-top: 8px;
     width: 40px;
     height: 40px;
+}
+#importAll{
+    margin-top:5px;
+    margin-bottom:8px;
+}
+.contactAvatar{
+    width: 35px;
+    height: 30px;;
 }

@@ -1,5 +1,7 @@
 {
   "name": "CS9Mobile",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
