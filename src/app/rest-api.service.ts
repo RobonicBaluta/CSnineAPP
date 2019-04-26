@@ -27,7 +27,7 @@ export class RestApiService {
  }
  setBiz(){
   this.apiUrl=' http://webapi.contentshare.biz/api/v1'
-  console.log(this.apiUrl);
+  // console.log(this.apiUrl);
  }
   getProfile(): Observable <any>{
 
