@@ -16,26 +16,27 @@ import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/cont
 export class Tab4Page implements OnInit {
 
     @ViewChild (IonSegment) segment:IonSegment;
-    allContacts:any;
+    mobileContacts:any;
+    csContacts:Observable<any>;
     items:any;
-    results: Observable<any>;
+    contactTab: string;
     constructor(public api: RestApiService, private contacts: Contacts,
         private alertController: AlertController , public router: Router,) {
             this.getContacts();
+            this.getApiContacts();
         }
         ngOnInit() {
-            this.getItems();
-            this.segment.value='cs';
+            this.getApiContacts();
+            this.contactTab = 'cs';
         }
-  
-        async getItems() {
-            this.results=this.api.getCompanies();
+        async getApiContacts() {
+            this.csContacts=this.api.getContacts();
         }
 
         async getContacts() {
             this.contacts.find(['displayName', 'name', 'phoneNumbers', 'emails'], {filter: "", multiple: true})
             .then(data => {
-                this.allContacts = data
+                this.mobileContacts = data
             });
         }
 
