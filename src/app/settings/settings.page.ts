@@ -12,7 +12,7 @@ export class SettingsPage implements OnInit {
   booleanFlag2: boolean = false;
   value: any;
 
-  constructor( public themeSwitcher: LayoutService ) { }
+  constructor( public themeSwitcher: LayoutService, public authService: AuthService ) { }
 
   myChange(booleanFlag2) {
     console.log(this.booleanFlag2);
