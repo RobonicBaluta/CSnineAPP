@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonSegment, AlertController } from '@ionic/angular';
-import {Location} from '@angular/common';
-import {Observable} from 'rxjs'; 
+import { Location } from '@angular/common';
+import { Observable } from 'rxjs'; 
 import { RestApiService } from '../rest-api.service';
 import { ModalController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -20,12 +20,12 @@ export class Tab3Page {
   items:any;
   companies: Observable<any>;
   companyId: number;
-  constructor(public api: RestApiService, 
+  constructor(public api: RestApiService,
     public modalController: ModalController,
     public router: Router, private alertController: AlertController) {
-  
+
     }
-    
+
     ngOnInit() {
       this.getCompanies();
     }
@@ -53,23 +53,23 @@ export class Tab3Page {
       console.log(this.companyId);
       this.addTaskModal();
     }
-    
-    
-  
+
+
+
     async editModal() {
       const modal = await this.modalController.create({
         component: EditCompanyModalPage,
         cssClass: 'addCompanyCustom',
         componentProps:{
           companyId: this.companyId,
-        
+
         }
       });
       modal.onDidDismiss().then((dataReturned) => {
         if (dataReturned !== null) {
           console.log('Modal Sent Data :', dataReturned);
         }
-      });     
+      });
       return await modal.present();
     }
 
@@ -80,7 +80,7 @@ export class Tab3Page {
         cssClass: 'note-custom-modal',
         componentProps:{
           companyId: this.companyId,
-        
+
         }
       });
       modal.onDidDismiss().then((dataReturned) => {
@@ -88,7 +88,7 @@ export class Tab3Page {
           console.log('Modal Sent Data :', dataReturned);
         }
       });
-      
+
       return await modal.present();
     }
     async  addCompanyModal() {
@@ -101,7 +101,7 @@ export class Tab3Page {
           console.log('Modal Sent Data :', dataReturned);
         }
       });
-      
+
       return await modal.present();
     }
 
@@ -113,7 +113,7 @@ export class Tab3Page {
         cssClass: 'addCompanyCustom',
         componentProps:{
           companyId: this.companyId,
-        
+
         }
       });
       modal.onDidDismiss().then((dataReturned) => {
@@ -121,20 +121,17 @@ export class Tab3Page {
           console.log('Modal Sent Data :', dataReturned);
         }
       });
-      
+
       return await modal.present();
     }
    doRefresh(event) {
       this.getCompanies();
       console.log('Begin async operation');
-      
+
       setTimeout(() => {
         console.log('Async operation has ended');
         event.target.complete();
       }, 2000);
     }
-  
+
 }
-
-
-

@@ -18,9 +18,10 @@ import { Storage, IonicStorageModule } from '@ionic/storage';
 import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { InterceptorService } from './services/interceptor.service';
 import { AddTaskModalPageModule } from './modals/add-task-modal/add-task-modal.module';
-
 import { EditCompanyModalPageModule } from './modals/edit-company-modal/edit-company-modal.module';
 import { SearchPipe } from './search.pipe'
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts/ngx';
 
 
 export function jwtOptionsFactory(storage) {
@@ -34,8 +35,8 @@ export function jwtOptionsFactory(storage) {
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, 
-    IonicModule.forRoot(), 
+  imports: [BrowserModule,
+    IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
     NoteModalPageModule,
@@ -56,11 +57,13 @@ export function jwtOptionsFactory(storage) {
       StatusBar,
       SplashScreen,
       SearchPipe,
+      LocalNotifications,
+      Contacts,
       { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
       { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
+
     ],
-    
+
     bootstrap: [AppComponent]
   })
   export class AppModule {}
-  
