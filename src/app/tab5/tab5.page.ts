@@ -4,7 +4,7 @@ import { RestApiService } from '../rest-api.service';
 import { Profile } from 'selenium-webdriver/firefox';
 import { FormGroup, FormBuilder,ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AlertController, Events } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab5',
@@ -21,8 +21,7 @@ export class Tab5Page implements OnInit {
     public api: RestApiService,
     public router: Router,
     private formBuilder: FormBuilder,
-    public alertController: AlertController,
-    private events:Events) { 
+    public alertController: AlertController) { 
 
 
     this.profileForm = this.formBuilder.group({
@@ -48,7 +47,6 @@ export class Tab5Page implements OnInit {
     await this.api.updateProfile(this.profileForm.value).subscribe();
  
        this.presentAlert();
-       this.doRefresh(this.events);
        // window.location.reload();
         //this.router.navigate(['/home']);
 
@@ -77,15 +75,5 @@ console.log(this.info)});
 
     await alert.present();
   }
-  doRefresh(event) {
-    this.getProfile();
-    console.log('Begin async operation');
-    
-    setTimeout(() => {
-      console.log('Async operation has ended');
-      event.target.complete();
-    }, 2000);
-  }
-  
 
 }

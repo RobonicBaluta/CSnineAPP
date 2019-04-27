@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap, map ,retryWhen, retry, timeout} from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
 
 
 
@@ -10,9 +9,7 @@ const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
 // const apiUrl = ' http://webapi.contentshare.biz/api/v1';
-// const apiUrl = ' http://csapi.soltystudio.com/api/v1';
-
-
+const apiUrl = ' http://csapi.soltystudio.com/api/v1';
 @Injectable({
   providedIn: 'root'
 })
@@ -181,6 +178,7 @@ getUrl(){
       console.error(
         `Backend returned code ${error.status}, ` +
         `body was: ${error.error}`);
+
     }
     // return an observable with a user-facing error message
     // window.alert(error.error.message);
