@@ -62,8 +62,11 @@
               <ion-label><strong>Category: </strong></ion-label>
             <ion-select [compareWith]="compareWith" placeholder="Categories" 
             multiple="true" formControlName="categories"> 
-     
-            <ion-select-option *ngFor="let category of categoriesList|async;" [value]="category">{{category.name}}</ion-select-option>
+     <!-- if (company.categories[i].name=category.name){
+
+     }
+     *ngIf="{{company?.categories[i].name}}={{category.name}}; then ;" -->
+            <ion-select-option *ngFor="let category of categoriesList|async;" [value]="category" >{{category.name}}</ion-select-option>
           </ion-select>
         </ion-item>
       </div>
