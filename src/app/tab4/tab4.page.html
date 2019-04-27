@@ -1,108 +1,74 @@
 <ion-header>
+    
 
-
-    <ion-toolbar>
-
-        <ion-title>
-            Contacts
-
-        </ion-title>
-
-    </ion-toolbar>
-
+  <ion-toolbar>
+    
+    <ion-title>
+      Contacts
+    
+    </ion-title>
+    
+  </ion-toolbar>
+ 
 </ion-header>
 
 <ion-content>
-    <ion-row>
-        <ion-searchbar  class="search" side='start'></ion-searchbar>
-        <ion-icon  side='end' class="searchLogo" src="assets/logo.svg"></ion-icon>
-    </ion-row>
+  <ion-row>
+    <ion-searchbar  class="search" side='start'></ion-searchbar> 
+    <ion-icon  side='end' class="searchLogo" src="assets/logo.svg"></ion-icon>
+  </ion-row>
 
+  
+  <!-- Default Segment -->
+  <ion-row>
+  <ion-segment  size='start'>
+    <ion-segment-button value="cs">
+      <ion-label>CS Contacts</ion-label>
+      <ion-icon src="assets/logo.svg"></ion-icon>
+    </ion-segment-button>
 
-    <!-- Default Segment -->
-    <ion-row>
-        <ion-segment [(ngModel)]="contactTab" size='start'>
-            <ion-segment-button value="cs">
-                <ion-label>CS Contacts</ion-label>
-                <ion-icon src="assets/logo.svg"></ion-icon>
-            </ion-segment-button>
+    <ion-segment-button value="mobile">
+      <ion-label>Mobile Contacts</ion-label>
+      <ion-icon name="phone-portrait"></ion-icon>
+    </ion-segment-button>
+  </ion-segment>
+  
+</ion-row>
+  <ion-list>
+    <ion-item-sliding *ngFor="let item of (results|async)" >
+      
+      <ion-item>
+          <ion-avatar size='end' class="contactAvatar">   
+              <img src="https://www.w3schools.com/howto/img_avatar.png">
+           </ion-avatar>
+           <ion-title mode='md'>
+        {{item.name}}
+      </ion-title>
+      </ion-item>
+ 
+      <ion-item-options side="end" >
+        
+          <ion-button ion-button color="primary" (click)="importAlert()" class='sliderButtons'>
+            <ion-icon name="git-compare"></ion-icon>
+           
+          </ion-button>
+          
+     
+        
+        <!-- <ion-button color="primary" [routerLink]="['/','detail',item.id]"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
+          <ion-button  color="danger" (click)="delete(item.id)"><ion-icon name="time"></ion-icon></ion-button> -->
+        </ion-item-options> 
+      </ion-item-sliding>
+      
+    </ion-list>
+    
+ 
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="importAllAlert()">
+      <ion-icon name="git-compare"  ></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
-            <ion-segment-button value="mobile">
-                <ion-label>Mobile Contacts</ion-label>
-                <ion-icon name="phone-portrait"></ion-icon>
-            </ion-segment-button>
-        </ion-segment>
-
-    </ion-row>
-    <div [ngSwitch]="contactTab">
-        <div *ngSwitchCase="'cs'" >
-            <ion-list>
-                <ion-virtual-scroll [items]="csContacts |async : comps">
-                    <ion-item-sliding *virtualItem="let contact">
-
-                        <ion-item>
-                            <ion-avatar size='end' class="contactAvatar">
-                                <img src="https://www.w3schools.com/howto/img_avatar.png">
-                            </ion-avatar>
-                            <ion-title mode='md'>
-                                {{ contact.firstName }}
-                            </ion-title>
-                        </ion-item>
-
-                        <ion-item-options side="end" >
-
-                            <ion-button ion-button color="primary" (click)="importAlert()" class='sliderButtons'>
-                                <ion-icon name="git-compare"></ion-icon>
-
-                            </ion-button>
-                        </ion-item-options>
-                    </ion-item-sliding>
-                </ion-virtual-scroll>
-
-
-
-                <!-- <ion-button color="primary" [routerLink]="['/','detail',item.id]"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
-                <ion-button  color="danger" (click)="delete(item.id)"><ion-icon name="time"></ion-icon></ion-button> -->
-
-
-            </ion-list>
-        </div>
-        <div *ngSwitchCase="'mobile'" >
-            <ion-list>
-                <ion-item-sliding *ngFor="let contact of mobileContacts" >
-
-                    <ion-item>
-                        <ion-avatar size='end' class="contactAvatar">
-                            <img src="https://www.w3schools.com/howto/img_avatar.png">
-                        </ion-avatar>
-                        <ion-title mode='md'>
-                            {{ contact.displayName }}
-                        </ion-title>
-                    </ion-item>
-
-                    <ion-item-options side="end" >
-
-                        <ion-button ion-button color="primary" (click)="importAlert()" class='sliderButtons'>
-                            <ion-icon name="git-compare"></ion-icon>
-
-                        </ion-button>
-
-
-
-                        <!-- <ion-button color="primary" [routerLink]="['/','detail',item.id]"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
-                        <ion-button  color="danger" (click)="delete(item.id)"><ion-icon name="time"></ion-icon></ion-button> -->
-                    </ion-item-options>
-                </ion-item-sliding>
-
-            </ion-list>
-        </div>
-    </div>
-
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button (click)="importAllAlert()">
-            <ion-icon name="git-compare"  ></ion-icon>
-        </ion-fab-button>
-    </ion-fab>
-
-
-</ion-content>
+  
+  </ion-content>
+  
