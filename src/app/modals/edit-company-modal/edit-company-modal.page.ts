@@ -4,7 +4,7 @@ import { AlertController, NavParams} from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RestApiService } from '../../rest-api.service';
-import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import {Directive, ElementRef, Input} from '@angular/core';
 
 import { ReactiveFormsModule } from '@angular/forms';
@@ -20,21 +20,31 @@ export class EditCompanyModalPage implements OnInit {
   notes: Observable <any>;
   companyForm: FormGroup;
   companyId: null;
-  companyTab: string;
+ 
   regionName: any;
+  categoriesList: Observable<any>;
+
+  info:boolean=true;
+  location:boolean=false;
+  contact:boolean=false;
+  noteList:boolean=false;
+
+  
   constructor(private modalController: ModalController
     ,private alertCtrl: AlertController, 
     public router: Router, 
     public navCtrl: NavController, 
     private formBuilder: FormBuilder, 
     public alertController: AlertController,
-    public api: RestApiService, private navParams:NavParams,private events:Events) {
+    public api: RestApiService,
+    private navParams:NavParams,
+    private events:Events) {
       
-      this.companyTab='info';
+      // this.companyTab='info';
       
       this.companyForm = this.formBuilder.group({
         'id':[null],
-        'name' : [null],
+        'name' : [null,[Validators.required, Validators.min(1)]],
         'code':[null],
         'website': [null],
         'taxNumber':[null],
@@ -57,12 +67,7 @@ export class EditCompanyModalPage implements OnInit {
         }),
         'telephone': [null],
         'email': [null],
-        // 'categories':  this.formBuilder.array([
-        //   this.formBuilder.group({
-        //     'name':['']
-        //   })
-        // ]),
-        
+        'categories': [null],
         
         
       });
@@ -72,8 +77,35 @@ export class EditCompanyModalPage implements OnInit {
       
       this.getCompanyInfo();
       this.getCompanyNotes();
+      this.getCategories();
+      this.showInfo();
     }
     
+    showInfo(){
+      this.info=true;
+      this.location=false;
+      this.contact=false;
+      this.noteList=false;
+    }
+    showLocation(){
+      this.info=false;
+      this.location=true;
+      this.contact=false;
+      this.noteList=false;
+    }
+
+    showContact(){
+      this.info=false;
+      this.location=false;
+      this.contact=true;
+      this.noteList=false;
+    }
+    showNotes(){
+      this.info=false;
+      this.location=false;
+      this.contact=false;
+      this.noteList=true;
+    }
     // @Input() set showWhen(value) {
     //     this.ref.nativeElement.hidden = !value;
     //   }
@@ -91,6 +123,9 @@ export class EditCompanyModalPage implements OnInit {
       })
     }
     
+    async getCategories(){
+      this.categoriesList=this.api.getCategories();
+    }
     
     async getCompanyNotes(){
       this.companyId=this.navParams.get('companyId');
@@ -111,6 +146,7 @@ export class EditCompanyModalPage implements OnInit {
     
     
     async updateCompany(){
+      if (this.companyForm.valid){
       await this.api.updateCompany( this.companyForm.value)
       .subscribe(res => {
         
@@ -121,6 +157,9 @@ export class EditCompanyModalPage implements OnInit {
       }, (err) => {
         console.log(err);
       });
+    }else{
+      this.errorAlert();
+    }
     }
     
     
@@ -153,6 +192,25 @@ export class EditCompanyModalPage implements OnInit {
         console.log('Async operation has ended');
         event.target.complete();
       }, 2000);
+    }
+
+    async errorAlert() {
+      
+      const alert = await this.alertCtrl.create({
+        header: 'ERROR',
+        message: 'The name field can not be empty',
+        buttons: [
+          {
+            text: 'Ok',
+            cssClass: 'secondary',
+            handler: (blah) => {
+              console.log('Confirm Cancel: blah');
+            }
+          }
+        ]
+      });
+      
+      await alert.present();
     }
   }
   
