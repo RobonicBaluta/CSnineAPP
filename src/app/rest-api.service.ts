@@ -18,60 +18,41 @@ const httpOptions = {
 })
 
 export class RestApiService {
-  
-  apiUrl=' http://csapi.soltystudio.com/api/v1';
-  constructor(private http: HttpClient) { }
-  
- setSolty(){
-   this.apiUrl=' http://csapi.soltystudio.com/api/v1';
- }
- setBiz(){
-  this.apiUrl=' http://webapi.contentshare.biz/api/v1'
-  // console.log(this.apiUrl);
- }
-  getProfile(): Observable <any>{
 
-    return this.http.get(this.apiUrl+'/Account/MyContactInfo').pipe(
-      timeout(5000),
-      retry(2),
-      catchError(this.handleError)
-    );
-  }
-
+    apiUrl=' http://csapi.soltystudio.com/api/v1';
     constructor(private http: HttpClient) { }
 
-  updateProfile(data): Observable<any> {
-    const url = `${this.apiUrl}/Account/MyContactInfo`;
-    return this.http.put(url, data, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );  
-  }
-
+    setSolty(){
+        this.apiUrl=' http://csapi.soltystudio.com/api/v1';
+    }
+    setBiz(){
+        this.apiUrl=' http://webapi.contentshare.biz/api/v1'
+        // console.log(this.apiUrl);
+    }
     getProfile(): Observable <any>{
 
-    return this.http.get(this.apiUrl+'/Companies/Get').pipe(
-      timeout(5000),
-      retry(2),
-      catchError(this.handleError)
-    
+        return this.http.get(this.apiUrl+'/Account/MyContactInfo').pipe(
+            timeout(5000),
+            retry(2),
+            catchError(this.handleError)
+        );
+    }
 
 
-  getCompanyById(id:number) :Observable <any>{
-    const url = `${this.apiUrl}/Companies/${id}`;
-    return this.http.get(url).pipe(
-      timeout(5000),
-      retry(2),
-      catchError(this.handleError)
-    );
-  }
+    updateProfile(data): Observable<any> {
+        const url = `${this.apiUrl}/Account/MyContactInfo`;
+        return this.http.put(url, data, httpOptions)
+        .pipe(
+            catchError(this.handleError)
+        );
+    }
 
     getCompanies() :Observable <any>{
 
-  getNotes(id: string): Observable<any> {
-    const url = `${this.apiUrl}/Notes?EntityId=${id}&EntityType=Company`;
-    return this.http.get(url, httpOptions)
-  }
+        return this.http.get(this.apiUrl+'/Companies/Get').pipe(
+            timeout(5000),
+            retry(2),
+            catchError(this.handleError)
 
 
             // tap(() => console.log(apiUrl)),
@@ -82,44 +63,27 @@ export class RestApiService {
             // })
         )}
 
-  addCompany(data): Observable<any> {
-    const url = `${this.apiUrl}/Companies`;
-    return this.http.post(url, data, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
-    
-  }
+        getCompanyById(id:number) :Observable <any>{
+            const url = `${this.apiUrl}/Companies/${id}`;
+            return this.http.get(url).pipe(
+                timeout(5000),
+                retry(2),
+                catchError(this.handleError)
+            );
+        }
 
 
-    return this.http.get(this.apiUrl+'/Companies/Categories')
-  }
 
-  updateCompany(data): Observable<any> {
-    const url = `${this.apiUrl}/Companies`;
-    return this.http.put(url, data, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
+        getNotes(id: string): Observable<any> {
+            const url = `${this.apiUrl}/Notes?EntityId=${id}&EntityType=Company`;
+            return this.http.get(url, httpOptions)
+        }
 
-  addNote(data): Observable<any> {
-    const url = `${this.apiUrl}/Notes`;
-    return this.http.post(url, data, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      ); 
-  }
-getUrl(){
-  console.log(this.apiUrl);
-  return this.apiUrl;
-}
-  getTasks(): Observable <any>{
 
-    return this.http.get(this.apiUrl+'/Tasks?Take=54');
+
 
         addCompany(data): Observable<any> {
-            const url = `${apiUrl}/Companies`;
+            const url = `${this.apiUrl}/Companies`;
             return this.http.post(url, data, httpOptions)
             .pipe(
                 catchError(this.handleError)
@@ -127,18 +91,13 @@ getUrl(){
 
         }
 
-  resetPassword(data): Observable<any> {
-    const url = `${this.apiUrl}/Account/RequestResetPassword`;
-    return this.http.post(url, data, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
+        getCategories(): Observable <any>{
 
-            return this.http.get(apiUrl+'/Companies/Categories')
+            return this.http.get(this.apiUrl+'/Companies/Categories')
         }
 
         updateCompany(data): Observable<any> {
-            const url = `${apiUrl}/Companies`;
+            const url = `${this.apiUrl}/Companies`;
             return this.http.put(url, data, httpOptions)
             .pipe(
                 catchError(this.handleError)
@@ -146,58 +105,96 @@ getUrl(){
         }
 
         addNote(data): Observable<any> {
-            const url = `${apiUrl}/Notes`;
+            const url = `${this.apiUrl}/Notes`;
             return this.http.post(url, data, httpOptions)
             .pipe(
                 catchError(this.handleError)
             );
         }
 
-  
-  getItems(): Observable <any>{
-    return this.http.get(this.apiUrl);
-  }
+        getUrl(){
+            console.log(this.apiUrl);
+            return this.apiUrl;
+        }
 
-  getItemById(id: string): Observable<any> {
-    const url = `${this.apiUrl}/${id}`;
-    return this.http.get(url, httpOptions).pipe(
-      map(this.extractData))
-  }
+        getTasks(): Observable <any>{
 
-  deleteItem(id:string): Observable<{}>{
-    const url = `${this.apiUrl}/${id}`;
-    return this.http.delete(url,httpOptions).pipe(
-      catchError(this.handleError)
-    );
-  }
-  
-  addItem(data): Observable<any> {
-    const url = `${this.apiUrl}`;
-    return this.http.post(url, data, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
+            return this.http.get(this.apiUrl+'/Tasks?Take=54');
 
-  deleteNote(id:number): Observable<{}>{
-    const url = `${this.apiUrl}/Notes/${id}`;
-    return this.http.delete(url,httpOptions).pipe(
-      catchError(this.handleError)
-    );
-  }
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error.message);
-    } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong,
-      console.error(
-        `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
-    }
-    // return an observable with a user-facing error message
-    // window.alert(error.error.message);
-    return throwError('Something bad happened; please try again later.');
-  }
-}
+
+        }
+
+        getContacts(): Observable <any>{
+
+            return this.http.get(this.apiUrl+'/Contacts/GetAllSimple').pipe(
+                timeout(5000),
+                retry(2),
+                catchError(this.handleError)
+            );
+        }
+
+
+        resetPassword(data): Observable<any> {
+            const url = `${this.apiUrl}/Account/RequestResetPassword`;
+            return this.http.post(url, data, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            );
+
+
+        }
+
+
+        private extractData(res: Response) {
+            let body = res;
+            return body || { };
+        }
+
+
+        getItems(): Observable <any>{
+            return this.http.get(this.apiUrl);
+        }
+
+        getItemById(id: string): Observable<any> {
+            const url = `${this.apiUrl}/${id}`;
+            return this.http.get(url, httpOptions).pipe(
+                map(this.extractData))
+            }
+
+            deleteItem(id:string): Observable<{}>{
+                const url = `${this.apiUrl}/${id}`;
+                return this.http.delete(url,httpOptions).pipe(
+                    catchError(this.handleError)
+                );
+            }
+
+            addItem(data): Observable<any> {
+                const url = `${this.apiUrl}`;
+                return this.http.post(url, data, httpOptions)
+                .pipe(
+                    catchError(this.handleError)
+                );
+            }
+
+            deleteNote(id:number): Observable<{}>{
+                const url = `${this.apiUrl}/Notes/${id}`;
+                return this.http.delete(url,httpOptions).pipe(
+                    catchError(this.handleError)
+                );
+            }
+            private handleError(error: HttpErrorResponse) {
+                if (error.error instanceof ErrorEvent) {
+                    // A client-side or network error occurred. Handle it accordingly.
+                    console.error('An error occurred:', error.error.message);
+                } else {
+                    // The backend returned an unsuccessful response code.
+                    // The response body may contain clues as to what went wrong,
+                    console.error(
+                        `Backend returned code ${error.status}, ` +
+                        `body was: ${error.error}`);
+                    }
+                    // return an observable with a user-facing error message
+                    // window.alert(error.error.message);
+                    return throwError('Something bad happened; please try again later.');
+                }
+            }
