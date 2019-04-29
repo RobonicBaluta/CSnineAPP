@@ -5,11 +5,11 @@
 </ion-header>
 
 <ion-content>
-  <ion-button routerLink="/tabs/tab5" fill="clear"><ion-icon name="arrow-back" color="dark"></ion-icon></ion-button>
+  <!--<ion-button routerLink="/tabs/tab5" fill="clear"><ion-icon name="arrow-back" color="dark"></ion-icon></ion-button>-->
   <ion-list>
     <ion-item>
        <ion-label>Nightmode</ion-label>
-       <ion-toggle [(ngModel)]="booleanFlag2" (ionChange)="myChange(booleanFlag2)" checked="booleanFlag2"></ion-toggle>
+       <ion-toggle id="nightmode" [(ngModel)]="booleanFlag2" (ionChange)="myChange(booleanFlag2)" checked="booleanFlag2"></ion-toggle>
     </ion-item>
     <ion-item expand="full" (click)="logout()">Logout</ion-item>
   </ion-list>

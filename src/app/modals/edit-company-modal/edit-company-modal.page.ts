@@ -127,6 +127,7 @@ export class EditCompanyModalPage implements OnInit {
     async updateAlert() {
       const alert = await this.alertController.create({
         header: 'Alert',
+        cssClass: 'alert',
         message: 'Changes succesfully saved',
         buttons: ['OK']
       });
@@ -135,6 +136,7 @@ export class EditCompanyModalPage implements OnInit {
     async deleteAlert() {
       const alert = await this.alertController.create({
         header: 'Alert',
+        cssClass: 'alert',
         message: 'Note successfully deleted',
         buttons: ['OK'],
       });

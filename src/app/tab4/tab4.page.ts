@@ -81,6 +81,7 @@ export class Tab4Page implements OnInit {
         async importAllAlert(){
             const alert = await this.alertController.create({
                 header: 'Confirm!',
+                cssClass: 'alert',
                 message: '<strong>Do you want to export ALL contacts?</strong>',
                 buttons: [
                     {
