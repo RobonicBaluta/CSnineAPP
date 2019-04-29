@@ -64,6 +64,15 @@ export class Tab2Page {
       // this.getItems();
       this.getTasks();
     }
+    doRefresh(event) {
+      this.getTasks();
+      console.log('Begin async operation');
+
+      setTimeout(() => {
+        console.log('Async operation has ended');
+        event.target.complete();
+      }, 2000);
+    }
   
   }
   

@@ -13,8 +13,14 @@
 </ion-header>
 
 <ion-content>
+        <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+                <ion-refresher-content
+                refreshingSpinner="circles"
+                refreshingText="Refreshing...">
+              </ion-refresher-content>
+            </ion-refresher>
     <ion-row>
-        <ion-searchbar  class="search" side='start'></ion-searchbar>
+        <ion-searchbar  class="search" side='start' [(ngModel)]="conts"></ion-searchbar>
         <ion-icon  side='end' class="searchLogo" src="assets/logo.svg"></ion-icon>
     </ion-row>
 
@@ -37,7 +43,7 @@
     <div [ngSwitch]="contactTab">
         <div *ngSwitchCase="'cs'" >
             <ion-list>
-                <ion-virtual-scroll [items]="csContacts |async : comps">
+                <ion-virtual-scroll [items]="csContacts |async|search: conts">
                     <ion-item-sliding *virtualItem="let contact">
 
                         <ion-item>

@@ -56,13 +56,13 @@ export function jwtOptionsFactory(storage) {
     providers: [
       StatusBar,
       SplashScreen,
-      SearchPipe,
       LocalNotifications,
       Contacts,
       { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
       { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
 
     ],
+    
 
     bootstrap: [AppComponent]
   })

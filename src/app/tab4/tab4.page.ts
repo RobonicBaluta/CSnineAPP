@@ -101,6 +101,16 @@ export class Tab4Page implements OnInit {
             await alert.present();
 
         }
+
+        doRefresh(event) {
+            this.getApiContacts();
+            console.log('Begin async operation');
+      
+            setTimeout(() => {
+              console.log('Async operation has ended');
+              event.target.complete();
+            }, 2000);
+          }
         // async openModal() {
         //   const modal = await this.modalController.create({
         //     component: AddModalPage,
