@@ -5,20 +5,19 @@
 // // ion-segment{
 // //     height: 44px;
 // // }
-//  ion-segment-button{
-// //     font-size: 16px;
-// //     color: var(--ion-color-medium);
-// //     border: 0px;
-// //     border-radius: 0px;
-//  }
+ion-segment-button{
+    font-size: 16px;
+    color: var(--ion-color-medium);
+    border: 0px;
+    border-radius: 0px;
+}
+
 .segment-button-checked{
-    background: var(--ion-color-light);
+    //background: var(--ion-color-light);
     color: var(--ion-color-primary);
     border-bottom: 3px solid var(--ion-color-primary);
 }
-.search{
-    width: 85%;
-}
+
 .searchLogo{
     margin-top: 8px;
     width: 40px;

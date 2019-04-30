@@ -34,6 +34,7 @@ export class ResetPasswordPage implements OnInit {
       
       const alert = await this.alertCtrl.create({
         header: 'Recover',
+        cssClass: 'alert',
         message: 'An email has been sent to you',
         buttons: [
           {
