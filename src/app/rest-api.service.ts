@@ -5,7 +5,6 @@ import { catchError, tap, map ,retryWhen, retry, timeout} from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 
-
 const httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
@@ -19,6 +18,7 @@ const httpOptions = {
 
 export class RestApiService {
 
+    status:boolean;
     apiUrl=' http://csapi.soltystudio.com/api/v1';
     constructor(private http: HttpClient) { }
 
@@ -201,4 +201,10 @@ export class RestApiService {
                     window.alert(error.error.message);
                     return throwError('Something bad happened; please try again later.');
                 }
+    setStatus(stat){
+        this.status=stat;
+    }            
+    getStatus(){
+        return this.status;
+    }
             }
