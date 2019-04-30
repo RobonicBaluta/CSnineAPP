@@ -31,7 +31,7 @@ export class LayoutService {
           { themeVariable: '--ion-color-light', value: '#f4f5f8'},
           { themeVariable: '--ion-color-dark', value: '#000000'},
           { themeVariable: '--ion-color-medium', value: '#989aa2'},
-          { themeVariable: '--ion-placeholder-color', value: '#000000'},
+          { themeVariable: '--ion-color-primary', value: '#15489E'},
           { themeVariable: '--ion-background-color', value: '#f4f5f8'}
         ]
       },
@@ -42,9 +42,7 @@ export class LayoutService {
           { themeVariable: '--ion-color-light', value: '#3f3f3f'},
           { themeVariable: '--ion-color-dark', value: '#FFFFFF'},
           { themeVariable: '--ion-color-medium', value: '#FFFFFF'},
-          { themeVariable: '$searchbar-background-color', value: '#ffffff'},
-          { themeVariable: '--ion-placeholder-color', value: '#FFFFFF'},
-          { themeVariable: '--ion-alert-background', value: '#FF0000'},
+          { themeVariable: '--ion-color-primary', value: '#F78022'},
           { themeVariable: '--ion-background-color', value: '#3f3f3f'}
         ]
       }
