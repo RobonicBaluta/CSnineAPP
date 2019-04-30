@@ -121,7 +121,6 @@
   border-radius: 10px;
 }
 
-
 .alert {
   color: white; // text color for basic alerts
     /*button {
@@ -137,6 +136,9 @@
   //$alert-md-background-color : var(--ion-color-dark); // if you don't use .md, .ios, .mp initially, you'd have to use !important here.
 }
 
+ion-refresher{
+  background-color: white;
+}
 // ion-content{
 //   --overflow: hidden;
 // }
