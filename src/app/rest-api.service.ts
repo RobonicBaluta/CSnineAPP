@@ -29,8 +29,8 @@ export class RestApiService {
         this.apiUrl=' http://webapi.contentshare.biz/api/v1'
         // console.log(this.apiUrl);
     }
-    getProfile(): Observable <any>{
 
+    getProfile(): Observable <any>{
         return this.http.get(this.apiUrl+'/Account/MyContactInfo').pipe(
             timeout(5000),
             retry(2),
@@ -61,9 +61,10 @@ export class RestApiService {
             //     console.log(err);
             //     return of(null);
             // })
-        )}
+        )
+    }
 
-        getCompanyById(id:number) :Observable <any>{
+    getCompanyById(id:number) :Observable <any>{
             const url = `${this.apiUrl}/Companies/${id}`;
             return this.http.get(url).pipe(
                 timeout(5000),
@@ -74,15 +75,17 @@ export class RestApiService {
 
 
 
-        getNotes(id: string): Observable<any> {
+    getNotes(id: string): Observable<any> {
             const url = `${this.apiUrl}/Notes?EntityId=${id}&EntityType=Company`;
-            return this.http.get(url, httpOptions)
+            return this.http.get(url, httpOptions).pipe(
+                catchError(this.handleError)
+            );
         }
 
 
 
 
-        addCompany(data): Observable<any> {
+    addCompany(data): Observable<any> {
             const url = `${this.apiUrl}/Companies`;
             return this.http.post(url, data, httpOptions)
             .pipe(
@@ -91,12 +94,14 @@ export class RestApiService {
 
         }
 
-        getCategories(): Observable <any>{
+    getCategories(): Observable <any>{
 
-            return this.http.get(this.apiUrl+'/Companies/Categories')
+            return this.http.get(this.apiUrl+'/Companies/Categories').pipe(
+                catchError(this.handleError)
+            );
         }
 
-        updateCompany(data): Observable<any> {
+    updateCompany(data): Observable<any> {
             const url = `${this.apiUrl}/Companies`;
             return this.http.put(url, data, httpOptions)
             .pipe(
@@ -104,27 +109,28 @@ export class RestApiService {
             );
         }
 
-        addNote(data): Observable<any> {
+    addNote(data): Observable<any> {
             const url = `${this.apiUrl}/Notes`;
             return this.http.post(url, data, httpOptions)
             .pipe(
                 catchError(this.handleError)
             );
         }
-
-        getUrl(){
+    getUrl(){
             console.log(this.apiUrl);
             return this.apiUrl;
         }
 
-        getTasks(): Observable <any>{
+    getTasks(): Observable <any>{
 
-            return this.http.get(this.apiUrl+'/Tasks?Take=54');
+            return this.http.get(this.apiUrl+'/Tasks?Take=54').pipe(
+                catchError(this.handleError)
+            );
 
 
         }
 
-        getContacts(): Observable <any>{
+    getContacts(): Observable <any>{
 
             return this.http.get(this.apiUrl+'/Contacts/GetAllSimple').pipe(
                 timeout(5000),
@@ -134,41 +140,39 @@ export class RestApiService {
         }
 
 
-        resetPassword(data): Observable<any> {
+    resetPassword(data): Observable<any> {
             const url = `${this.apiUrl}/Account/RequestResetPassword`;
             return this.http.post(url, data, httpOptions)
             .pipe(
                 catchError(this.handleError)
             );
-
-
         }
 
 
-        private extractData(res: Response) {
+    private extractData(res: Response) {
             let body = res;
             return body || { };
         }
 
 
-        getItems(): Observable <any>{
+    getItems(): Observable <any>{
             return this.http.get(this.apiUrl);
         }
 
-        getItemById(id: string): Observable<any> {
+    getItemById(id: string): Observable<any> {
             const url = `${this.apiUrl}/${id}`;
             return this.http.get(url, httpOptions).pipe(
                 map(this.extractData))
             }
 
-            deleteItem(id:string): Observable<{}>{
+    deleteItem(id:string): Observable<{}>{
                 const url = `${this.apiUrl}/${id}`;
                 return this.http.delete(url,httpOptions).pipe(
                     catchError(this.handleError)
                 );
             }
 
-            addItem(data): Observable<any> {
+    addItem(data): Observable<any> {
                 const url = `${this.apiUrl}`;
                 return this.http.post(url, data, httpOptions)
                 .pipe(
@@ -176,13 +180,13 @@ export class RestApiService {
                 );
             }
 
-            deleteNote(id:number): Observable<{}>{
+    deleteNote(id:number): Observable<{}>{
                 const url = `${this.apiUrl}/Notes/${id}`;
                 return this.http.delete(url,httpOptions).pipe(
                     catchError(this.handleError)
                 );
             }
-            private handleError(error: HttpErrorResponse) {
+    private handleError(error: HttpErrorResponse) {
                 if (error.error instanceof ErrorEvent) {
                     // A client-side or network error occurred. Handle it accordingly.
                     console.error('An error occurred:', error.error.message);
