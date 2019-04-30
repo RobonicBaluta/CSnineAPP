@@ -56,16 +56,20 @@
           <ion-input  type='Text'  placeholder='Tax number'  value='{{company?.taxNumber}}' formControlName='taxNumber'></ion-input>
         </ion-item>
         
+        <ion-item class="ion-margin-top">
+          <ion-label><strong>Actual categories: </strong></ion-label>
+          <ion-list> 
+            <div *ngFor="let companyCategory of company?.categories">
+              {{companyCategory.name}}
+            </div>
+          </ion-list>
+        </ion-item>
         
-          <div >
+        <div >
           <ion-item class="ion-margin-top">
-              <ion-label><strong>Category: </strong></ion-label>
+            <ion-label><strong>Category: </strong></ion-label>
             <ion-select [compareWith]="compareWith" placeholder="Categories" 
-            multiple="true" formControlName="categories"> 
-     <!-- if (company.categories[i].name=category.name){
-
-     }
-     *ngIf="{{company?.categories[i].name}}={{category.name}}; then ;" -->
+            multiple="true" formControlName="categories" id="selectedCategories" > 
             <ion-select-option *ngFor="let category of categoriesList|async;" [value]="category" >{{category.name}}</ion-select-option>
           </ion-select>
         </ion-item>
@@ -74,7 +78,7 @@
     </div>
     <!-- End general info -->
     
-  
+    
     
     
     <!-- Location -->
