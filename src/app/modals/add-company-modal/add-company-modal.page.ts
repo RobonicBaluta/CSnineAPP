@@ -12,27 +12,27 @@ import { Observable } from 'rxjs';
   styleUrls: ['./add-company-modal.page.scss'],
 })
 export class AddCompanyModalPage implements OnInit {
-  
+
   @ViewChild (IonSegment) segment:IonSegment;
   companyTab: string;
   company:FormGroup;
   categoriesList: Observable<any>;
-  
+
   constructor(
     private modalController: ModalController,
-    private alertCtrl: AlertController, 
-    public navCtrl: NavController, 
-    private formBuilder: FormBuilder, 
-    public api: RestApiService,  ) { 
-      
+    private alertCtrl: AlertController,
+    public navCtrl: NavController,
+    private formBuilder: FormBuilder,
+    public api: RestApiService,  ) {
+
       this.companyTab='info';
-      
+
       this.company = this.formBuilder.group({
         'name' : [null,[Validators.required, Validators.min(1)]],
         'code':[null],
         'website': [null],
         'taxNumber':[null],
-        
+
         'address': this.formBuilder.group({
           'country': this.formBuilder.group({
             'name': [null],
@@ -47,29 +47,29 @@ export class AddCompanyModalPage implements OnInit {
             'number': [null],
           }),
           'street': [null],
-          
+
         }),
         'telephone': [null],
         'email': [null],
         'categories': [null],
-        
-      }); 
+
+      });
     }
-    
+
     ngOnInit() {
       this.getCategories();
     }
-    
+
     compareWithFn = (o1, o2) => {
       return o1 && o2 ? o1.id === o2.id : o1 === o2;
     };
-    
+
     compareWith = this.compareWithFn;
-    
+
     async getCategories(){
       this.categoriesList=this.api.getCategories();
     }
-    
+
     async addCompany(){
       if (this.company.valid){
         await this.api.addCompany(this.company.value)
@@ -83,15 +83,15 @@ export class AddCompanyModalPage implements OnInit {
         this.errorAlert();
       }
     }
-    
-    
+
+
     async closeModal() {
       const onClosedData: string = "Wrapped Up!";
       await this.modalController.dismiss(onClosedData);
     }
-    
+
     async createCompanyAlert() {
-      
+
       const alert = await this.alertCtrl.create({
         header: 'Add',
         message: 'Company successfully created',
@@ -105,12 +105,12 @@ export class AddCompanyModalPage implements OnInit {
           }
         ]
       });
-      
+
       await alert.present();
     }
-    
+
     async errorAlert() {
-      
+
       const alert = await this.alertCtrl.create({
         header: 'ERROR',
         message: 'The name field can not be empty',
@@ -124,29 +124,8 @@ export class AddCompanyModalPage implements OnInit {
           }
         ]
       });
-      
+
       await alert.present();
     }
-  }
-  
-  async createCompanyAlert() {
     
-    const alert = await this.alertCtrl.create({
-      header: 'Add',
-      cssClass: 'alert',
-      message: 'Company successfully created',
-      buttons: [
-        {
-          text: 'Ok',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
-          }
-        }
-      ]
-    });
-    
-    await alert.present();
   }
-}
-
