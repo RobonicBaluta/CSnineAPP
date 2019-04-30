@@ -18,15 +18,12 @@ export class SettingsPage implements OnInit {
     console.log(this.booleanFlag2);
     if (booleanFlag2 == true){
       this.themeSwitcher.setTheme('night');
+      booleanFlag2= true;
     }else{
       this.themeSwitcher.setTheme('day');
+      booleanFlag2= false;
     }
 }
-
-async pruebaFondo(){
-  this.themeSwitcher.setTheme('night');
-}
-
 
   ngOnInit() {
   }

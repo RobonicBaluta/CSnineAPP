@@ -13,7 +13,7 @@
   <form [formGroup]='profileForm'>
     <div class="profile-info">
       <ion-item class="ion-margin-top">
-        <ion-label><strong>First Name: </strong></ion-label>
+        <ion-label class="labelsDark"><strong>First Name: </strong></ion-label>
         <ion-input placeholder="First name" value={{info?.firstName}} disabled class="ion-padding"></ion-input>
       </ion-item>
       <ion-item class="ion-margin-top">
@@ -62,7 +62,7 @@
       </ion-item>
     </div>
     <div class="btnsavep">
-      <ion-button color="primary" (click)="updateProfile()"><ion-icon name="save"></ion-icon></ion-button>
+      <ion-button color="secondary" (click)="updateProfile()"><ion-icon name="save"></ion-icon></ion-button>
     </div>
   </form>
 </ion-content>

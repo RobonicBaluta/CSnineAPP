@@ -69,6 +69,7 @@ export class NoteModalPage implements OnInit {
     async presentAlert() {
       const alert = await this.alertController.create({
         header: 'Alert',
+        cssClass: 'alert',
         message: 'Note successfully created',
         buttons: ['OK']
       });
