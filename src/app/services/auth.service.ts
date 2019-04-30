@@ -54,7 +54,8 @@ export class AuthService {
           this.authenticationState.next(true);
         }),
         catchError(e => {
-          this.showAlert(e.error.msg);
+          console.log(e.error);
+          this.showAlert(e.error);
           throw new Error(e);
         })
      );
