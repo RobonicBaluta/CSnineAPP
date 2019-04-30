@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RememberPage } from './remember.page';
+import { ResetPasswordPage } from './reset-password.page';
 
-describe('RememberPage', () => {
-  let component: RememberPage;
-  let fixture: ComponentFixture<RememberPage>;
+describe('ResetPasswordPage', () => {
+  let component: ResetPasswordPage;
+  let fixture: ComponentFixture<ResetPasswordPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RememberPage ],
+      declarations: [ ResetPasswordPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RememberPage);
+    fixture = TestBed.createComponent(ResetPasswordPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

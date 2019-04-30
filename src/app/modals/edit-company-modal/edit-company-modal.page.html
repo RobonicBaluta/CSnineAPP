@@ -1,0 +1,184 @@
+<ion-content padding class='myModal'>
+  <ion-grid>
+    <ion-row>
+      <ion-col text-center>
+        {{company?.name}}
+      </ion-col>
+    </ion-row>
+    
+  </ion-grid>
+  
+  
+  
+  <ion-toolbar color="light" >
+    <ion-segment color="dark" >
+      <ion-segment-button value="info" checked='true' (click)="showInfo()" mode='ios'>
+        General info
+      </ion-segment-button>
+      <ion-segment-button value="location" (click)="showLocation()" mode='ios'>
+        Location
+      </ion-segment-button>
+      <ion-segment-button value="contact" (click)="showContact()" mode='ios'>
+        Contact
+      </ion-segment-button>
+      <ion-segment-button value="notes" (click)="showNotes()" mode='ios'>
+        Notes
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+  
+  
+  <form [formGroup]='companyForm'>
+    <div >
+      
+      <!-- General info -->
+      <div [hidden]="!info == true" > 
+        
+        <ion-input value='{{company?.id}}' hidden formControlName='id'></ion-input>
+        
+        <ion-item class="ion-margin-top">
+          <ion-label><strong>Name: </strong></ion-label>
+          <ion-input  type='Text'  placeholder='Company Name' value='{{company?.name}}' formControlName='name' required></ion-input>
+        </ion-item>
+        
+        <ion-item class="ion-margin-top">
+          <ion-label><strong>Code: </strong></ion-label>
+          <ion-input  type='Text'  placeholder='Code'  value='{{company?.code}}' formControlName='code'></ion-input>
+        </ion-item>
+        
+        <ion-item class="ion-margin-top">
+          <ion-label><strong>Website: </strong></ion-label>
+          <ion-input  type='Text'  placeholder='Website'value='{{company?.website}}' formControlName='website'></ion-input>
+        </ion-item>
+        
+        <ion-item class="ion-margin-top">
+          <ion-label><strong>Tax Number: </strong></ion-label>
+          <ion-input  type='Text'  placeholder='Tax number'  value='{{company?.taxNumber}}' formControlName='taxNumber'></ion-input>
+        </ion-item>
+        
+        <ion-item class="ion-margin-top">
+          <ion-label><strong>Actual categories: </strong></ion-label>
+          <ion-list> 
+            <div *ngFor="let companyCategory of company?.categories">
+              {{companyCategory.name}}
+            </div>
+          </ion-list>
+        </ion-item>
+        
+        <div >
+          <ion-item class="ion-margin-top">
+            <ion-label><strong>Category: </strong></ion-label>
+            <ion-select [compareWith]="compareWith" placeholder="Categories" 
+            multiple="true" formControlName="categories" id="selectedCategories" > 
+            <ion-select-option *ngFor="let category of categoriesList|async;" [value]="category" >{{category.name}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </div>
+      
+    </div>
+    <!-- End general info -->
+    
+    
+    
+    
+    <!-- Location -->
+    <div [hidden]="!location == true" >
+      
+      <div formGroupName='address'>
+        
+        <div formGroupName='country' >
+          <ion-item class="ion-margin-top">
+            <ion-label><strong>Country: </strong></ion-label>
+            <ion-input  type='Text'  placeholder='Country' formControlName='name' value='{{company?.address.country.name}}'></ion-input>
+          </ion-item>
+        </div>
+        
+        <div formGroupName='region'>
+          <ion-item class="ion-margin-top">
+            <ion-label><strong>Region: </strong></ion-label>
+            <ion-input  type='Text'  placeholder='Region' formControlName='name' value='{{company?.address.region.name}}'></ion-input>
+          </ion-item>
+        </div>
+        
+        <div formGroupName='city' >
+          <ion-item class="ion-margin-top">
+            <ion-label><strong>City: </strong></ion-label>
+            <ion-input  type='Text'  placeholder='City' formControlName='name' value='{{company?.address.city.name}}'></ion-input>
+          </ion-item>
+        </div>
+        
+        <div formGroupName='zip'>
+          <ion-item class="ion-margin-top">
+            <ion-label><strong>Zip: </strong></ion-label>
+            <ion-input  type='Text'  placeholder='Zip' formControlName='number' value='{{company?.address.zip.number}}'></ion-input>
+          </ion-item>
+        </div>
+        <ion-item class="ion-margin-top">
+          <ion-label><strong>Street: </strong></ion-label>
+          <ion-input  type='Text'  placeholder='Street' formControlName='street' value='{{company?.address.street}}'></ion-input>
+        </ion-item>
+      </div>
+    </div>
+    <!--End Location -->
+    
+    <!-- Contact -->
+    <div [hidden]="!contact == true">
+      <ion-item class="ion-margin-top">
+        <ion-label><strong>Telephone: </strong></ion-label>
+        <ion-input  type='Text'  placeholder='Telephone number'  formControlName='telephone' value='{{company?.telephone}}'></ion-input>
+      </ion-item>
+      <ion-item class="ion-margin-top">
+        <ion-label><strong>Email: </strong></ion-label>
+        <ion-input  type='Text'  placeholder='Email' formControlName='email' value='{{company?.email}}'></ion-input>
+      </ion-item>
+    </div>
+    
+    
+    <div [hidden]="!noteList == true" >
+      
+      <ion-list>
+        <ion-item-sliding  text-wrap *ngFor="let note of (notes|async)" class="noteFormat">
+          
+          
+          <ion-label><strong>Note: </strong></ion-label>
+          {{note.note.note1}}
+          <br>
+          <ion-label><strong>Date:</strong></ion-label>
+          {{note.note.createdOn}}
+          <br>
+          <ion-label><strong> User:</strong></ion-label>
+          {{note.simpleUser.firstName}} {{note.simpleUser.lastName}}
+          
+          <ion-button ion-button color="warning" (click)='deleteNote(note.note.id)'  class='sliderButtons'>
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+          
+        </ion-item-sliding>
+        
+      </ion-list>
+    </div>
+    <!-- End contact -->
+    
+    <!-- <div *ngSwitchCase="'note'">
+      <br>
+      <ion-label class="titles">Title: </ion-label>
+      <ion-input type="text" class="title" placeholder=" title" required></ion-input>
+      
+      <ion-label class="titles">Note: </ion-label>
+      <ion-textarea class="myTextArea" clearOnEdit="true" placeholder='Write a note'></ion-textarea>
+      
+    </div> -->
+    
+  </div>
+  
+  
+  <ion-row>
+    <ion-col text-center>
+      <ion-button color="warning" (click)="closeModal()"> <ion-icon name="close-circle"> </ion-icon> </ion-button>
+      <ion-button color="secondary" (click)='updateCompany()' ><ion-icon name="save"></ion-icon> </ion-button>
+      
+    </ion-col>
+  </ion-row>
+  
+</form>
+</ion-content>

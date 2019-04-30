@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AlertController} from '@ionic/angular';
 import { NavController } from '@ionic/angular';
-
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
+import { environment } from 'src/environments/environment';
+import { RestApiService } from '../rest-api.service';
 
 @Component({
   selector: 'app-login',
@@ -9,15 +12,23 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-
-  constructor( private alertCtrl: AlertController, public navCtrl: NavController ) { }
-
-  @ViewChild('myNav') nav: NavController
+  credentialsForm: FormGroup;
+  select:string='http://csapi.soltystudio.com/api/v1';
+  
+  constructor(public api: RestApiService,
+    private alertCtrl: AlertController,
+    public navCtrl: NavController,
+    private formBuilder: FormBuilder,
+    private authService: AuthService 
+    ){
+      
+    }
+    
+    @ViewChild('myNav') nav: NavController
     async presentAlert() {
       
       const alert = await this.alertCtrl.create({
         header: 'Error',
-        //subHeader: 'Hola que ase',
         message: 'The email or the password that you have written is wrong',
         buttons: [
           {
@@ -30,11 +41,45 @@ export class LoginPage implements OnInit {
           }
         ]
       });
-  
+      
       await alert.present();
     }
-
-  ngOnInit() {
+    
+    ngOnInit() {
+      this.credentialsForm = this.formBuilder.group({
+        username: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+      });
+    }
+    
+    onSubmit() {
+      this.authService.login(this.credentialsForm.value).subscribe();
+    }
+    
+    // soltyStudio(){
+    //   this.api.setSolty();
+    // }
+    // csBiz(){
+    //   this.api.setBiz();
+      
+    // }
+    
+    checkServer(){
+    
+      let server=this.select;
+      // console.log(server);
+      switch (server) {
+        case 'http://csapi.soltystudio.com/api/v1':
+        this.api.setSolty();
+        
+        break;
+        case 'http://webapi.contentshare.biz/api/v1':
+        this.api.setBiz();
+        default:
+        
+        break;
+      }
+    }
+    
   }
-
-}
+  

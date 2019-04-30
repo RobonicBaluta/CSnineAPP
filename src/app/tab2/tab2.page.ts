@@ -3,11 +3,10 @@ import {Observable} from 'rxjs';
 import { AlertController} from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
-import { TaskModalPage } from '../task-modal/task-modal.page';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TaskViewModalPage } from '../task-view-modal/task-view-modal.page';
 import { AddTaskModalPage } from '../modals/add-task-modal/add-task-modal.page';
 import { RestApiService } from '../rest-api.service';
+import { map } from 'rxjs/operators';
 
 
 
@@ -18,16 +17,25 @@ import { RestApiService } from '../rest-api.service';
 })
 export class Tab2Page {
   
-  items:any;
-  results: Observable<any>;
+  items:[];
+  tasks: Observable<any>;
   
-  ngOnInit() {
-    this.getItems();
-  }
+
   
-  async getItems() {
-    this.results=this.api.getItems();
-  }
+ 
+
+ 
+  //  async getTasks() {
+  //    this.api.getTasks().pipe(map(res => {
+  //     this.tasks = res.json();
+  //     return this.tasks;
+  //   }));
+  // }
+  
+
+  // async getTasks() {
+  //   return this.tasks=this.api.getTasks()
+  // }
   
   
   constructor(public modalController: ModalController,
@@ -47,5 +55,24 @@ export class Tab2Page {
       
       return await modal.present();
     }
+
+    async getTasks() {
+      return this.api.getTasks().subscribe(data=>{this.tasks=data
+      console.log(this.tasks)});
+    }
+    ngOnInit() {
+      // this.getItems();
+      this.getTasks();
+    }
+    doRefresh(event) {
+      this.getTasks();
+      console.log('Begin async operation');
+
+      setTimeout(() => {
+        console.log('Async operation has ended');
+        event.target.complete();
+      }, 2000);
+    }
+  
   }
   

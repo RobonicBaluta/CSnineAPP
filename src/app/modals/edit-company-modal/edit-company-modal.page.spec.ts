@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TaskModalPage } from './task-modal.page';
+import { EditCompanyModalPage } from './edit-company-modal.page';
 
-describe('TaskModalPage', () => {
-  let component: TaskModalPage;
-  let fixture: ComponentFixture<TaskModalPage>;
+describe('EditCompanyModalPage', () => {
+  let component: EditCompanyModalPage;
+  let fixture: ComponentFixture<EditCompanyModalPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TaskModalPage ],
+      declarations: [ EditCompanyModalPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TaskModalPage);
+    fixture = TestBed.createComponent(EditCompanyModalPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

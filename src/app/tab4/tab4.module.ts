@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { Tab4Page } from './tab4.page';
+import { SearchModuleModule } from '../search-module/search-module.module';
 
 const routes: Routes = [
   {
@@ -18,6 +19,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
+    SearchModuleModule,
     IonicModule,
     RouterModule.forChild(routes)
   ],
