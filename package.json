@@ -59,7 +59,7 @@
     "@ionic/lab": "1.0.24",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
-    "@types/node": "~11.13.0",
+    "@types/node": "~11.13.9",
     "codelyzer": "~5.0.0",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
