@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 })
 export class ResetPasswordPage implements OnInit {
   reset: FormGroup;
+  select:string='http://csapi.soltystudio.com/api/v1';
   constructor( private alertCtrl: AlertController, 
     public router: Router, 
     public navCtrl: NavController, 
@@ -33,6 +34,7 @@ export class ResetPasswordPage implements OnInit {
       
       const alert = await this.alertCtrl.create({
         header: 'Recover',
+        cssClass: 'alert',
         message: 'An email has been sent to you',
         buttons: [
           {
@@ -62,6 +64,22 @@ export class ResetPasswordPage implements OnInit {
     async closeModal() {
       const onClosedData: string = "Wrapped Up!";
       await this.modalController.dismiss(onClosedData);
+    }
+    checkServer(){
+    
+      let server=this.select;
+      // console.log(server);
+      switch (server) {
+        case 'http://csapi.soltystudio.com/api/v1':
+        this.api.setSolty();
+        
+        break;
+        case 'http://webapi.contentshare.biz/api/v1':
+        this.api.setBiz();
+        default:
+        
+        break;
+      }
     }
   ngOnInit() {
   }

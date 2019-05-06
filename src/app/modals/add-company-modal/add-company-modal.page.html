@@ -32,7 +32,7 @@
       <div *ngSwitchCase="'info'" checked > 
         <ion-item class="ion-margin-top">
           <ion-label><strong>Name: </strong></ion-label>
-          <ion-input  type='Text'  placeholder='Company Name' formControlName='name' ></ion-input>
+          <ion-input  type='Text'  placeholder='Company Name' formControlName='name'  required></ion-input>
         </ion-item>
         
         
@@ -52,17 +52,17 @@
         </ion-item>
         
         
-        <div formControlName='categories'>
+        <div >
           <ion-item class="ion-margin-top">
               <ion-label><strong>Category: </strong></ion-label>
             <ion-select [compareWith]="compareWith" placeholder="Categories" 
-            multiple="true" > 
-            <!-- formArrayName="categories" -->
+            multiple="true" formControlName="categories"> 
+     
             <ion-select-option *ngFor="let category of categoriesList|async;" [value]="category">{{category.name}}</ion-select-option>
           </ion-select>
         </ion-item>
       </div>
-      
+
      
       
     </div>
@@ -126,12 +126,12 @@
     
     
   </div>
-  
+
   
   <ion-row>
     <ion-col text-center>
       <ion-button  color="warning" (click)="closeModal()"> <ion-icon name="close-circle"> </ion-icon> </ion-button>
-      <ion-button color="primary" (click)='addCompany()' ><ion-icon name="save"></ion-icon> </ion-button>
+      <ion-button color="secondary" (click)='addCompany()' ><ion-icon name="save"></ion-icon> </ion-button>
       
     </ion-col>
   </ion-row>

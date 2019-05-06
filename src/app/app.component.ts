@@ -17,23 +17,26 @@ export class AppComponent {
     private statusBar: StatusBar,
     private authService: AuthService,
     private router: Router,
-  ) {
-    this.initializeApp();
-  }
-
-  initializeApp() {
-    this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
-
-
-      this.authService.authenticationState.subscribe(state => {
-        if (state) {
-          this.router.navigate(['tabs']);
-        } else {
-          this.router.navigate(['login']);
-        }
+    ) {
+      this.initializeApp();
+    }
+    
+    initializeApp() {
+      this.platform.ready().then(() => {
+        this.statusBar.styleDefault();
+        this.splashScreen.hide();
+        this.platform.backButton.subscribe(()=>{
+          //do nothing
+        });
+        
+        this.authService.authenticationState.subscribe(state => {
+          if (state) {
+            this.router.navigate(['tabs']);
+          } else {
+            this.router.navigate(['login']);
+          }
+        });
       });
-    });
+    }
   }
-}
+  

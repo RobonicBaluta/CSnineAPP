@@ -20,10 +20,7 @@ export class Tab2Page {
   items:[];
   tasks: Observable<any>;
   
-  ngOnInit() {
-    // this.getItems();
-    this.getTasks();
-  }
+
   
  
 
@@ -62,6 +59,19 @@ export class Tab2Page {
     async getTasks() {
       return this.api.getTasks().subscribe(data=>{this.tasks=data
       console.log(this.tasks)});
+    }
+    ngOnInit() {
+      // this.getItems();
+      this.getTasks();
+    }
+    doRefresh(event) {
+      this.getTasks();
+      console.log('Begin async operation');
+
+      setTimeout(() => {
+        console.log('Async operation has ended');
+        event.target.complete();
+      }, 2000);
     }
   
   }

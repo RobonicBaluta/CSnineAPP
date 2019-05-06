@@ -10,7 +10,18 @@ export class SearchPipe implements PipeTransform {
     if(!terms) return items;
     terms = terms.toLowerCase();
     return items.filter( it => {
-      return it.name.toLowerCase().includes(terms); // only filter name
+      if(it.name!='' && it.name!=null){
+
+        return it.name.toLowerCase().includes(terms); 
+ 
+      }else if(it.title!='' && it.title!=null){
+        return it.title.toLowerCase().includes(terms);
+      }else if(it.firstName!='' && it.firstName!=null){
+        return it.firstName.toLowerCase().includes(terms);
+      }else{
+        return 'Not found';
+      }
+      
     });
   }
 
