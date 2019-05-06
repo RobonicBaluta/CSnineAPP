@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthService } from './services/auth.service';
 import { Router } from '@angular/router';
+import { HeaderColor } from '@ionic-native/header-color/ngx';
 
 @Component({
   selector: 'app-root',
@@ -17,9 +18,13 @@ export class AppComponent {
     private statusBar: StatusBar,
     private authService: AuthService,
     private router: Router,
+    private headerColor: HeaderColor,
     ) {
       this.initializeApp();
+      this.headerColor.tint('#15489E');
     }
+
+    
     
     initializeApp() {
       this.platform.ready().then(() => {

@@ -22,6 +22,7 @@ import { EditCompanyModalPageModule } from './modals/edit-company-modal/edit-com
 import { SearchPipe } from './search.pipe'
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts/ngx';
+import { HeaderColor } from '@ionic-native/header-color/ngx';
 
 
 export function jwtOptionsFactory(storage) {
@@ -55,6 +56,7 @@ export function jwtOptionsFactory(storage) {
     })],
     providers: [
       StatusBar,
+      HeaderColor,
       SplashScreen,
       LocalNotifications,
       Contacts,
