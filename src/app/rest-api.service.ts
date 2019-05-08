@@ -352,7 +352,9 @@ export class RestApiService {
     //         catchError(this.handleError)
     //     );
     // }
+
     addTask(data): Observable<any> {
+        console.log(data);
         const url = `${this.apiUrl}/Tasks`;
         console.log(data);
         return this.http.post(url, data, httpOptions)

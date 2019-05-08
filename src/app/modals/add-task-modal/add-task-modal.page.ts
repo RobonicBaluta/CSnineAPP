@@ -19,6 +19,7 @@ export class AddTaskModalPage implements OnInit {
   simpleUsers: Observable <any>;
   assignedUserId: number;
   clientId: number;
+  description:any;
   constructor(
     private modalController: ModalController, 
     private formBuilder: FormBuilder,

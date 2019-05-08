@@ -21,8 +21,8 @@
                 <ion-col>
                     
                     <ion-label>Asigned User:</ion-label>
-                    <ion-select [compareWith]="compareWith" placeholder="Asigned User"> 
-                        <ion-select-option *ngFor="let user of simpleUsers|async;" (ionChange)="setUser(user.id)" [value]="user"> {{user.lastName}} {{user.firstName}}</ion-select-option>
+                    <ion-select [compareWith]="compareWith" placeholder="Asigned User" formControlName="assignedUserId"> 
+                        <ion-select-option *ngFor="let user of simpleUsers|async;" [value]="user.id" (ionChange)="setUser(user.id)" [value]="user"> {{user.lastName}} {{user.firstName}}</ion-select-option>
                     </ion-select>
                     <ion-button size='small' color="primary">Me: <ion-checkbox checked id="meCheck" ></ion-checkbox></ion-button>
                     
@@ -36,7 +36,7 @@
                     
                     <ion-label>Client:</ion-label>
                     <ion-select  formControlName="clientId" placeholder="Client"> 
-                        <ion-select-option *ngFor="let client of clients|async;" [value]="client" (ionChange)="setClient(client.id)">{{client.name}}</ion-select-option>
+                        <ion-select-option *ngFor="let client of clients|async;" [value]="client.id" (ionChange)="setClient(client.id)">{{client.name}}</ion-select-option>
                     </ion-select>
                     
                     
@@ -49,10 +49,11 @@
                 <ion-col>
                     
                     <ion-label>Description:</ion-label>
-                    <ion-textarea formControlName="description" placeholder='Enter a description'></ion-textarea>
+                    <ion-textarea formControlName="description" [(ngModel)]="description" placeholder='Enter a description'></ion-textarea>
                     
                 </ion-col>
             </ion-row>
+            <ion-input type='text' hidden  value="{{description}}" formControlName="descriptionHtml"></ion-input>
             
             
             <ion-row>
