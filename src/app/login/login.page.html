@@ -8,7 +8,7 @@
     <ion-img id="profile-photo" src="assets/logo.svg"></ion-img>
 
     <ion-row class="ion-margin-top">
-        <ion-item style="width:100%;">
+        <ion-item>
         <ion-label>Pick a server:</ion-label>
         <ion-select required placeholder="Select a server" [(ngModel)]="select" (ionChange)="checkServer()" >
             <ion-select-option value="http://csapi.soltystudio.com/api/v1" selected>Solty Studio</ion-select-option>

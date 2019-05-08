@@ -22,6 +22,7 @@ import { EditCompanyModalPageModule } from './modals/edit-company-modal/edit-com
 import { SearchPipe } from './search.pipe'
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts/ngx';
+import { HTTP } from '@ionic-native/http/ngx';
 
 
 export function jwtOptionsFactory(storage) {
@@ -60,6 +61,7 @@ export function jwtOptionsFactory(storage) {
       Contacts,
       { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
       { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
+      HTTP,
 
     ],
     

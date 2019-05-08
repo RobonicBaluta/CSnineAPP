@@ -6,61 +6,123 @@
                 Add new task
             </ion-col>
         </ion-row>
-        <ion-row>
-            <ion-col text-center>
-                <ion-label color="primary">Task Title</ion-label>
-                <ion-input  type='Text'  placeholder='My new Task'></ion-input>
-            </ion-col>
-            
-        </ion-row>
-        <ion-row>
-            <ion-toolbar color="light" >
-                <ion-segment color="dark" [(ngModel)]="taskTab">
-                    <ion-segment-button value="description" checked='true'>
-                        Description
-                    </ion-segment-button>
-                    <ion-segment-button value="file">
-                        File
-                    </ion-segment-button>
-                </ion-segment>
-            </ion-toolbar>
-        </ion-row>
         
-        
-        <div [ngSwitch]="taskTab">
-            
-            
-            <div *ngSwitchCase="'description'" >
-                <ion-item >
-                    <ion-label>Description:</ion-label>
-                    <ion-textarea  placeholder='Enter a description'></ion-textarea>
-                </ion-item>
-            </div>
-            
-            
-            
-            <div *ngSwitchCase="'file'" >
-                
-                
-                <ion-input  type='file'  ><ion-icon name="attach" size="large"></ion-icon></ion-input>
-                
-                
-            </div>
-            
-            
-            
-            <ion-row  >
-                <div >
-                    <ion-item >
-                        <ion-label>To:</ion-label>
-                        <ion-input placeholder='ander' type='text'></ion-input>
-                        <ion-button color="primary"  >Me: <ion-checkbox checked id="meCheck" ></ion-checkbox></ion-button>
-                    </ion-item>
-                    
-                </div>
+        <form [formGroup]="taskForm">
+            <ion-row>
+                <ion-col text-center>
+                    <ion-label color="primary">Task Title</ion-label>
+                    <ion-input  type='Text' formControlName="title"  placeholder='My new Task'></ion-input>
+                </ion-col>
                 
                 
             </ion-row>
+            <ion-row>
+                
+                <ion-col>
+                    
+                    <ion-label>Asigned User:</ion-label>
+                    <ion-select [compareWith]="compareWith" placeholder="Asigned User"> 
+                        <ion-select-option *ngFor="let user of simpleUsers|async;" (ionChange)="setUser(user.id)" [value]="user"> {{user.lastName}} {{user.firstName}}</ion-select-option>
+                    </ion-select>
+                    <ion-button size='small' color="primary">Me: <ion-checkbox checked id="meCheck" ></ion-checkbox></ion-button>
+                    
+                </ion-col>
+            </ion-row>
+            
+            
+            <ion-row>
+                
+                <ion-col>
+                    
+                    <ion-label>Client:</ion-label>
+                    <ion-select  formControlName="clientId" placeholder="Client"> 
+                        <ion-select-option *ngFor="let client of clients|async;" [value]="client" (ionChange)="setClient(client.id)">{{client.name}}</ion-select-option>
+                    </ion-select>
+                    
+                    
+                </ion-col>
+            </ion-row>
+            
+            <!---->
+            <ion-row>
+                
+                <ion-col>
+                    
+                    <ion-label>Description:</ion-label>
+                    <ion-textarea formControlName="description" placeholder='Enter a description'></ion-textarea>
+                    
+                </ion-col>
+            </ion-row>
+            
+            
+            <ion-row>
+                
+                <ion-col>
+                    <ion-label>Document:</ion-label>
+                    <ion-input  type='file'  ><ion-icon name="attach" size="large"></ion-icon></ion-input>
+                    
+                </ion-col>
+            </ion-row>
+            
+            
+            
+            <div formGroupName="entityRelatedTo">     
+                <ion-input type='text' hidden [(ngModel)]="entityId" formControlName="entityId"></ion-input>
+                <ion-input  type='text'  hidden [(ngModel)]="entityType" formControlName="entityType"></ion-input>
+            </div>
+            
+            <!---->
+            
+            
+            <!-- <ion-row>
+                <ion-toolbar color="light" >
+                    <ion-segment color="dark" [(ngModel)]="taskTab">
+                        <ion-segment-button value="description" checked='true'>
+                            Description
+                        </ion-segment-button>
+                        <ion-segment-button value="file">
+                            File
+                        </ion-segment-button>
+                    </ion-segment>
+                </ion-toolbar>
+            </ion-row>
+            
+            
+            <div [ngSwitch]="taskTab">
+                
+                
+                <div *ngSwitchCase="'description'" >
+                    <ion-item >
+                        <ion-label>Description:</ion-label>
+                        <ion-textarea  placeholder='Enter a description'></ion-textarea>
+                    </ion-item>
+                </div>
+                
+                
+                
+                <div *ngSwitchCase="'file'" >
+                    
+                    
+                    <ion-input  type='file'  ><ion-icon name="attach" size="large"></ion-icon></ion-input>
+                    
+                    
+                </div>
+            -->
+            
+            
+            <!-- <ion-row  >
+                <div >
+                    <ion-item >
+                        <ion-label>Asigned User:</ion-label>
+                        <ion-select [compareWith]="compareWith" placeholder="Asigned User" style="width:100%;"> 
+                            <ion-select-option *ngFor="let user of simpleUsers|async;" (ionChange)="setUser(user.id)">{{user.firstName}}</ion-select-option>
+                        </ion-select>
+                        <ion-button color="primary">Me: <ion-checkbox checked id="meCheck" ></ion-checkbox></ion-button>
+                    </ion-item>
+                    
+                </div>        
+                
+            </ion-row> -->
             <div>
                 <ion-item>
                     <ion-label>Date:</ion-label>
@@ -68,16 +130,17 @@
                 </ion-item>
             </div>
             
-        </div>
-        
-        
-        <ion-row>
-            <ion-col text-center>
-                <ion-button color="warning" (click)="closeModal()"> <ion-icon name="close-circle"> </ion-icon> </ion-button>
-                <ion-button color="secondary" ><ion-icon name="save"></ion-icon> </ion-button>
-                
-            </ion-col>
-        </ion-row>
+            <!-- </div> -->
+            
+            
+            <ion-row>
+                <ion-col text-center>
+                    <ion-button color="warning" (click)="closeModal()"> <ion-icon name="close-circle"> </ion-icon> </ion-button>
+                    <ion-button color="secondary"  (click)="addTask()"><ion-icon name="save"></ion-icon> </ion-button>
+                    
+                </ion-col>
+            </ion-row>
+        </form>
     </ion-grid>
     
 </ion-content>

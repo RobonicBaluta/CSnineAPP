@@ -1,15 +1,19 @@
 import { Platform, AlertController } from '@ionic/angular';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Storage } from '@ionic/storage';
 import { environment } from '../../environments/environment';
 import { tap, catchError } from 'rxjs/operators';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, from } from 'rxjs';
 import { RestApiService } from '../rest-api.service';
+import { HTTP } from '@ionic-native/http/ngx';
  
 const TOKEN_KEY = 'accessToken';
- 
+// const httpOptions = {
+//   headers: new HttpHeaders({'Content-Type': 'application/json'})
+// };
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,8 +23,13 @@ export class AuthService {
   user = null;
   authenticationState = new BehaviorSubject(false);
  
-  constructor(private http: HttpClient, private helper: JwtHelperService, public api: RestApiService, private storage: Storage,
-    private plt: Platform, private alertController: AlertController) {
+  constructor(
+    private http: HTTP,
+    private helper: JwtHelperService, 
+    public api: RestApiService, 
+    private storage: Storage,
+    private plt: Platform, 
+    private alertController: AlertController) {
     this.plt.ready().then(() => {
       this.checkToken();
     });
@@ -46,7 +55,7 @@ export class AuthService {
  
   login(credentials) {
    this.url=this.api.getUrl();
-    return this.http.post(`${this.url}/Account/Login`, credentials)
+    return from(this.http.post(`${this.url}/Account/Login`, credentials,{'Content-Type': 'application/json'}))
       .pipe(
         tap(res => {
           this.storage.set(TOKEN_KEY, res['accessToken']);

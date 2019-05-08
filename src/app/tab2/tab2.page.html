@@ -5,49 +5,44 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
     refreshingSpinner="circles"
     refreshingText="Refreshing...">
   </ion-refresher-content>
 </ion-refresher>
-  <ion-row>
-    <ion-searchbar  class="search" side='start' [(ngModel)]="tsks"></ion-searchbar> 
-    <ion-icon  side='end' class="searchLogo" src="assets/logo.svg"></ion-icon>
-  </ion-row>
-  <!-- Default Segment -->
-  <!-- {{tasks?.items[0].title}} -->
-  <ion-list>
-    
-    
-    
-    <ion-virtual-scroll [items]="tasks?.items| search : tsks">
-      <ion-item-sliding *virtualItem="let task">
-        
-        <ion-item>
-          <ion-title mode='md'>
-            {{task?.title}}
-          </ion-title>
-        </ion-item>
-        <ion-item-options side="end" >
-          
-          
-          <ion-button ion-button  size='large' class='sliderButtons'>
-            <ion-icon name="checkbox" ></ion-icon>
-          </ion-button>
-          
-          
-          
-        </ion-item-options>   
-      </ion-item-sliding> 
-    </ion-virtual-scroll>
-  </ion-list> 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="addTaskModal()">
-      <ion-icon name="add" id="add" ></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+<ion-row>
+  <ion-searchbar  class="search" side='start' [(ngModel)]="tsks"></ion-searchbar> 
+  <ion-icon  side='end' class="searchLogo" src="assets/logo.svg"></ion-icon>
+</ion-row>
+<!-- Default Segment -->
+<!-- {{tasks?.items[0].title}} -->
+<ion-list>
   
+  <ion-virtual-scroll [items]="tasks?.items| search : tsks">
+    <ion-item-sliding *virtualItem="let task">
+      
+      <ion-item>
+        <ion-title mode='md'>
+          {{task?.title}}
+        </ion-title>
+      </ion-item>
+      
+      <ion-item-options side="end" >
+        
+        <ion-button ion-button  size='large' class='sliderButtons'>
+          <ion-icon name="checkbox"></ion-icon>
+        </ion-button>
+        
+      </ion-item-options>   
+    </ion-item-sliding> 
+  </ion-virtual-scroll>
+</ion-list> 
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button (click)="addTaskModal()">
+    <ion-icon name="add" id="add" ></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
 </ion-content>
