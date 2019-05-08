@@ -7,12 +7,12 @@ import { environment } from '../../environments/environment';
 import { tap, catchError } from 'rxjs/operators';
 import { BehaviorSubject, from } from 'rxjs';
 import { RestApiService } from '../rest-api.service';
-import { HTTP } from '@ionic-native/http/ngx';
+// import { HTTP } from '@ionic-native/http/ngx';
  
 const TOKEN_KEY = 'accessToken';
-// const httpOptions = {
-//   headers: new HttpHeaders({'Content-Type': 'application/json'})
-// };
+const httpOptions = {
+  headers: new HttpHeaders({'Content-Type': 'application/json'})
+};
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +24,7 @@ export class AuthService {
   authenticationState = new BehaviorSubject(false);
  
   constructor(
-    private http: HTTP,
+    private http: HttpClient,
     private helper: JwtHelperService, 
     public api: RestApiService, 
     private storage: Storage,
@@ -55,7 +55,7 @@ export class AuthService {
  
   login(credentials) {
    this.url=this.api.getUrl();
-    return from(this.http.post(`${this.url}/Account/Login`, credentials,{'Content-Type': 'application/json'}))
+    return this.http.post(`${this.url}/Account/Login`, credentials)
       .pipe(
         tap(res => {
           this.storage.set(TOKEN_KEY, res['accessToken']);
@@ -69,6 +69,9 @@ export class AuthService {
         })
      );
   }
+
+
+
  
   logout() {
     this.storage.remove(TOKEN_KEY).then(() => {

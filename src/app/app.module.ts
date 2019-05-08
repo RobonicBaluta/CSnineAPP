@@ -22,11 +22,8 @@ import { EditCompanyModalPageModule } from './modals/edit-company-modal/edit-com
 import { SearchPipe } from './search.pipe'
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts/ngx';
-<<<<<<< HEAD
 import { HTTP } from '@ionic-native/http/ngx';
-=======
 import { HeaderColor } from '@ionic-native/header-color/ngx';
->>>>>>> 9d1d8df389ea59f0e5c4b34de9a3e78dcf879107
 
 
 export function jwtOptionsFactory(storage) {
