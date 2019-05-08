@@ -19,7 +19,6 @@ interface ThemeStyle {
 })
 export class LayoutService {
   private themes: Theme[] = [];
-  private currentTheme: number = 0;
 
   constructor( private domCtrl: DomController, @Inject(DOCUMENT) private document ) {
 
@@ -27,13 +26,13 @@ export class LayoutService {
       {
         name: 'day',
         styles: [
-          { themeVariable: '--ion-text-color', value: '#000000'},
-          { themeVariable: '--ion-color-light', value: '#f4f5f8'},
-          { themeVariable: '--ion-color-dark', value: '#000000'},
-          { themeVariable: '--ion-color-medium', value: '#989aa2'},
-          { themeVariable: '--ion-color-primary', value: '#15489E'}, 
-          { themeVariable: '--ion-overlay-background-color', value: '#f4f5f8'},   
-          { themeVariable: '--ion-background-color', value: '#f4f5f8'}
+          { themeVariable: '--ion-text-color', value: '#000000'},                 //Black
+          { themeVariable: '--ion-color-light', value: '#f4f5f8'},                //White
+          { themeVariable: '--ion-color-dark', value: '#000000'},                 //Black
+          { themeVariable: '--ion-color-medium', value: '#989aa2'},               //"Grey"
+          { themeVariable: '--ion-color-primary', value: '#15489E'},              //CS Blue
+          { themeVariable: '--ion-overlay-background-color', value: '#f4f5f8'},   //White
+          { themeVariable: '--ion-background-color', value: '#f4f5f8'}            //White
         ]
       },
       {
