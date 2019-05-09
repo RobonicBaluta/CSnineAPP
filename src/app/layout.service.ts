@@ -27,23 +27,23 @@ export class LayoutService {
       {
         name: 'day',
         styles: [
-          { themeVariable: '--ion-text-color', value: '#000000'},
-          { themeVariable: '--ion-color-light', value: '#f4f5f8'},
-          { themeVariable: '--ion-color-dark', value: '#000000'},
-          { themeVariable: '--ion-color-medium', value: '#989aa2'},
-          { themeVariable: '--ion-color-primary', value: '#15489E'},
-          { themeVariable: '--ion-background-color', value: '#f4f5f8'}
+          { themeVariable: '--ion-text-color', value: '#000000'},       // Black
+          { themeVariable: '--ion-color-light', value: '#f4f5f8'},      // White 
+          { themeVariable: '--ion-color-dark', value: '#000000'},       // Black
+          { themeVariable: '--ion-color-medium', value: '#989aa2'},     // Grey
+          { themeVariable: '--ion-color-primary', value: '#15489E'},    // CS Blue  
+          { themeVariable: '--ion-background-color', value: '#f4f5f8'}  // White
         ]
       },
       {
         name: 'night',
         styles: [
-          { themeVariable: '--ion-text-color', value: '#FFFFFF'},
-          { themeVariable: '--ion-color-light', value: '#3f3f3f'},
-          { themeVariable: '--ion-color-dark', value: '#FFFFFF'},
-          { themeVariable: '--ion-color-medium', value: '#FFFFFF'},
-          { themeVariable: '--ion-color-primary', value: '#F78022'},
-          { themeVariable: '--ion-background-color', value: '#3f3f3f'}
+          { themeVariable: '--ion-text-color', value: '#FFFFFF'},       // White
+          { themeVariable: '--ion-color-light', value: '#3f3f3f'},      // Black
+          { themeVariable: '--ion-color-dark', value: '#FFFFFF'},       // White
+          { themeVariable: '--ion-color-medium', value: '#FFFFFF'},     // White
+          { themeVariable: '--ion-color-primary', value: '#F78022'},    // CS Orange
+          { themeVariable: '--ion-background-color', value: '#3f3f3f'}  // Black
         ]
       }
     ]
