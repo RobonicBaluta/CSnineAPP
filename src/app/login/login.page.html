@@ -6,15 +6,15 @@
 
 <ion-content>
     <ion-img id="profile-photo" src="assets/logo.svg"></ion-img>
-
+    
     <ion-row class="ion-margin-top">
         <ion-item>
-        <ion-label>Pick a server:</ion-label>
-        <ion-select required placeholder="Select a server" [(ngModel)]="select" (ionChange)="checkServer()" >
-            <ion-select-option value="http://csapi.soltystudio.com/api/v1" selected>Solty Studio</ion-select-option>
-            <ion-select-option value="http://webapi.contentshare.biz/api/v1">CS biz</ion-select-option>
-        </ion-select>
-    </ion-item>
+            <ion-label>Pick a server:</ion-label>
+            <ion-select required placeholder="Select a server" [(ngModel)]="select" (ionChange)="checkServer()" >
+                <ion-select-option value="http://csapi.soltystudio.com/api/v1" selected>Solty Studio</ion-select-option>
+                <ion-select-option value="http://webapi.contentshare.biz/api/v1">CS biz</ion-select-option>
+            </ion-select>
+        </ion-item>
     </ion-row>
     
     <form [formGroup]="credentialsForm" (ngSubmit)="onSubmit()">

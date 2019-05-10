@@ -20,6 +20,10 @@ export class AddTaskModalPage implements OnInit {
   assignedUserId: number;
   clientId: number;
   description:any;
+  select:any;
+  currentDate=new Date();
+  onDate:Date;
+  showOn:boolean=false;
   constructor(
     private modalController: ModalController, 
     private formBuilder: FormBuilder,
@@ -35,6 +39,7 @@ export class AddTaskModalPage implements OnInit {
         'descriptionHtml':[null],
         'assignedUserId': [null],
         'deadline':[null],
+        'deadlineType':[null],
         'clientId':[null],
         
         'entityRelatedTo': this.formBuilder.group({
@@ -86,6 +91,42 @@ export class AddTaskModalPage implements OnInit {
           console.log(err);
         });
       
+    }
+
+
+    checkDate(){
+    
+      let date=this.select;
+      console.log(date);
+      console.log(this.currentDate);
+      console.log(this.onDate);
+      switch (date) {
+        case 'immediately':
+        this.showOn=false;
+        this.taskForm.get('deadlineType').setValue(0);
+        this.taskForm.get('deadline').setValue(this.currentDate);
+        break;
+        
+        case 'forYouInfomation':
+        this.showOn=false;
+        this.taskForm.get('deadlineType').setValue(6);
+        this.taskForm.get('deadline').setValue(this.currentDate);
+        break;
+
+        case 'enableOn':
+        this.showOn=true;
+        
+        
+        break;
+
+        default:
+        
+        break;
+      }
+    }
+    setOn(){
+      this.taskForm.get('deadlineType').setValue(3);
+      this.taskForm.get('deadline').setValue(this.onDate);
     }
 
     compareWithFn = (o1, o2) => {

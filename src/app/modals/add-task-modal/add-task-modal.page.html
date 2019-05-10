@@ -21,7 +21,7 @@
                 <ion-col>
                     
                     <ion-label>Asigned User:</ion-label>
-                    <ion-select [compareWith]="compareWith" placeholder="Asigned User" formControlName="assignedUserId"> 
+                    <ion-select placeholder="Asigned User" formControlName="assignedUserId"> 
                         <ion-select-option *ngFor="let user of simpleUsers|async;" [value]="user.id" (ionChange)="setUser(user.id)" [value]="user"> {{user.lastName}} {{user.firstName}}</ion-select-option>
                     </ion-select>
                     <ion-button size='small' color="primary">Me: <ion-checkbox checked id="meCheck" ></ion-checkbox></ion-button>
@@ -125,10 +125,23 @@
                 
             </ion-row> -->
             <div>
+                
+                
                 <ion-item>
                     <ion-label>Date:</ion-label>
-                    <ion-datetime display-format="MM/DD/YYYY" placeholder="Select date">Date:</ion-datetime>
+                    <ion-select required placeholder="Select a date" [(ngModel)]='select' [ngModelOptions]="{standalone: true}" (ionChange)="checkDate()" >
+                        <ion-select-option value="immediately" >Immediately</ion-select-option>
+                        <ion-select-option value="forYouInfomationforYouInfomation">For your infomation</ion-select-option>
+                        <ion-select-option value="enableOn">On</ion-select-option>
+                        
+                    </ion-select>
+                    
                 </ion-item>
+                <div [hidden]="!showOn == true">
+                    <ion-label>On:</ion-label>
+                    <ion-datetime displayFormat="MM/DD/YYYY HH:mm" (ionChange)='setOn()' placeholder="Pick a date" [(ngModel)]="onDate" [ngModelOptions]="{standalone: true}"></ion-datetime>
+                </div>
+                
             </div>
             
             <!-- </div> -->
