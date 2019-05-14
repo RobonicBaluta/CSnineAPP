@@ -21,9 +21,15 @@ export class AddTaskModalPage implements OnInit {
   clientId: number;
   description:any;
   select:any;
+  selectedUser:any;
   currentDate=new Date();
-  onDate:Date;
-  showOn:boolean=false;
+  toDate:Date;
+  fromDate:Date;
+  showFrom:boolean=false;
+  showTo: boolean=false;
+  me:any;
+  profile: Observable<any>;
+  info: any;
   constructor(
     private modalController: ModalController, 
     private formBuilder: FormBuilder,
@@ -32,7 +38,7 @@ export class AddTaskModalPage implements OnInit {
       
       
       this.taskTab = 'description';
-      
+    
       this.taskForm = this.formBuilder.group({
         'title':[null],
         'description' : [null],
@@ -40,6 +46,7 @@ export class AddTaskModalPage implements OnInit {
         'assignedUserId': [null],
         'deadline':[null],
         'deadlineType':[null],
+        'fromDate':[null],
         'clientId':[null],
         
         'entityRelatedTo': this.formBuilder.group({
@@ -59,6 +66,8 @@ export class AddTaskModalPage implements OnInit {
       this.entityType='Company';
       this.getCompanies();
       this.getSimpleUsers();
+      this.getProfile();
+      
 
     }
     async closeModal() {
@@ -71,6 +80,10 @@ export class AddTaskModalPage implements OnInit {
     }
     async getCompanies(){
       this.clients=this.api.getCompanies();
+    }
+    async getProfile(){
+      return this.api.getProfile().subscribe(profile=>{this.info=profile
+      });
     }
     async getSimpleUsers(){
       this.simpleUsers=this.api.getSimpleUsers();
@@ -99,34 +112,50 @@ export class AddTaskModalPage implements OnInit {
       let date=this.select;
       console.log(date);
       console.log(this.currentDate);
-      console.log(this.onDate);
+      console.log(this.toDate);
       switch (date) {
         case 'immediately':
-        this.showOn=false;
+     
+        this.showTo=false;
         this.taskForm.get('deadlineType').setValue(0);
         this.taskForm.get('deadline').setValue(this.currentDate);
         break;
         
         case 'forYouInfomation':
-        this.showOn=false;
+      
+        this.showTo=false;
         this.taskForm.get('deadlineType').setValue(6);
         this.taskForm.get('deadline').setValue(this.currentDate);
         break;
 
-        case 'enableOn':
-        this.showOn=true;
+        case 'enableTo':
+        this.showFrom=false;
+        this.showTo=true;
+      
         
         
         break;
+        case 'enableFrom':
+        this.showFrom=true;
+        this.showTo=true;
+        
+        
+        
+        break;
+
 
         default:
         
         break;
       }
     }
-    setOn(){
+    setTo(){
       this.taskForm.get('deadlineType').setValue(3);
-      this.taskForm.get('deadline').setValue(this.onDate);
+      this.taskForm.get('deadline').setValue(this.toDate);
+    }
+    setFrom(){
+      this.taskForm.get('deadlineType').setValue(4);
+      this.taskForm.get('fromDate').setValue(this.fromDate);
     }
 
     compareWithFn = (o1, o2) => {
