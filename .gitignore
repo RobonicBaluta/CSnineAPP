@@ -12,6 +12,7 @@ log.txt
 .vscode/
 npm-debug.log*
 
+src/app/rest-api.service.ts
 .idea/
 .ionic/
 .sourcemaps/
