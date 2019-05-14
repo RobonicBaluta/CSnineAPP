@@ -61,6 +61,7 @@ export function jwtOptionsFactory(storage) {
       SplashScreen,
       LocalNotifications,
       Contacts,
+      HeaderColor,
       { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
       { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
       HTTP,

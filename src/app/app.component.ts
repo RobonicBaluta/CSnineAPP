@@ -19,28 +19,23 @@ export class AppComponent {
     private authService: AuthService,
     private router: Router,
     private headerColor: HeaderColor,
-    ) {
-      this.initializeApp();
-      this.headerColor.tint('#15489E');
-    }
+  ) {
+    this.initializeApp();
+  }
 
-    
-    
-    initializeApp() {
-      this.platform.ready().then(() => {
-        this.statusBar.styleDefault();
-        this.splashScreen.hide();
-        this.platform.backButton.subscribe(()=>{
-          //do nothing
-        });
-        
-        this.authService.authenticationState.subscribe(state => {
-          if (state) {
-            this.router.navigate(['tabs']);
-          } else {
-            this.router.navigate(['login']);
-          }
-        });
+  initializeApp() {
+    this.platform.ready().then(() => {
+      this.statusBar.styleDefault();
+      this.headerColor.tint('#483fc1');
+      this.splashScreen.hide();
+
+
+      this.authService.authenticationState.subscribe(state => {
+        if (state) {
+          this.router.navigate(['tabs']);
+        } else {
+          this.router.navigate(['login']);
+        }
       });
     }
   }
