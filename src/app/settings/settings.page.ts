@@ -1,8 +1,10 @@
+import { Router } from '@angular/router';
+import { Platform } from '@ionic/angular';
 import { LayoutService } from './../layout.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { RestApiService } from '../rest-api.service';
-import { ToastController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-settings',
@@ -13,26 +15,14 @@ export class SettingsPage implements OnInit {
 
   booleanFlag2: boolean;
   value: any;
-  platform: any;
-  toast: any;
-  
 
-  constructor( public toastCtrl: ToastController, public themeSwitcher: LayoutService, public authService: AuthService,public api: RestApiService ) {
+  constructor( public router: Router, public themeSwitcher: LayoutService, public authService: AuthService, 
+    public api: RestApiService, platform: Platform ) {
     this.booleanFlag2;
-    this.platform.backButton.subscribe(() => {
-      this.toast.presentToast();
+    platform.backButton.subscribeWithPriority(1, () => {
+      this.router.navigateByUrl("/tabs/tabs/tab5");
     });
-    
    }
-
-   async presentToast() {
-    this.toast = await this.toastCtrl.create({
-      message: 'Your settings have been saved.',
-      duration: 2000
-    });
-    this.toast.present();
-  }
-
 
 
   myChange(booleanFlag2) {
