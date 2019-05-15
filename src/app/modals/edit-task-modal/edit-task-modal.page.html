@@ -3,7 +3,7 @@
     <ion-grid>
         <ion-row>
             <ion-col text-center>
-                Add new task
+                Edit task
             </ion-col>
         </ion-row>
         
@@ -12,7 +12,7 @@
             <ion-row>
                 <ion-col text-center>
                     <ion-label color="primary">Task Title</ion-label>
-                    <ion-input  type='Text' formControlName="title"  placeholder='My new Task'></ion-input>
+                    <ion-input  type='Text' formControlName="title" value={{task?.title}} placeholder='My new Task'></ion-input>
                 </ion-col>
             </ion-row>
             
@@ -40,7 +40,7 @@
             <ion-row>
                 <ion-col>
                     <ion-label>Description:</ion-label>
-                    <ion-textarea formControlName="description" [(ngModel)]="description" placeholder='Enter a description'></ion-textarea>  
+                    <ion-textarea formControlName="description" value={{task?.title}} [(ngModel)]="description" placeholder='Enter a description'></ion-textarea>  
                 </ion-col>
             </ion-row>
             

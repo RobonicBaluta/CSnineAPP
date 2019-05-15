@@ -23,9 +23,9 @@
   <ion-virtual-scroll [items]="tasks?.items| search : tsks">
     <ion-item-sliding *virtualItem="let task">
       
-      <ion-item>
+      <ion-item (click)='setTaskId(task?.id)'>
         <ion-title mode='md'>
-          {{task?.title}}
+          {{task?.id}}
         </ion-title>
       </ion-item>
       
@@ -40,9 +40,9 @@
   </ion-virtual-scroll>
 </ion-list> 
 <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-  <ion-fab-button (click)="addTaskModal()">
+  <!-- <ion-fab-button (click)="addTaskModal()">
     <ion-icon name="add" id="add" ></ion-icon>
-  </ion-fab-button>
+  </ion-fab-button> -->
 </ion-fab>
 
 </ion-content>

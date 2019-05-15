@@ -218,6 +218,16 @@ export class RestApiService {
 
         }
 
+        getTaskById(id:number) :Observable <any>{
+            const url = `${this.apiUrl}/Tasks/${id}`;
+            return this.http.get(url).pipe(
+                timeout(5000),
+                retry(2),
+                catchError(this.handleError)
+            );
+        }
+
+
 
     // getContacts(): Observable <any>{
 

@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AddTaskModalPage } from '../modals/add-task-modal/add-task-modal.page';
 import { RestApiService } from '../rest-api.service';
 import { map } from 'rxjs/operators';
+import { EditTaskModalPage } from '../modals/edit-task-modal/edit-task-modal.page';
 
 
 
@@ -19,6 +20,7 @@ export class Tab2Page {
   
   items:[];
   tasks: Observable<any>;
+  taskId: number;
   
 
   
@@ -64,6 +66,35 @@ export class Tab2Page {
       // this.getItems();
       this.getTasks();
     }
+
+
+    setTaskId(id:number){
+      this.taskId=id;
+      console.log(this.taskId);
+      this.editModal();
+    }
+    async editModal() {
+      const modal = await this.modalController.create({
+        component: EditTaskModalPage,
+        cssClass: 'addCompanyCustom',
+        componentProps:{
+          taskId: this.taskId,
+
+        }
+      });
+      modal.onDidDismiss().then((dataReturned) => {
+        if (dataReturned !== null) {
+          console.log('Modal Sent Data :', dataReturned);
+        }
+      });
+      return await modal.present();
+    }
+
+
+
+
+
+
     doRefresh(event) {
       this.getTasks();
       console.log('Begin async operation');
