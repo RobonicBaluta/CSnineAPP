@@ -30,7 +30,7 @@ export class SettingsPage implements OnInit {
       message: 'Your settings have been saved.',
       duration: 2000
     });
-    toast.present();
+    this.toast.present();
   }
 
 

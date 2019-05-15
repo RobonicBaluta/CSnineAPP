@@ -31,7 +31,6 @@ export class EditTaskModalPage implements OnInit {
   fromDate:Date;
   showFrom:boolean=false;
   showTo: boolean=false;
-  me:any;
   profile: Observable<any>;
   info: any;
   constructor(
@@ -56,11 +55,7 @@ export class EditTaskModalPage implements OnInit {
         'fromDate':[null],
         'clientId':[null],
         
-        // 'entityRelatedTo': this.formBuilder.group({
-        //   'entityId': [null],
-        //   'entityType': [null],
-          
-        // }),   
+   
       });
     }
 
