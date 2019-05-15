@@ -21,7 +21,7 @@ export class AddTaskModalPage implements OnInit {
   clientId: number;
   description:any;
   select:any;
-  selectedUser:any;
+  selectedUser:string='40224';
   currentDate=new Date();
   toDate:Date;
   fromDate:Date;
@@ -66,7 +66,7 @@ export class AddTaskModalPage implements OnInit {
       this.entityType='Company';
       this.getCompanies();
       this.getSimpleUsers();
-      this.getProfile();
+      // this.getProfile();
       
 
     }
@@ -114,15 +114,14 @@ export class AddTaskModalPage implements OnInit {
       console.log(this.currentDate);
       console.log(this.toDate);
       switch (date) {
+
         case 'immediately':
-     
         this.showTo=false;
         this.taskForm.get('deadlineType').setValue(0);
         this.taskForm.get('deadline').setValue(this.currentDate);
         break;
         
         case 'forYouInfomation':
-      
         this.showTo=false;
         this.taskForm.get('deadlineType').setValue(6);
         this.taskForm.get('deadline').setValue(this.currentDate);
@@ -131,21 +130,15 @@ export class AddTaskModalPage implements OnInit {
         case 'enableTo':
         this.showFrom=false;
         this.showTo=true;
-      
-        
-        
         break;
+
         case 'enableFrom':
         this.showFrom=true;
         this.showTo=true;
-        
-        
-        
         break;
 
 
         default:
-        
         break;
       }
     }
