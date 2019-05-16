@@ -71,12 +71,12 @@
                 
                 <div [hidden]="!showFrom == true">
                     <ion-label>From:</ion-label>
-                    <ion-datetime displayFormat="MMM/DD/YYYY HH:mm" (ionChange)='setFrom()' placeholder="Pick a date" [(ngModel)]="fromDate" [ngModelOptions]="{standalone: true}"></ion-datetime>
+                    <ion-datetime displayFormat="MMM/DD/YYYY HH:mm"  max="2100-12-31"(ionChange)='setFrom()'  placeholder="Pick a date" [(ngModel)]="fromDate" [ngModelOptions]="{standalone: true}"></ion-datetime>
                 </div>
                 
                 <div [hidden]="!showTo == true">
                     <ion-label>To:</ion-label>
-                    <ion-datetime displayFormat="MMM/DD/YYYY HH:mm" (ionChange)='setTo()' placeholder="Pick a date" [(ngModel)]="toDate" [ngModelOptions]="{standalone: true}"></ion-datetime>
+                    <ion-datetime displayFormat="MMM/DD/YYYY HH:mm" max="2100-12-31" (ionChange)='setTo()' placeholder="Pick a date" [(ngModel)]="toDate" [ngModelOptions]="{standalone: true}"></ion-datetime>
                 </div>
             </div>
             
