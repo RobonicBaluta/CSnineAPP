@@ -89,7 +89,7 @@ export class EditTaskModalPage implements OnInit {
         // Update the value of the control
         this.taskForm.get('assignedUserId').setValue(this.task.assignedUserId);  
         this.taskForm.get('clientId').setValue(this.task.clientId); 
-        this.taskForm.get('deadlineType').setValue(this.task.deadlineType);
+        // this.taskForm.get('deadlineType').setValue(this.task.deadlineType);
         
         if (this.taskForm.get('deadline')) {
           this.taskForm.get('deadline').setValue(this.task.deadline);
@@ -101,9 +101,7 @@ export class EditTaskModalPage implements OnInit {
           console.log('jelou its me')
           this.select='immediately';
           this.showTo=false;
-        }
-        console.log(this.taskForm.get('deadlineType').value);
-        if (this.taskForm.get('deadlineType').value==6) {
+        }else if (this.taskForm.get('deadlineType').value==6) {
           console.log('jelou its you')
           this.select='forYouInfomation';
           this.showTo=false;
