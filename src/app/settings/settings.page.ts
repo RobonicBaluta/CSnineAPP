@@ -14,13 +14,14 @@ export class SettingsPage implements OnInit {
 
   booleanFlag2: boolean;
   value: any;
-  checkPage: string;
+  checkPage: any;
 
   constructor( public router: Router, public themeSwitcher: LayoutService, public authService: AuthService, 
     public api: RestApiService, platform: Platform ) {
     this.booleanFlag2;
-    //console.log(this.router.url);
-    if (this.router.url === '/settings'){
+    this.checkPage = this.router.url;
+    //console.log(this.checkPage);
+    if (this.checkPage === '/settings'){
       platform.backButton.subscribeWithPriority(1, () => {
         this.router.navigateByUrl("/tabs/tabs/tabs5");
       });
@@ -46,7 +47,6 @@ export class SettingsPage implements OnInit {
 }
 
   ngOnInit() {
-   console.log(this.booleanFlag2);
    this.getStatus();
  
   }
