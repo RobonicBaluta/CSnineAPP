@@ -97,12 +97,11 @@ export class EditTaskModalPage implements OnInit {
         if (this.taskForm.get('deadlineType')) {
           this.taskForm.get('deadlineType').setValue(this.task.deadlineType);
         }
+
         if (this.taskForm.get('deadlineType').value==0) {
-          console.log('jelou its me')
           this.select='immediately';
           this.showTo=false;
         }else if (this.taskForm.get('deadlineType').value==6) {
-          console.log('jelou its you')
           this.select='forYouInfomation';
           this.showTo=false;
         }else if (this.taskForm.get('deadlineType').value==3) {
@@ -120,11 +119,7 @@ export class EditTaskModalPage implements OnInit {
           this.taskForm.get('fromDate').setValue(this.fromDate);
         }
         this.taskForm.get('deadline').setValue(this.task.deadline);
-        
-        
-        console.log(this.task);
-        
-        
+ 
       }
       
     }
