@@ -27,9 +27,10 @@ export class AddTaskModalPage implements OnInit {
   fromDate:Date;
   showFrom:boolean=false;
   showTo: boolean=false;
-  me:any;
+  me:boolean=true;
   profile: Observable<any>;
   info: any;
+  
   constructor(
     private modalController: ModalController, 
     private formBuilder: FormBuilder,
@@ -38,7 +39,7 @@ export class AddTaskModalPage implements OnInit {
       
       
       this.taskTab = 'description';
-    
+      
       this.taskForm = this.formBuilder.group({
         'title':[null],
         'description' : [null],
@@ -66,10 +67,13 @@ export class AddTaskModalPage implements OnInit {
       this.entityType='Company';
       this.getCompanies();
       this.getSimpleUsers();
-      // this.getProfile();
+      this.getProfile();
       
-
+      
+      
     }
+    
+    
     async closeModal() {
       const onClosedData: string = "Wrapped Up!";
       await this.modalController.dismiss(onClosedData);
@@ -83,7 +87,24 @@ export class AddTaskModalPage implements OnInit {
     }
     async getProfile(){
       return this.api.getProfile().subscribe(profile=>{this.info=profile
+        
+        if(this.me){
+          
+          console.log('me');
+          this.setMe();
+        }else{
+          this.removeMe();
+          console.log('not me');
+        }
       });
+    }
+    setMe(){
+      if(this.info && this.info.userId){
+        this.taskForm.get('assignedUserId').setValue(this.info.userId);  
+      }
+    }
+    removeMe(){
+      this.taskForm.get('assignedUserId').setValue('');  
     }
     async getSimpleUsers(){
       this.simpleUsers=this.api.getSimpleUsers();
@@ -94,27 +115,27 @@ export class AddTaskModalPage implements OnInit {
     async setClient(clientId){
       this.clientId=clientId;
     }
-
+    
     async addTask(){
-        await this.api.addTask(this.taskForm.value)
-        .subscribe(res => {
-          console.log(this.taskForm.value);
-          this.closeModal();
-        }, (err) => {
-          console.log(err);
-        });
+      await this.api.addTask(this.taskForm.value)
+      .subscribe(res => {
+        console.log(this.taskForm.value);
+        this.closeModal();
+      }, (err) => {
+        console.log(err);
+      });
       
     }
-
-
-    checkDate(){
     
+    
+    checkDate(){
+      
       let date=this.select;
       console.log(date);
       console.log(this.currentDate);
       console.log(this.toDate);
       switch (date) {
-
+        
         case 'immediately':
         this.showTo=false;
         this.taskForm.get('deadlineType').setValue(0);
@@ -126,18 +147,18 @@ export class AddTaskModalPage implements OnInit {
         this.taskForm.get('deadlineType').setValue(6);
         this.taskForm.get('deadline').setValue(this.currentDate);
         break;
-
+        
         case 'enableTo':
         this.showFrom=false;
         this.showTo=true;
         break;
-
+        
         case 'enableFrom':
         this.showFrom=true;
         this.showTo=true;
         break;
-
-
+        
+        
         default:
         break;
       }
@@ -150,11 +171,11 @@ export class AddTaskModalPage implements OnInit {
       this.taskForm.get('deadlineType').setValue(4);
       this.taskForm.get('fromDate').setValue(this.fromDate);
     }
-
+    
     compareWithFn = (o1, o2) => {
       return o1 && o2 ? o1.id === o2.id : o1 === o2;
     };
-
+    
     compareWith = this.compareWithFn;
     
   }
