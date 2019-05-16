@@ -49,6 +49,7 @@ export class EditTaskModalPage implements OnInit {
       
       
       this.taskForm = this.formBuilder.group({
+        'id':[null],
         'title':[null],
         'description' : [null],
         'descriptionHtml':[null],
@@ -101,23 +102,29 @@ export class EditTaskModalPage implements OnInit {
           this.select='immediately';
           this.showTo=false;
         }
+        console.log(this.taskForm.get('deadlineType').value);
         if (this.taskForm.get('deadlineType').value==6) {
+          console.log('jelou its you')
           this.select='forYouInfomation';
           this.showTo=false;
-        }
-        if (this.taskForm.get('deadlineType').value==3) {
-          this.select='enableTo';
+        }else if (this.taskForm.get('deadlineType').value==3) {
+          this.select='enableOn';
           this.showTo=true;
+          this.toDate=this.task.deadline;
           
-        }
-        if (this.taskForm.get('deadlineType').value==4) {
+        }else if (this.taskForm.get('deadlineType').value==4) {
           this.select='enableFrom';
-          this.showFrom=true;  
-          this.taskForm.get('fromDate').setValue(this.task.deadline); 
+          this.showFrom=true; 
+          console.log(this.task.deadline);
+          console.log(this.task.fromDate);
+          this.toDate=this.task.deadline; 
+          this.fromDate=this.task.fromDate; 
+          this.taskForm.get('fromDate').setValue(this.fromDate);
         }
         this.taskForm.get('deadline').setValue(this.task.deadline);
-        let o= this.taskForm.get('deadline').value;
-    console.log(o);
+        
+        
+        console.log(this.task);
         
         
       }
@@ -155,6 +162,7 @@ export class EditTaskModalPage implements OnInit {
         case 'immediately':
         
         this.showTo=false;
+        this.showFrom=false;
         this.taskForm.get('deadlineType').setValue(0);
         this.taskForm.get('deadline').setValue(this.currentDate);
         break;
@@ -162,11 +170,12 @@ export class EditTaskModalPage implements OnInit {
         case 'forYouInfomation':
         
         this.showTo=false;
+        this.showFrom=false;
         this.taskForm.get('deadlineType').setValue(6);
         this.taskForm.get('deadline').setValue(this.currentDate);
         break;
         
-        case 'enableTo':
+        case 'enableOn':
         this.showFrom=false;
         this.showTo=true;
         
@@ -196,6 +205,33 @@ export class EditTaskModalPage implements OnInit {
     setFrom(){
       this.taskForm.get('deadlineType').setValue(4);
       this.taskForm.get('fromDate').setValue(this.fromDate);
+    }
+    
+    async updateTask(){
+      if (this.taskForm.valid){
+        await this.api.updateTask( this.taskForm.value)
+        .subscribe(res => {
+          
+          this.updateAlert();
+          this.closeModal();
+          
+        }, (err) => {
+          console.log(err);
+        });
+      }else{
+        // this.errorAlert();
+      }
+    }
+    
+    
+    async updateAlert() {
+      const alert = await this.alertController.create({
+        header: 'Alert',
+        cssClass: 'alert',
+        message: 'Changes succesfully saved',
+        buttons: ['OK']
+      });
+      alert.present();
     }
   }
   

@@ -5,7 +5,6 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { RestApiService } from '../rest-api.service';
 
-
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.page.html',
@@ -15,13 +14,18 @@ export class SettingsPage implements OnInit {
 
   booleanFlag2: boolean;
   value: any;
+  checkPage: string;
 
   constructor( public router: Router, public themeSwitcher: LayoutService, public authService: AuthService, 
     public api: RestApiService, platform: Platform ) {
     this.booleanFlag2;
-    platform.backButton.subscribeWithPriority(1, () => {
-      this.router.navigateByUrl("/tabs/tabs/tab5");
-    });
+    //console.log(this.router.url);
+    if (this.router.url === '/settings'){
+      platform.backButton.subscribeWithPriority(1, () => {
+        this.router.navigateByUrl("/tabs/tabs/tabs5");
+      });
+    }
+  
    }
 
 

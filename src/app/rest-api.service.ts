@@ -226,7 +226,13 @@ export class RestApiService {
                 catchError(this.handleError)
             );
         }
-
+        updateTask(data): Observable<any> {
+            const url = `${this.apiUrl}/Tasks`;
+            return this.http.put(url, data, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            );
+        }
 
 
     // getContacts(): Observable <any>{
