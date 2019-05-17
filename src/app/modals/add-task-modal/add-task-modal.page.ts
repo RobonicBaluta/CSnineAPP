@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, NavParams } from '@ionic/angular';
+import { ModalController, NavParams, LoadingController } from '@ionic/angular';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { RestApiService } from 'src/app/rest-api.service';
@@ -21,7 +21,6 @@ export class AddTaskModalPage implements OnInit {
   clientId: number;
   description:any;
   select:any;
-  selectedUser:string='40224';
   currentDate=new Date();
   toDate:Date;
   fromDate:Date;
@@ -35,7 +34,8 @@ export class AddTaskModalPage implements OnInit {
     private modalController: ModalController, 
     private formBuilder: FormBuilder,
     private navParams:NavParams,
-    public api: RestApiService) { 
+    public api: RestApiService,
+    public loadingController: LoadingController) { 
       
       
       this.taskTab = 'description';
@@ -83,9 +83,15 @@ export class AddTaskModalPage implements OnInit {
       console.log(this.companyId);
     }
     async getCompanies(){
+      const loading = await this.loadingController.create({
+        message: 'Loading'
+      });
+      await loading.present();
       this.clients=this.api.getCompanies();
+      loading.dismiss();
     }
     async getProfile(){
+     
       return this.api.getProfile().subscribe(profile=>{this.info=profile
         
         if(this.me){
@@ -96,6 +102,7 @@ export class AddTaskModalPage implements OnInit {
           this.removeMe();
           console.log('not me');
         }
+    
       });
     }
     setMe(){
@@ -107,7 +114,12 @@ export class AddTaskModalPage implements OnInit {
       this.taskForm.get('assignedUserId').setValue('');  
     }
     async getSimpleUsers(){
+      const loading = await this.loadingController.create({
+        message: 'Loading'
+      });
+      await loading.present();
       this.simpleUsers=this.api.getSimpleUsers();
+      loading.dismiss();
     }
     async setUser(userId){
       this.assignedUserId=userId;

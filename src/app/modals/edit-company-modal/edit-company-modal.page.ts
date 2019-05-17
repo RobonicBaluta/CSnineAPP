@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSegment, ModalController, Events } from '@ionic/angular';
+import { IonSegment, ModalController, Events, LoadingController } from '@ionic/angular';
 import { AlertController, NavParams} from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -31,7 +31,7 @@ export class EditCompanyModalPage implements OnInit {
  
   
   
-  constructor(private modalController: ModalController
+ constructor(private modalController: ModalController
     ,private alertCtrl: AlertController, 
     public router: Router, 
     public navCtrl: NavController, 
@@ -39,7 +39,8 @@ export class EditCompanyModalPage implements OnInit {
     public alertController: AlertController,
     public api: RestApiService,
     private navParams:NavParams,
-    private events:Events) {
+    private events:Events,
+    public loadingController: LoadingController) {
       
       // this.companyTab='info';
     
@@ -127,6 +128,12 @@ export class EditCompanyModalPage implements OnInit {
     // }
     
     async getCompanyInfo(){
+
+      const loading = await this.loadingController.create({
+        message: 'Loading'
+      });
+      await loading.present();
+
       this.companyId=this.navParams.get('companyId');
       this.company= await this.api.getCompanyById(this.companyId).toPromise();
       if(this.company && this.company.categories){
@@ -137,6 +144,7 @@ export class EditCompanyModalPage implements OnInit {
       
         console.log(this.select);
       }
+      loading.dismiss();
     }
     
     async getCategories(){

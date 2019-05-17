@@ -350,7 +350,13 @@ export class RestApiService {
                         `body was: ${error.error}`);
                     }
                     // return an observable with a user-facing error message
-                    window.alert(error.error.message);
+                
+                    if(error.error.message==null ||error.error.message==''){
+                        window.alert('Connection error');
+                    }else{
+                        window.alert(error.error.message);
+                    }
+                    
                     return throwError('Something bad happened; please try again later.');
                 }
     setStatus(stat){

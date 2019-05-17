@@ -64,7 +64,12 @@ export class AuthService {
         }),
         catchError(e => {
           console.log(e.error);
-          this.showAlert(e.error);
+          if(e.eror==null|| e.eror==''){
+            this.showAlert('Connection error');
+          }else{
+            this.showAlert(e.error);
+          }
+          
           throw new Error(e);
         })
      );

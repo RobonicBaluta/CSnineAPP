@@ -12,11 +12,11 @@ import { AlertController, Events, Platform } from '@ionic/angular';
   styleUrls: ['./tab5.page.scss'],
 })
 export class Tab5Page implements OnInit {
-
+  
   info: Observable<any>;
   company=null;
   profileForm: FormGroup;
-
+  
   constructor(private activatedRoute: ActivatedRoute,
     public api: RestApiService,
     public router: Router,
@@ -24,72 +24,71 @@ export class Tab5Page implements OnInit {
     public alertController: AlertController,
     private events:Events,
     platform: Platform) { 
-
-    platform.backButton.subscribeWithPriority(1, () => {
       
-    });
-
-    this.profileForm = this.formBuilder.group({
-      'mobile':[null],
-      'street':[null],
-      'city':[null],
-      'region':[null],
-      'country':[null],
-      'zip':[null],
-      'fax':[null],
+      platform.backButton.subscribeWithPriority(1, () => {
+        
+      });
       
-    });
-  }
- 
-  ngOnInit() {
-
-    this.getProfile();
-   // this.getCompanyInfo(id);
-  }
-
-  async updateProfile(){
-    console.log(this.profileForm.value);
-    await this.api.updateProfile(this.profileForm.value).subscribe();
- 
-       this.presentAlert();
-       this.doRefresh(this.events);
-       // window.location.reload();
-        //this.router.navigate(['/home']);
-
-  }
-
-  async getProfile() {
- return this.api.getProfile().subscribe(profile=>{this.info=profile
-console.log(this.info)});
-
+      this.profileForm = this.formBuilder.group({
+        'mobile':[null],
+        'street':[null],
+        'city':[null],
+        'region':[null],
+        'country':[null],
+        'zip':[null],
+        'fax':[null],
+        
+      });
+    }
     
-  }
-
-  // async getCompanyInfo(id:number){
-
-  //   this.api.getCompanyById(id).subscribe(result=>{
-  //     this.company=result;
-  //   })
-  // }
-
-  async presentAlert() {
-    const alert = await this.alertController.create({
-      header: 'Alert',
-      message: 'Changes succesfully saved',
-      buttons: ['OK']
-    });
-
-    await alert.present();
-  }
-  doRefresh(event) {
-    this.getProfile();
-    console.log('Begin async operation');
+    ngOnInit() {
+      
+      this.getProfile();
+      // this.getCompanyInfo(id);
+    }
     
-    setTimeout(() => {
-      console.log('Async operation has ended');
-      event.target.complete();
-    }, 2000);
+    async updateProfile(){
+      console.log(this.profileForm.value);
+      await this.api.updateProfile(this.profileForm.value).subscribe();
+      
+      this.presentAlert();
+      this.doRefresh(this.events);
+      // window.location.reload();
+      //this.router.navigate(['/home']);
+      
+    }
+    
+    async getProfile() {
+      return this.api.getProfile().subscribe(profile=>{this.info=profile
+      });   
+    }
+    
+    // async getCompanyInfo(id:number){
+    
+    //   this.api.getCompanyById(id).subscribe(result=>{
+    //     this.company=result;
+    //   })
+    // }
+    
+    async presentAlert() {
+      const alert = await this.alertController.create({
+        header: 'Alert',
+        message: 'Changes succesfully saved',
+        buttons: ['OK']
+      });
+      
+      await alert.present();
+    }
+    doRefresh(event) {
+      this.getProfile();
+      console.log('Begin async operation');
+      
+      setTimeout(() => {
+        console.log('Async operation has ended');
+        event.target.complete();
+      }, 2000);
+    }
+    
+    
   }
   
-
-}

@@ -29,7 +29,7 @@ export class LoginPage implements OnInit {
       
       const alert = await this.alertCtrl.create({
         header: 'Error',
-        message: 'The email or the password that you have written is wrong',
+        message: 'The email or the password that you have written are wrong',
         buttons: [
           {
             text: 'Ok',
