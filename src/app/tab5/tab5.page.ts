@@ -26,7 +26,7 @@ export class Tab5Page implements OnInit {
     platform: Platform) { 
 
     platform.backButton.subscribeWithPriority(1, () => {
-      
+      this.router.navigateByUrl("");
     });
 
     this.profileForm = this.formBuilder.group({

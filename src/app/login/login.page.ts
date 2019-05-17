@@ -64,7 +64,7 @@ export class LoginPage implements OnInit {
       
     // }
     
-    checkServerz(){
+    checkServer(){
     
       let server=this.select;
       // console.log(server);
