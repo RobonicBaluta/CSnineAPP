@@ -91,18 +91,19 @@ export class AddTaskModalPage implements OnInit {
       loading.dismiss();
     }
     async getProfile(){
-     
+      const loading = await this.loadingController.create({
+        message: 'Loading'
+      });
+      await loading.present();
       return this.api.getProfile().subscribe(profile=>{this.info=profile
-        
         if(this.me){
-          
           console.log('me');
           this.setMe();
         }else{
           this.removeMe();
           console.log('not me');
         }
-    
+        loading.dismiss();
       });
     }
     setMe(){

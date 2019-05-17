@@ -4,7 +4,7 @@ import { RestApiService } from '../rest-api.service';
 import { Profile } from 'selenium-webdriver/firefox';
 import { FormGroup, FormBuilder,ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AlertController, Events, Platform } from '@ionic/angular';
+import { AlertController, Events, Platform, LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab5',
@@ -23,6 +23,7 @@ export class Tab5Page implements OnInit {
     private formBuilder: FormBuilder,
     public alertController: AlertController,
     private events:Events,
+    public loadingController: LoadingController,
     platform: Platform) { 
       
       platform.backButton.subscribeWithPriority(1, () => {
@@ -59,8 +60,12 @@ export class Tab5Page implements OnInit {
     }
     
     async getProfile() {
+      const loading = await this.loadingController.create({
+        message: 'Loading'
+      });
+      await loading.present();
       return this.api.getProfile().subscribe(profile=>{this.info=profile
-      });   
+        loading.dismiss()});   
     }
     
     // async getCompanyInfo(id:number){

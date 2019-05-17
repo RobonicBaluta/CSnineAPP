@@ -22,7 +22,7 @@
                     <ion-select placeholder="Asigned User" formControlName="assignedUserId"> 
                         <ion-select-option *ngFor="let user of simpleUsers|async;" [value]="user.id" (ionChange)="setUser(user.id)" [value]="user"> {{user.lastName}} {{user.firstName}}</ion-select-option>
                     </ion-select>
-                    <ion-button size='small' color="primary">Me: <ion-checkbox checked id="meCheck" ></ion-checkbox></ion-button>
+                    <ion-button size='small' color="primary">Me: <ion-checkbox checked id="meCheck" [(ngModel)]='me'[ngModelOptions]="{standalone: true}" (ionChange)='meOrNot()' ></ion-checkbox></ion-button>
                 </ion-col>
             </ion-row>
             

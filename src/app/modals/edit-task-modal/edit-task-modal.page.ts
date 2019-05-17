@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { RestApiService } from '../../rest-api.service'
-import { ModalController, AlertController, NavController, NavParams, Events } from '@ionic/angular';
+import { ModalController, AlertController, NavController, NavParams, Events, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Component({
@@ -36,6 +36,7 @@ export class EditTaskModalPage implements OnInit {
   
   
   info: any;
+  me: boolean;
   constructor(
     private modalController: ModalController
     ,private alertCtrl: AlertController, 
@@ -45,7 +46,8 @@ export class EditTaskModalPage implements OnInit {
     public alertController: AlertController,
     public api: RestApiService,
     private navParams:NavParams,
-    private events:Events) { 
+    private events:Events,
+    public loadingController: LoadingController) { 
       
       
       this.taskForm = this.formBuilder.group({
@@ -71,33 +73,87 @@ export class EditTaskModalPage implements OnInit {
       this.entityType='Company';
       this.getCompanies();
       this.getSimpleUsers();
+      this.getProfile();
     }
     
     
     
     
+    
+    
+    
+    
+    async getProfile(){
+      const loading = await this.loadingController.create({
+        message: 'Loading'
+      });
+      await loading.present();
+      return this.api.getProfile().subscribe(profile=>{this.info=profile
+ 
+        loading.dismiss();
+      });
+    }
+    setMe(){
+      if(this.info && this.info.userId){
+        this.taskForm.get('assignedUserId').setValue(this.info.userId);  
+      }
+    }
+    removeMe(){
+      this.taskForm.get('assignedUserId').setValue('');  
+    }
+    
+
+    async meOrNot(){
+      await this.getProfile();
+      if(this.me){
+        console.log('me');
+        this.setMe();
+      }else{
+        this.removeMe();
+        console.log('not me');
+      }
+    }
+    
     async getTaskInfo() {
       
       this.taskId = this.navParams.get('taskId');
-      
+      const loading = await this.loadingController.create({
+        message: 'Loading'
+      });
+      await loading.present();
       // If you want to use await, getTaskById() should return a promise
       this.task = await this.api.getTaskById(this.taskId).toPromise();
       
+      
+     await this.getProfile();
       // I'm assuming the task has an userId property
       if(this.task && this.task.assignedUserId && this.task.clientId) {
+        
+ 
+        
+        
+        
         
         // Update the value of the control
         this.taskForm.get('assignedUserId').setValue(this.task.assignedUserId);  
         this.taskForm.get('clientId').setValue(this.task.clientId); 
         // this.taskForm.get('deadlineType').setValue(this.task.deadlineType);
+        console.log(this.info.userId);
+        console.log(this.task.assignedUserId);
         
+        if (this.task.assignedUserId==this.info.userId) {
+          this.me=true;
+          
+        }else{
+          this.me=false;
+        }
         if (this.taskForm.get('deadline')) {
           this.taskForm.get('deadline').setValue(this.task.deadline);
         }
         if (this.taskForm.get('deadlineType')) {
           this.taskForm.get('deadlineType').setValue(this.task.deadlineType);
         }
-
+        
         if (this.taskForm.get('deadlineType').value==0) {
           this.select='immediately';
           this.showTo=false;
@@ -112,15 +168,16 @@ export class EditTaskModalPage implements OnInit {
         }else if (this.taskForm.get('deadlineType').value==4) {
           this.select='enableFrom';
           this.showFrom=true; 
-          console.log(this.task.deadline);
-          console.log(this.task.fromDate);
+          // console.log(this.task.deadline);
+          // console.log(this.task.fromDate);
           this.toDate=this.task.deadline; 
           this.fromDate=this.task.fromDate; 
           this.taskForm.get('fromDate').setValue(this.fromDate);
         }
         this.taskForm.get('deadline').setValue(this.task.deadline);
- 
+        
       }
+      loading.dismiss();
       
     }
     

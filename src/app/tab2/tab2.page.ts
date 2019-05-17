@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {Observable} from 'rxjs'; 
-import { AlertController} from '@ionic/angular';
+import { AlertController, LoadingController} from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -42,7 +42,8 @@ export class Tab2Page {
   
   constructor(public modalController: ModalController,
     public api: RestApiService,private alertController: AlertController ,
-    public router: Router,) {}
+    public router: Router,
+    public loadingController: LoadingController,) {}
     
     async  addTaskModal() {
       const modal = await this.modalController.create({
@@ -59,8 +60,12 @@ export class Tab2Page {
     }
 
     async getTasks() {
+      const loading = await this.loadingController.create({
+        message: 'Loading'
+      });
+      await loading.present();
       return this.api.getTasks().subscribe(data=>{this.tasks=data
-      console.log(this.tasks)});
+        loading.dismiss();});
     }
     ngOnInit() {
       // this.getItems();
