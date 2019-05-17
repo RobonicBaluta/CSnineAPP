@@ -46,7 +46,7 @@
                 <ion-virtual-scroll [items]="csContacts |async|search: conts">
                     <ion-item-sliding *virtualItem="let contact">
 
-                        <ion-item>
+                        <ion-item (click)='setContactId(contact.id)'>
                             <ion-avatar size='end' class="contactAvatar">
                                 <img src="https://www.w3schools.com/howto/img_avatar.png">
                             </ion-avatar>

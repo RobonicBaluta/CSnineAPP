@@ -22,6 +22,9 @@ const httpOptions = {
 })
 
 export class RestApiService {
+    getContactById(contactId: number): any {
+        throw new Error("Method not implemented.");
+    }
 
 
     status:boolean;
