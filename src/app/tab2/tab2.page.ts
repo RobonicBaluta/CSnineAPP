@@ -65,7 +65,8 @@ export class Tab2Page {
       });
       await loading.present();
       return this.api.getTasks().subscribe(data=>{this.tasks=data
-        loading.dismiss();});
+        loading.dismiss();
+      });
     }
     ngOnInit() {
       // this.getItems();

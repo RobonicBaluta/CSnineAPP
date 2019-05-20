@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { RestApiService } from '../rest-api.service';
 import { Router } from '@angular/router';
-import { AlertController, ModalController, LoadingController, NavParams } from '@ionic/angular';
+import { AlertController, ModalController, LoadingController } from '@ionic/angular';
 import { IonSegment } from '@ionic/angular';
 import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts/ngx';
 import { EditCompanyModalPage } from '../modals/edit-company-modal/edit-company-modal.page';
@@ -31,7 +31,6 @@ export class Tab4Page implements OnInit {
         private alertController: AlertController ,
         public router: Router,
         public loadingController: LoadingController,
-        private navParams:NavParams,
         ) {
             this.getContacts();
             this.getApiContacts();
@@ -50,22 +49,7 @@ export class Tab4Page implements OnInit {
             this.showContactModal();
         }
         
-        async getContactInfo(){
-            
-            const loading = await this.loadingController.create({
-                message: 'Loading'
-            });
-            await loading.present();
-            
-            this.contactId=this.navParams.get('companyId');
-            this.contact= await this.api.getContactById(this.contactId).subscribe(result=>{
-                this.contact=result;
-            })
-            
-            
-            
-            loading.dismiss();
-        }
+ 
         
         async showContactModal() {
             const modal = await this.modalController.create({

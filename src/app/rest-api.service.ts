@@ -23,7 +23,12 @@ const httpOptions = {
 
 export class RestApiService {
     getContactById(contactId: number): any {
-        throw new Error("Method not implemented.");
+        const url = `${this.apiUrl}/Contacts?UserIds=${contactId}`;
+        return this.http.get(url, httpOptions).pipe(
+            timeout(5000),
+            retry(2),
+            catchError(this.handleError)
+        );
     }
 
 

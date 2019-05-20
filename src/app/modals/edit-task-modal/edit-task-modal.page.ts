@@ -121,12 +121,12 @@ export class EditTaskModalPage implements OnInit {
         message: 'Loading'
       });
       await loading.present();
-      // If you want to use await, getTaskById() should return a promise
+     
       this.task = await this.api.getTaskById(this.taskId).toPromise();
       
       
      await this.getProfile();
-      // I'm assuming the task has an userId property
+      
       if(this.task && this.task.assignedUserId && this.task.clientId) {
         
  
@@ -137,7 +137,7 @@ export class EditTaskModalPage implements OnInit {
         // Update the value of the control
         this.taskForm.get('assignedUserId').setValue(this.task.assignedUserId);  
         this.taskForm.get('clientId').setValue(this.task.clientId); 
-        // this.taskForm.get('deadlineType').setValue(this.task.deadlineType);
+    
         console.log(this.info.userId);
         console.log(this.task.assignedUserId);
         

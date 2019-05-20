@@ -25,6 +25,7 @@ import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/cont
 import { HTTP } from '@ionic-native/http/ngx';
 import { HeaderColor } from '@ionic-native/header-color/ngx';
 import { EditTaskModalPageModule } from './modals/edit-task-modal/edit-task-modal.module';
+import { ShowContactModalPageModule } from './modals/show-contact-modal/show-contact-modal.module';
 
 
 export function jwtOptionsFactory(storage) {
@@ -49,6 +50,7 @@ export function jwtOptionsFactory(storage) {
     ReactiveFormsModule,
     AddTaskModalPageModule,
     EditTaskModalPageModule,
+    ShowContactModalPageModule,
     IonicStorageModule.forRoot(),
     JwtModule.forRoot({
       jwtOptionsProvider: {
