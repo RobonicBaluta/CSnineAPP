@@ -4,7 +4,7 @@ import { RestApiService } from '../rest-api.service';
 import { Profile } from 'selenium-webdriver/firefox';
 import { FormGroup, FormBuilder,ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AlertController, Events, Platform } from '@ionic/angular';
+import { AlertController, Events, Platform, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab5',
@@ -23,11 +23,13 @@ export class Tab5Page implements OnInit {
     private formBuilder: FormBuilder,
     public alertController: AlertController,
     private events:Events,
-    platform: Platform) { 
+    public platform: Platform,
+    public navctrl: NavController) { 
 
-    platform.backButton.subscribeWithPriority(1, () => {
+    this.navctrl.navigateBack;
+    /*platform.backButton.subscribeWithPriority(1, () => {
       this.router.navigateByUrl("");
-    });
+    });*/
 
     this.profileForm = this.formBuilder.group({
       'mobile':[null],

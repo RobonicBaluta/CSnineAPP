@@ -21,15 +21,14 @@ export class AppComponent {
     private headerColor: HeaderColor,
   ) {
     this.initializeApp();
+    //console.log("Hola: " + this.router.url);
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      this.headerColor.tint('#483fc1');
+      window.StatusBar.backgroundColorByName("red");
+     // window.StatusBar.backgroundColorByHexString("#333");
       this.splashScreen.hide();
-
-
       this.authService.authenticationState.subscribe(state => {
         if (state) {
           this.router.navigate(['tabs']);

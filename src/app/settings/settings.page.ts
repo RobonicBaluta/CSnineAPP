@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Platform } from '@ionic/angular';
+import { Platform, NavController } from '@ionic/angular';
 import { LayoutService } from './../layout.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
@@ -16,22 +16,22 @@ export class SettingsPage implements OnInit {
   value: any;
   checkPage: any;
 
-  constructor( public router: Router, public themeSwitcher: LayoutService, public authService: AuthService, 
-    public api: RestApiService, platform: Platform ) {
+  constructor( public router: Router,
+    public themeSwitcher: LayoutService,
+    public authService: AuthService, 
+    public api: RestApiService,
+    public platform: Platform,
+    public navctrl: NavController ) {
     this.booleanFlag2;
     this.checkPage = this.router.url;
-    //console.log(this.checkPage);
-    if (this.checkPage === '/settings'){
-      platform.backButton.subscribeWithPriority(1, () => {
-        this.router.navigateByUrl("/tabs/tabs/tabs5");
-      });
-    }
-  
+    //console.log(this.router.url);
+
+    this.navctrl.navigateBack;
+
+    /*platform.backButton.subscribeWithPriority(1, () => {
+      this.router.navigateByUrl("/tabs/tabs/tabs5");
+    });*/
    }
-
-  goBack(){
-
-  }
 
   myChange(booleanFlag2) {
     console.log(this.booleanFlag2);
