@@ -16,6 +16,7 @@ export class Tab5Page implements OnInit {
   info: Observable<any>;
   company=null;
   profileForm: FormGroup;
+  event: Event;
 
   constructor(private activatedRoute: ActivatedRoute,
     public api: RestApiService,
@@ -26,10 +27,11 @@ export class Tab5Page implements OnInit {
     public platform: Platform,
     public navctrl: NavController) { 
 
-    this.navctrl.navigateBack;
-    /*platform.backButton.subscribeWithPriority(1, () => {
-      this.router.navigateByUrl("");
-    });*/
+    platform.backButton.subscribeWithPriority(1, () => {
+      event.preventDefault();
+      alert("Hello :-)");
+    });
+    
 
     this.profileForm = this.formBuilder.group({
       'mobile':[null],
