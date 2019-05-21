@@ -16,7 +16,8 @@ export class Tab5Page implements OnInit {
   info: Observable<any>;
   company=null;
   profileForm: FormGroup;
-  
+  event: Event;
+
   constructor(private activatedRoute: ActivatedRoute,
     public api: RestApiService,
     public router: Router,
@@ -27,10 +28,11 @@ export class Tab5Page implements OnInit {
     public navctrl: NavController,
     public loadingController: LoadingController) { 
 
-    this.navctrl.navigateBack;
-    /*platform.backButton.subscribeWithPriority(1, () => {
-      this.router.navigateByUrl("");
-    });*/
+    platform.backButton.subscribeWithPriority(1, () => {
+      event.preventDefault();
+      alert("Hello :-)");
+    });
+    
 
 
       
