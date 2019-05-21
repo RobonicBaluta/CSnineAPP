@@ -19,8 +19,10 @@ import { EditTaskModalPage } from '../modals/edit-task-modal/edit-task-modal.pag
 export class Tab2Page {
   
   items:[];
-  tasks: Observable<any>;
+  myTasks: Observable<any>;
+  givenTasks: Observable<any>;
   taskId: number;
+  tasksTab:string;
   
 
   
@@ -45,6 +47,14 @@ export class Tab2Page {
     public router: Router,
     public loadingController: LoadingController,) {}
     
+
+
+    ngOnInit() {
+      // this.getItems();
+      this.getMyTasks();
+      this.getGivenTasks();
+      this.tasksTab = 'myTasks';
+    }
     async  addTaskModal() {
       const modal = await this.modalController.create({
         component: AddTaskModalPage,
@@ -59,19 +69,27 @@ export class Tab2Page {
       return await modal.present();
     }
 
-    async getTasks() {
+    async getMyTasks() {
       const loading = await this.loadingController.create({
         message: 'Loading'
       });
       await loading.present();
-      return this.api.getTasks().subscribe(data=>{this.tasks=data
+      return this.api.getMyTasks().subscribe(data=>{this.myTasks=data
         loading.dismiss();
       });
     }
-    ngOnInit() {
-      // this.getItems();
-      this.getTasks();
+
+
+    async getGivenTasks() {
+      const loading = await this.loadingController.create({
+        message: 'Loading'
+      });
+      await loading.present();
+      return this.api.getGivenTasks().subscribe(data=>{this.givenTasks=data
+        loading.dismiss();
+      });
     }
+
 
 
     setTaskId(id:number){
@@ -102,7 +120,8 @@ export class Tab2Page {
 
 
     doRefresh(event) {
-      this.getTasks();
+      this.getMyTasks();
+      this.getGivenTasks();
       console.log('Begin async operation');
 
       setTimeout(() => {

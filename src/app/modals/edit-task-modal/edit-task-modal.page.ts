@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { RestApiService } from '../../rest-api.service'
 import { ModalController, AlertController, NavController, NavParams, Events, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -32,6 +32,8 @@ export class EditTaskModalPage implements OnInit {
   showFrom:boolean=false;
   showTo: boolean=false;
   profile: Observable<any>;
+  documentForm: FormGroup;
+
   
   
   
@@ -63,6 +65,15 @@ export class EditTaskModalPage implements OnInit {
         
         
       });
+
+      // this.documentForm=this.formBuilder.group({
+      //   'EntityId':[null],
+      //   // 'documentName':[null],
+      //   // 'parentId':[null],
+      //   'EntityType':this.formBuilder.array([]),
+        
+      //   'Files':[null],
+      // });
     }
     
     ngOnInit() {
@@ -128,11 +139,6 @@ export class EditTaskModalPage implements OnInit {
      await this.getProfile();
       
       if(this.task && this.task.assignedUserId && this.task.clientId) {
-        
- 
-        
-        
-        
         
         // Update the value of the control
         this.taskForm.get('assignedUserId').setValue(this.task.assignedUserId);  
@@ -201,7 +207,20 @@ export class EditTaskModalPage implements OnInit {
       this.clientId=clientId;
     }
     
+
+    async init(){
+      await this.api.initDocument(this.documentForm.value)
+      .subscribe(res => {
+        console.log(this.documentForm.value);
+        this.closeModal();
+      }, (err) => {
+        console.log(err);
+      });
+    }
     
+
+
+
     checkDate(){
       
       let date=this.select;

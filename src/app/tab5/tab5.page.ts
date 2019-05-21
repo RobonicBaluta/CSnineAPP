@@ -64,12 +64,13 @@ export class Tab5Page implements OnInit {
     }
     
     async getProfile() {
-      const loading = await this.loadingController.create({
-        message: 'Loading'
-      });
-      await loading.present();
+      // const loading = await this.loadingController.create({
+      //   message: 'Loading'
+      // });
+      // await loading.present();
       return this.api.getProfile().subscribe(profile=>{this.info=profile
-        loading.dismiss()});   
+        // loading.dismiss()
+      });   
     }
     
     // async getCompanyInfo(id:number){

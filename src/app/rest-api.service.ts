@@ -22,6 +22,16 @@ const httpOptions = {
 })
 
 export class RestApiService {
+
+
+    initDocument(data): Observable<any> {
+            const url = `${this.apiUrl}/Documents/.init`;
+            return this.http.post(url, data, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            );
+
+        }
     getContactById(contactId: number): any {
         const url = `${this.apiUrl}/Contacts?UserIds=${contactId}`;
         return this.http.get(url, httpOptions).pipe(
@@ -217,9 +227,15 @@ export class RestApiService {
 
 
         // } 
-    getTasks(): Observable <any>{
+    getMyTasks(): Observable <any>{
+            return this.http.get(this.apiUrl+'/Tasks?TaskListKind=3&Take=2147483647').pipe(
+                catchError(this.handleError)
+            );
 
-            return this.http.get(this.apiUrl+'/Tasks?Take=54').pipe(
+
+        }
+        getGivenTasks(): Observable <any>{
+            return this.http.get(this.apiUrl+'/Tasks?TaskListKind=2&Take=2147483647').pipe(
                 catchError(this.handleError)
             );
 
