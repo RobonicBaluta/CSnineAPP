@@ -18,31 +18,84 @@
 </ion-row>
 <!-- Default Segment -->
 <!-- {{tasks?.items[0].title}} -->
-<ion-list>
+
+
+
+<ion-segment [(ngModel)]="tasksTab" size='start'>
+  <ion-segment-button value="myTasks">
+    <ion-label>My Tasks</ion-label>
+    <ion-icon name="person"></ion-icon>
+  </ion-segment-button>
   
-  <ion-virtual-scroll [items]="tasks?.items| search : tsks">
-    <ion-item-sliding *virtualItem="let task">
+  <ion-segment-button value="givenTasks">
+    <ion-label>Given Tasks</ion-label>
+    <ion-icon name="people"></ion-icon>
+  </ion-segment-button>
+</ion-segment>
+
+
+<div [ngSwitch]="tasksTab">
+  
+  <div *ngSwitchCase="'myTasks'" >
+    <ion-list>
       
-      <ion-item>
-        <ion-title mode='md'>
-          {{task?.title}}
-        </ion-title>
-      </ion-item>
       
-      <ion-item-options side="end" >
-        
-        <ion-button ion-button  size='large' class='sliderButtons'>
-          <ion-icon name="checkbox"></ion-icon>
-        </ion-button>
-        
-      </ion-item-options>   
-    </ion-item-sliding> 
-  </ion-virtual-scroll>
-</ion-list> 
+      
+      <ion-virtual-scroll [items]="myTasks?.items| search : tsks">
+        <ion-item-sliding  *virtualItem="let myTask">
+          
+          <ion-item *ngIf="myTask.status!=3" (click)='setTaskId(myTask?.id)'>
+            <ion-title mode='md'>
+              {{myTask?.title}}
+            </ion-title>
+          </ion-item>
+          
+          <ion-item-options side="end" >
+            
+            <ion-button ion-button  size='large' class='sliderButtons'>
+              <ion-icon name="checkbox"></ion-icon>
+            </ion-button>
+            
+          </ion-item-options>   
+        </ion-item-sliding> 
+      </ion-virtual-scroll>
+      
+    </ion-list> 
+  </div>
+  
+  
+  
+  <div *ngSwitchCase="'givenTasks'" >
+    <ion-list>
+      
+      
+      
+      <ion-virtual-scroll [items]="givenTasks?.items| search : tsks">
+        <ion-item-sliding *virtualItem="let givenTask">
+          
+          <ion-item (click)='setTaskId(givenTask?.id)'>
+            <ion-title mode='md'>
+              {{givenTask?.title}}
+            </ion-title>
+          </ion-item>
+          
+          <ion-item-options side="end" >
+            
+            <ion-button ion-button  size='large' class='sliderButtons'>
+              <ion-icon name="checkbox"></ion-icon>
+            </ion-button>
+            
+          </ion-item-options>   
+        </ion-item-sliding> 
+      </ion-virtual-scroll>
+      
+    </ion-list> 
+  </div>
+</div>
 <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-  <ion-fab-button (click)="addTaskModal()">
+  <!-- <ion-fab-button (click)="addTaskModal()">
     <ion-icon name="add" id="add" ></ion-icon>
-  </ion-fab-button>
+  </ion-fab-button> -->
 </ion-fab>
 
 </ion-content>

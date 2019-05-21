@@ -1,4 +1,4 @@
-import { Platform, AlertController } from '@ionic/angular';
+import { Platform, AlertController, LoadingController } from '@ionic/angular';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -29,6 +29,7 @@ export class AuthService {
     public api: RestApiService, 
     private storage: Storage,
     private plt: Platform, 
+    public loadingController: LoadingController,
     private alertController: AlertController) {
     this.plt.ready().then(() => {
       this.checkToken();
@@ -55,6 +56,7 @@ export class AuthService {
  
   login(credentials) {
    this.url=this.api.getUrl();
+   
     return this.http.post(`${this.url}/Account/Login`, credentials)
       .pipe(
         tap(res => {
@@ -64,7 +66,12 @@ export class AuthService {
         }),
         catchError(e => {
           console.log(e.error);
-          this.showAlert(e.error);
+          if(e.error==null|| e.error==''){
+            this.showAlert('Connection error');
+          }else{
+            this.showAlert(e.error);
+          }
+          
           throw new Error(e);
         })
      );

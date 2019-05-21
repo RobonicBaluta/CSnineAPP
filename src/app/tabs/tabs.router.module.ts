@@ -64,7 +64,8 @@ const routes: Routes = [
     path: '',
     redirectTo: '/tabs/tab1',
     pathMatch: 'full'
-  }
+  },
+  //{ path: '', loadChildren: './pages/tabs/tabs.module#TabsPageModule' }
 ];
 
 @NgModule({

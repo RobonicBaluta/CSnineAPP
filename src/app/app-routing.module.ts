@@ -24,7 +24,9 @@ const routes: Routes = [
     canActivate: [AuthGuardService] 
   },
   { path: 'reset-password', loadChildren: './reset-password/reset-password.module#ResetPasswordPageModule' },
-  { path: 'edit-company-modal', loadChildren: './modals/edit-company-modal/edit-company-modal.module#EditCompanyModalPageModule' }
+  { path: 'edit-company-modal', loadChildren: './modals/edit-company-modal/edit-company-modal.module#EditCompanyModalPageModule' },
+  { path: 'edit-task-modal', loadChildren: './modals/edit-task-modal/edit-task-modal.module#EditTaskModalPageModule' },
+  { path: 'show-contact-modal', loadChildren: './modals/show-contact-modal/show-contact-modal.module#ShowContactModalPageModule' }
   
   
   

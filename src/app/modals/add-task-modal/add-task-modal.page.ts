@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, NavParams } from '@ionic/angular';
+import { ModalController, NavParams, LoadingController } from '@ionic/angular';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { RestApiService } from 'src/app/rest-api.service';
@@ -21,24 +21,25 @@ export class AddTaskModalPage implements OnInit {
   clientId: number;
   description:any;
   select:any;
-  selectedUser:any;
   currentDate=new Date();
   toDate:Date;
   fromDate:Date;
   showFrom:boolean=false;
   showTo: boolean=false;
-  me:any;
+  me:boolean=true;
   profile: Observable<any>;
   info: any;
+  
   constructor(
     private modalController: ModalController, 
     private formBuilder: FormBuilder,
     private navParams:NavParams,
-    public api: RestApiService) { 
+    public api: RestApiService,
+    public loadingController: LoadingController) { 
       
       
       this.taskTab = 'description';
-    
+      
       this.taskForm = this.formBuilder.group({
         'title':[null],
         'description' : [null],
@@ -68,8 +69,11 @@ export class AddTaskModalPage implements OnInit {
       this.getSimpleUsers();
       this.getProfile();
       
-
+      
+      
     }
+    
+    
     async closeModal() {
       const onClosedData: string = "Wrapped Up!";
       await this.modalController.dismiss(onClosedData);
@@ -79,14 +83,44 @@ export class AddTaskModalPage implements OnInit {
       console.log(this.companyId);
     }
     async getCompanies(){
+      const loading = await this.loadingController.create({
+        message: 'Loading'
+      });
+      await loading.present();
       this.clients=this.api.getCompanies();
+      loading.dismiss();
     }
     async getProfile(){
+      const loading = await this.loadingController.create({
+        message: 'Loading'
+      });
+      await loading.present();
       return this.api.getProfile().subscribe(profile=>{this.info=profile
+        if(this.me){
+          console.log('me');
+          this.setMe();
+        }else{
+          this.removeMe();
+          console.log('not me');
+        }
+        loading.dismiss();
       });
     }
+    setMe(){
+      if(this.info && this.info.userId){
+        this.taskForm.get('assignedUserId').setValue(this.info.userId);  
+      }
+    }
+    removeMe(){
+      this.taskForm.get('assignedUserId').setValue('');  
+    }
     async getSimpleUsers(){
+      const loading = await this.loadingController.create({
+        message: 'Loading'
+      });
+      await loading.present();
       this.simpleUsers=this.api.getSimpleUsers();
+      loading.dismiss();
     }
     async setUser(userId){
       this.assignedUserId=userId;
@@ -94,58 +128,51 @@ export class AddTaskModalPage implements OnInit {
     async setClient(clientId){
       this.clientId=clientId;
     }
-
+    
     async addTask(){
-        await this.api.addTask(this.taskForm.value)
-        .subscribe(res => {
-          console.log(this.taskForm.value);
-          this.closeModal();
-        }, (err) => {
-          console.log(err);
-        });
+      await this.api.addTask(this.taskForm.value)
+      .subscribe(res => {
+        console.log(this.taskForm.value);
+        this.closeModal();
+      }, (err) => {
+        console.log(err);
+      });
       
     }
-
-
-    checkDate(){
     
+    
+    checkDate(){
+      
       let date=this.select;
       console.log(date);
       console.log(this.currentDate);
       console.log(this.toDate);
       switch (date) {
+        
         case 'immediately':
-     
         this.showTo=false;
         this.taskForm.get('deadlineType').setValue(0);
         this.taskForm.get('deadline').setValue(this.currentDate);
         break;
         
         case 'forYouInfomation':
-      
         this.showTo=false;
         this.taskForm.get('deadlineType').setValue(6);
         this.taskForm.get('deadline').setValue(this.currentDate);
         break;
-
+        
         case 'enableTo':
         this.showFrom=false;
         this.showTo=true;
-      
-        
-        
         break;
+        
         case 'enableFrom':
         this.showFrom=true;
         this.showTo=true;
-        
-        
-        
         break;
-
-
-        default:
         
+        
+        default:
         break;
       }
     }
@@ -157,11 +184,11 @@ export class AddTaskModalPage implements OnInit {
       this.taskForm.get('deadlineType').setValue(4);
       this.taskForm.get('fromDate').setValue(this.fromDate);
     }
-
+    
     compareWithFn = (o1, o2) => {
       return o1 && o2 ? o1.id === o2.id : o1 === o2;
     };
-
+    
     compareWith = this.compareWithFn;
     
   }

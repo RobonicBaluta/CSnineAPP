@@ -24,6 +24,24 @@ const httpOptions = {
 export class RestApiService {
 
 
+    initDocument(data): Observable<any> {
+            const url = `${this.apiUrl}/Documents/.init`;
+            return this.http.post(url, data, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            );
+
+        }
+    getContactById(contactId: number): any {
+        const url = `${this.apiUrl}/Contacts?UserIds=${contactId}`;
+        return this.http.get(url, httpOptions).pipe(
+            timeout(5000),
+            retry(2),
+            catchError(this.handleError)
+        );
+    }
+
+
     status:boolean;
     apiUrl=' http://csapi.soltystudio.com/api/v1';
     constructor(private http:HttpClient) { }
@@ -209,13 +227,35 @@ export class RestApiService {
 
 
         // } 
-    getTasks(): Observable <any>{
-
-            return this.http.get(this.apiUrl+'/Tasks?Take=54').pipe(
+    getMyTasks(): Observable <any>{
+            return this.http.get(this.apiUrl+'/Tasks?TaskListKind=3&Take=2147483647').pipe(
                 catchError(this.handleError)
             );
 
 
+        }
+        getGivenTasks(): Observable <any>{
+            return this.http.get(this.apiUrl+'/Tasks?TaskListKind=2&Take=2147483647').pipe(
+                catchError(this.handleError)
+            );
+
+
+        }
+
+        getTaskById(id:number) :Observable <any>{
+            const url = `${this.apiUrl}/Tasks/${id}`;
+            return this.http.get(url).pipe(
+                timeout(5000),
+                retry(2),
+                catchError(this.handleError)
+            );
+        }
+        updateTask(data): Observable<any> {
+            const url = `${this.apiUrl}/Tasks`;
+            return this.http.put(url, data, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            );
         }
 
 
@@ -334,7 +374,13 @@ export class RestApiService {
                         `body was: ${error.error}`);
                     }
                     // return an observable with a user-facing error message
-                    window.alert(error.error.message);
+                
+                    if(error.error.message==null ||error.error.message==''){
+                        window.alert('Connection error');
+                    }else{
+                        window.alert(error.error.message);
+                    }
+                    
                     return throwError('Something bad happened; please try again later.');
                 }
     setStatus(stat){

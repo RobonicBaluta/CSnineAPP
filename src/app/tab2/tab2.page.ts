@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import {Observable} from 'rxjs'; 
-import { AlertController} from '@ionic/angular';
+import { AlertController, LoadingController} from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddTaskModalPage } from '../modals/add-task-modal/add-task-modal.page';
 import { RestApiService } from '../rest-api.service';
 import { map } from 'rxjs/operators';
+import { EditTaskModalPage } from '../modals/edit-task-modal/edit-task-modal.page';
 
 
 
@@ -18,7 +19,10 @@ import { map } from 'rxjs/operators';
 export class Tab2Page {
   
   items:[];
-  tasks: Observable<any>;
+  myTasks: Observable<any>;
+  givenTasks: Observable<any>;
+  taskId: number;
+  tasksTab:string;
   
 
   
@@ -40,8 +44,17 @@ export class Tab2Page {
   
   constructor(public modalController: ModalController,
     public api: RestApiService,private alertController: AlertController ,
-    public router: Router,) {}
+    public router: Router,
+    public loadingController: LoadingController,) {}
     
+
+
+    ngOnInit() {
+      // this.getItems();
+      this.getMyTasks();
+      this.getGivenTasks();
+      this.tasksTab = 'myTasks';
+    }
     async  addTaskModal() {
       const modal = await this.modalController.create({
         component: AddTaskModalPage,
@@ -56,16 +69,59 @@ export class Tab2Page {
       return await modal.present();
     }
 
-    async getTasks() {
-      return this.api.getTasks().subscribe(data=>{this.tasks=data
-      console.log(this.tasks)});
+    async getMyTasks() {
+      const loading = await this.loadingController.create({
+        message: 'Loading'
+      });
+      await loading.present();
+      return this.api.getMyTasks().subscribe(data=>{this.myTasks=data
+        loading.dismiss();
+      });
     }
-    ngOnInit() {
-      // this.getItems();
-      this.getTasks();
+
+
+    async getGivenTasks() {
+      const loading = await this.loadingController.create({
+        message: 'Loading'
+      });
+      await loading.present();
+      return this.api.getGivenTasks().subscribe(data=>{this.givenTasks=data
+        loading.dismiss();
+      });
     }
+
+
+
+    setTaskId(id:number){
+      this.taskId=id;
+      console.log(this.taskId);
+      this.editModal();
+    }
+    async editModal() {
+      const modal = await this.modalController.create({
+        component: EditTaskModalPage,
+        cssClass: 'addCompanyCustom',
+        componentProps:{
+          taskId: this.taskId,
+
+        }
+      });
+      modal.onDidDismiss().then((dataReturned) => {
+        if (dataReturned !== null) {
+          console.log('Modal Sent Data :', dataReturned);
+        }
+      });
+      return await modal.present();
+    }
+
+
+
+
+
+
     doRefresh(event) {
-      this.getTasks();
+      this.getMyTasks();
+      this.getGivenTasks();
       console.log('Begin async operation');
 
       setTimeout(() => {

@@ -69,8 +69,8 @@
           <ion-item class="ion-margin-top">
             <ion-label><strong>Category: </strong></ion-label>
             <ion-select [compareWith]="compareWith" placeholder="Categories" 
-            multiple="true" formControlName="categories" id="selectedCategories" > 
-            <ion-select-option *ngFor="let category of categoriesList|async;" [value]="category" >{{category.name}}</ion-select-option>
+            multiple="true" formControlName="categories" id="selectedCategories" [(ngModel)]='select' > 
+            <ion-select-option *ngFor="let category of categoriesList|async;" aria-checked="true" [value]="category" >{{category.name}}</ion-select-option>
           </ion-select>
         </ion-item>
       </div>

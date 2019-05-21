@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSegment, ModalController, Events } from '@ionic/angular';
+import { IonSegment, ModalController, Events, LoadingController } from '@ionic/angular';
 import { AlertController, NavParams} from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -20,17 +20,18 @@ export class EditCompanyModalPage implements OnInit {
   notes: Observable <any>;
   companyForm: FormGroup;
   companyId: null;
- 
+  select:any;
   regionName: any;
   categoriesList: Observable<any>;
-
+  
   info:boolean=true;
   location:boolean=false;
   contact:boolean=false;
   noteList:boolean=false;
-
+ 
   
-  constructor(private modalController: ModalController
+  
+ constructor(private modalController: ModalController
     ,private alertCtrl: AlertController, 
     public router: Router, 
     public navCtrl: NavController, 
@@ -38,10 +39,11 @@ export class EditCompanyModalPage implements OnInit {
     public alertController: AlertController,
     public api: RestApiService,
     private navParams:NavParams,
-    private events:Events) {
+    private events:Events,
+    public loadingController: LoadingController) {
       
       // this.companyTab='info';
-      
+    
       this.companyForm = this.formBuilder.group({
         'id':[null],
         'name' : [null,[Validators.required, Validators.min(1)]],
@@ -71,6 +73,8 @@ export class EditCompanyModalPage implements OnInit {
         
         
       });
+
+
     }
     
     ngOnInit() {
@@ -93,7 +97,7 @@ export class EditCompanyModalPage implements OnInit {
       this.contact=false;
       this.noteList=false;
     }
-
+    
     showContact(){
       this.info=false;
       this.location=false;
@@ -116,11 +120,31 @@ export class EditCompanyModalPage implements OnInit {
     
     
     //Get the company info with id passed from the view
+    // async getCompanyInfo(){
+    //   this.companyId=this.navParams.get('companyId');
+    //   await this.api.getCompanyById(this.companyId).subscribe(result=>{
+    //     this.company=result;
+    //   })
+    // }
+    
     async getCompanyInfo(){
+
+      const loading = await this.loadingController.create({
+        message: 'Loading'
+      });
+      await loading.present();
+
       this.companyId=this.navParams.get('companyId');
-      await this.api.getCompanyById(this.companyId).subscribe(result=>{
-        this.company=result;
-      })
+      this.company= await this.api.getCompanyById(this.companyId).toPromise();
+      if(this.company && this.company.categories){
+        console.log(this.company.categories);
+  
+        this.select=this.company.categories;
+
+      
+        console.log(this.select);
+      }
+      loading.dismiss();
     }
     
     async getCategories(){
@@ -138,7 +162,6 @@ export class EditCompanyModalPage implements OnInit {
       .subscribe(res => {
         this.deleteAlert();
         this.doRefresh(this.events);
-        // this.router.navigate(['/home']);
       }, err => {
         console.log(err);
       });
@@ -147,19 +170,17 @@ export class EditCompanyModalPage implements OnInit {
     
     async updateCompany(){
       if (this.companyForm.valid){
-      await this.api.updateCompany( this.companyForm.value)
-      .subscribe(res => {
-        
-        this.updateAlert();
-        this.closeModal();
-        // window.location.reload();
-        //this.router.navigate(['/home']);
-      }, (err) => {
-        console.log(err);
-      });
-    }else{
-      this.errorAlert();
-    }
+        await this.api.updateCompany( this.companyForm.value)
+        .subscribe(res => {
+
+          this.updateAlert();
+          this.closeModal();
+        }, (err) => {
+          console.log(err);
+        });
+      }else{
+        this.errorAlert();
+      }
     }
     
     
@@ -195,7 +216,7 @@ export class EditCompanyModalPage implements OnInit {
         event.target.complete();
       }, 2000);
     }
-
+    
     async errorAlert() {
       
       const alert = await this.alertCtrl.create({
