@@ -4,6 +4,9 @@ import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { RestApiService } from '../../rest-api.service'
 import { ModalController, AlertController, NavController, NavParams, Events, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { File, FileEntry } from '@ionic-native/file/ngx';
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
+
 
 @Component({
   selector: 'app-edit-task-modal',
@@ -33,17 +36,18 @@ export class EditTaskModalPage implements OnInit {
   showTo: boolean=false;
   profile: Observable<any>;
   documentForm: FormGroup;
-
-
+  
+  
   taskEntity:any;
   taskType:any;
   taskDocument:any;
-
+  
   
   
   
   info: any;
   me: boolean;
+  formFile: any;
   constructor(
     private modalController: ModalController,
     private alertCtrl: AlertController, 
@@ -54,6 +58,8 @@ export class EditTaskModalPage implements OnInit {
     public api: RestApiService,
     private navParams:NavParams,
     private events:Events,
+    private file: File,
+    private transfer: FileTransfer,
     public loadingController: LoadingController) { 
       
       
@@ -70,14 +76,15 @@ export class EditTaskModalPage implements OnInit {
         
         
       });
-
+      
       this.documentForm=this.formBuilder.group({
-        'EntityId':[null],
+        'entityId':[null],
         // 'documentName':[null],
         // 'parentId':[null],
-        'EntityType':[null],
-        
-        'Files':[null],
+        'entityType':[null],
+        'documentName':[null],
+        'parentId':[null],
+        'files':[null],
       });
     }
     
@@ -87,8 +94,15 @@ export class EditTaskModalPage implements OnInit {
       this.taskForm.get('descriptionHtml').setValue(this.taskForm.get('description'));
       this.entityId=this.companyId;
       this.entityType='Company';
-      this.documentForm.get('EntityType').setValue('task');
+      
+      
+      this.documentForm.get('entityType').setValue(null);
+      this.documentForm.get('entityId').setValue(0);
+      this.documentForm.get('documentName').setValue('file.txt');
+      this.documentForm.get('parentId').setValue(0);
 
+      this.formFile= this.documentForm.get('files');
+      
       // this.taskEntity =this.documentForm.get('EntityId');
       // this.taskType=this.documentForm.get('EntityType').setValue('task');
       // this.taskDocument =this.documentForm.get('Files');
@@ -98,7 +112,37 @@ export class EditTaskModalPage implements OnInit {
       this.getProfile();
     }
     
+
     
+    startUpload() {
+      console.log(this.formFile.value);
+      this.file.resolveLocalFilesystemUrl(this.formFile.value)
+      .then(entry => {
+        ( < FileEntry > entry).file(file => this.readFile(file))
+      })
+      .catch(err => {
+        console.log('ERRORRRRR');
+      });
+    }
+    
+    readFile(file: any) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const formData = new FormData();
+        const fileBlob = new Blob([reader.result], {
+          type: file.type
+        });
+        formData.append('file', fileBlob, file.name);
+        this.api.initDocument(this.documentForm.value)
+        .subscribe(res => {
+          // console.log(this.documentForm.value);
+          this.closeModal();
+        }, (err) => {
+          console.log(err);
+        });
+      };
+      reader.readAsArrayBuffer(file);
+    }
     
     
     // async init(){
@@ -110,7 +154,7 @@ export class EditTaskModalPage implements OnInit {
     //     console.log(err);
     //   });
     // }
-
+    
     async init(){
       console.log(this.documentForm.value);
       await this.api.initDocument(this.documentForm.value)
@@ -131,7 +175,7 @@ export class EditTaskModalPage implements OnInit {
       });
       await loading.present();
       return this.api.getProfile().subscribe(profile=>{this.info=profile
- 
+        
         loading.dismiss();
       });
     }
@@ -144,7 +188,7 @@ export class EditTaskModalPage implements OnInit {
       this.taskForm.get('assignedUserId').setValue('');  
     }
     
-
+    
     async meOrNot(){
       await this.getProfile();
       if(this.me){
@@ -163,18 +207,18 @@ export class EditTaskModalPage implements OnInit {
         message: 'Loading'
       });
       await loading.present();
-     
+      
       this.task = await this.api.getTaskById(this.taskId).toPromise();
       
       
-     await this.getProfile();
+      await this.getProfile();
       
       if(this.task && this.task.assignedUserId && this.task.clientId) {
         
         // Update the value of the control
         this.taskForm.get('assignedUserId').setValue(this.task.assignedUserId);  
         this.taskForm.get('clientId').setValue(this.task.clientId); 
-    
+        
         console.log(this.info.userId);
         console.log(this.task.assignedUserId);
         
@@ -238,11 +282,11 @@ export class EditTaskModalPage implements OnInit {
       this.clientId=clientId;
     }
     
-
     
-
-
-
+    
+    
+    
+    
     checkDate(){
       
       let date=this.select;

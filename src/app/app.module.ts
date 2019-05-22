@@ -26,6 +26,10 @@ import { HTTP } from '@ionic-native/http/ngx';
 import { HeaderColor } from '@ionic-native/header-color/ngx';
 import { EditTaskModalPageModule } from './modals/edit-task-modal/edit-task-modal.module';
 import { ShowContactModalPageModule } from './modals/show-contact-modal/show-contact-modal.module';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
+import { File } from '@ionic-native/file/ngx';
+import { FilePath } from '@ionic-native/file-path/ngx';
+
 
 
 export function jwtOptionsFactory(storage) {
@@ -69,6 +73,9 @@ export function jwtOptionsFactory(storage) {
       { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
       { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
       HTTP,
+      FileTransfer,
+      File,
+      FilePath,
 
     ],
     

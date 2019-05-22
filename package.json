@@ -88,7 +88,10 @@
       "cordova-plugin-contacts": {},
       "cordova-plugin-advanced-http": {},
       "cordova-plugin-statusbar": {},
-      "cordova-plugin-headercolor": {}
+      "cordova-plugin-headercolor": {},
+      "cordova-plugin-file": {},
+      "cordova-plugin-file-transfer": {},
+      "cordova-plugin-filepath": {}
     },
     "platforms": [
       "ios",

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError, from } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap, map ,retryWhen, retry, timeout} from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
 // import { HTTP } from '@ionic-native/http/ngx';
 
 
@@ -56,11 +55,11 @@ export class RestApiService {
     
     // initDocument(entityType: string, entityId: number, document: object): Observable<any> {
         
-    //     const httpUploadOptions = {
-    //         headers: new HttpHeaders()
-    //     };
-    //     httpUploadOptions.headers.append('Content-Type', 'multipart/form-gridData');
-    //     httpUploadOptions.headers.append('Cache-Control', 'no-cache');
+        // const httpUploadOptions = {
+        //     headers: new HttpHeaders()
+        // };
+        // httpUploadOptions.headers.append('Content-Type', 'multipart/form-gridData');
+        // httpUploadOptions.headers.append('Cache-Control', 'no-cache');
     //     const formData = new FormData();
     //     formData.append('entityType', entityType);
     //     formData.append('entityId', entityId.toString());
@@ -81,15 +80,20 @@ export class RestApiService {
 
         initDocument(data): Observable<any> {
         
-
+            const httpUploadOptions = {
+                headers: new HttpHeaders()
+                
+            };
+            // httpUploadOptions.headers.append('enctype','multipart/form-data; boundary=----WebKitFormBoundaryuL67FWkv1CA');
+            httpUploadOptions.headers.append('Content-Type', 'multipart/form-data');
+            httpUploadOptions.headers.append('Cache-Control', 'no-cache');
             const url = `${this.apiUrl}/Documents/.init`;
-            
-            
-            return this.http.post(url, data, httpOptions)
+            console.log(httpUploadOptions.headers);
+
+            return this.http.post(url, data, httpUploadOptions)
             .pipe(
                 catchError(this.handleError)
-                );
-                
+                )       
             }
 
 
