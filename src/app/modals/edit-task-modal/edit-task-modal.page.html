@@ -84,22 +84,23 @@
             
         </form>
         
-        
-        <!-- <form [formGroup]="documentForm">
+        <!-- enctype="multipart/form-data" -->
+
+        <form [formGroup]="documentForm" >
             <ion-row>
                 <ion-col>
                     <ion-label>Document:</ion-label>
                     <ion-input formControlName="Files" type='file'  ></ion-input>
                 </ion-col>
             </ion-row>
-            <ion-input type='text' hidden  value="{{description}}" formControlName="EntityId"></ion-input>
-            <div formArrayName="EntityType">
-            <ion-input type='text' hidden  value="{{task.id}}" ></ion-input>
+            <ion-input type='text' hidden value='{{task?.id}}' formControlName="EntityId"></ion-input>
+        
+            <ion-input type='text' hidden formControlName="EntityType"></ion-input>
 
-        </div>
-            <ion-button name='attach'(click)="init()"></ion-button>
+     
+            <ion-button name='attach' (click)="init()"></ion-button>
            
-        </form> -->
+        </form>
     </ion-grid>
     
 </ion-content>

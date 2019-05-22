@@ -34,14 +34,19 @@ export class EditTaskModalPage implements OnInit {
   profile: Observable<any>;
   documentForm: FormGroup;
 
+
+  taskEntity:any;
+  taskType:any;
+  taskDocument:any;
+
   
   
   
   info: any;
   me: boolean;
   constructor(
-    private modalController: ModalController
-    ,private alertCtrl: AlertController, 
+    private modalController: ModalController,
+    private alertCtrl: AlertController, 
     public router: Router, 
     public navCtrl: NavController, 
     private formBuilder: FormBuilder, 
@@ -66,14 +71,14 @@ export class EditTaskModalPage implements OnInit {
         
       });
 
-      // this.documentForm=this.formBuilder.group({
-      //   'EntityId':[null],
-      //   // 'documentName':[null],
-      //   // 'parentId':[null],
-      //   'EntityType':this.formBuilder.array([]),
+      this.documentForm=this.formBuilder.group({
+        'EntityId':[null],
+        // 'documentName':[null],
+        // 'parentId':[null],
+        'EntityType':[null],
         
-      //   'Files':[null],
-      // });
+        'Files':[null],
+      });
     }
     
     ngOnInit() {
@@ -82,6 +87,12 @@ export class EditTaskModalPage implements OnInit {
       this.taskForm.get('descriptionHtml').setValue(this.taskForm.get('description'));
       this.entityId=this.companyId;
       this.entityType='Company';
+      this.documentForm.get('EntityType').setValue('task');
+
+      // this.taskEntity =this.documentForm.get('EntityId');
+      // this.taskType=this.documentForm.get('EntityType').setValue('task');
+      // this.taskDocument =this.documentForm.get('Files');
+      
       this.getCompanies();
       this.getSimpleUsers();
       this.getProfile();
@@ -90,6 +101,26 @@ export class EditTaskModalPage implements OnInit {
     
     
     
+    // async init(){
+    //   await this.api.initDocument(this.taskType,this.taskEntity,this.taskDocument)
+    //   .subscribe(res => {
+    //     // console.log(this.documentForm.value);
+    //     this.closeModal();
+    //   }, (err) => {
+    //     console.log(err);
+    //   });
+    // }
+
+    async init(){
+      console.log(this.documentForm.value);
+      await this.api.initDocument(this.documentForm.value)
+      .subscribe(res => {
+        // console.log(this.documentForm.value);
+        this.closeModal();
+      }, (err) => {
+        console.log(err);
+      });
+    }
     
     
     
@@ -208,15 +239,6 @@ export class EditTaskModalPage implements OnInit {
     }
     
 
-    async init(){
-      await this.api.initDocument(this.documentForm.value)
-      .subscribe(res => {
-        console.log(this.documentForm.value);
-        this.closeModal();
-      }, (err) => {
-        console.log(err);
-      });
-    }
     
 
 
