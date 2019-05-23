@@ -113,7 +113,10 @@ export class EditTaskModalPage implements OnInit {
     }
     
 
-    
+    changeListener($event) : void {
+      this.file = $event.target.files[0];
+      console.log(this.file);
+    }
     startUpload() {
       console.log(this.formFile.value);
       this.file.resolveLocalFilesystemUrl(this.formFile.value)
@@ -125,6 +128,23 @@ export class EditTaskModalPage implements OnInit {
       });
     }
     
+
+readUrl(event:any) {
+  if (event.target.files && event.target.files[0]) {
+    var reader = new FileReader();
+
+    // reader.onload = (event: ProgressEvent) => {
+    //   this.url = (<FileReader>event.target).result;
+    // }
+
+    reader.readAsDataURL(event.target.files[0]);
+   console.log( reader.readAsDataURL(event.target.files[0]));
+  }
+}
+
+
+
+
     readFile(file: any) {
       const reader = new FileReader();
       reader.onloadend = () => {

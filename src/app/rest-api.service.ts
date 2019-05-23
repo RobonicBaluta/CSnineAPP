@@ -21,10 +21,7 @@ const httpOptions = {
 })
 
 export class RestApiService {
-    
-    
-    
-    
+
     status:boolean;
     apiUrl=' http://csapi.soltystudio.com/api/v1';
     constructor(private http:HttpClient) { }
@@ -99,7 +96,7 @@ export class RestApiService {
 
 
         getContactById(contactId: number): any {
-            const url = `${this.apiUrl}/Contacts?UserIds=${contactId}`;
+            const url = `${this.apiUrl}/Contacts/${contactId}`;
             return this.http.get(url, httpOptions).pipe(
                 timeout(5000),
                 retry(2),
