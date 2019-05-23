@@ -90,7 +90,7 @@
             <ion-row>
                 <ion-col>
                     <ion-label>Document:</ion-label>
-                    <ion-input formControlName="files"(change)="changeListener($event)" type='file'  ></ion-input>
+                    <ion-input formControlName="files" (change)="changeListener($event)" type='file'  ></ion-input>
                 </ion-col>
             </ion-row>
 
@@ -101,10 +101,8 @@
 
      
             <ion-button name='attach' (click)="readUrl()"></ion-button>
-            
-            <button ion-button icon-left (click)="uploadImage()" [disabled]="lastImage === null">
-                <ion-icon name="cloud-upload"></ion-icon>Upload
-              </button>
+
+     
            
         </form>
     </ion-grid>

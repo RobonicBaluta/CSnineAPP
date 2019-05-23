@@ -126,25 +126,7 @@ export class EditTaskModalPage implements OnInit {
     
     
     
-    // public uploadImage() {
-    //   // Destination URL
-    //   var url = "http://yoururl/upload.php";
-      
-    //   // File for Upload
-    //   var targetPath = this.pathForFile(this.lastFile);
-      
-    //   // File name only
-    //   var filename = this.lastFile;
-      
-    //   var options = {
-    //     fileKey: "file",
-    //     fileName: filename,
-    //     chunkedMode: false,
-    //     mimeType: "multipart/form-data",
-    //     params : {'fileName': filename}
-    //   };
-      
-    //   const fileTransfer= this.transfer.create();
+  
       
       
       
