@@ -93,12 +93,18 @@
                     <ion-input formControlName="files"(change)="changeListener($event)" type='file'  ></ion-input>
                 </ion-col>
             </ion-row>
+
+
             <ion-input type='text' hidden value='{{task?.id}}' formControlName="entityId"></ion-input>
         
             <ion-input type='text' hidden formControlName="entityType"></ion-input>
 
      
             <ion-button name='attach' (click)="readUrl()"></ion-button>
+            
+            <button ion-button icon-left (click)="uploadImage()" [disabled]="lastImage === null">
+                <ion-icon name="cloud-upload"></ion-icon>Upload
+              </button>
            
         </form>
     </ion-grid>

@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { RestApiService } from '../../rest-api.service'
-import { ModalController, AlertController, NavController, NavParams, Events, LoadingController } from '@ionic/angular';
+import { ModalController, AlertController, NavController, NavParams, Events, LoadingController, ActionSheetController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { File, FileEntry } from '@ionic-native/file/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
+import { FilePath } from '@ionic-native/file-path/ngx';
 
 
 @Component({
@@ -43,7 +44,7 @@ export class EditTaskModalPage implements OnInit {
   taskDocument:any;
   
   
-  
+  lastFile: string = null;
   
   info: any;
   me: boolean;
@@ -60,6 +61,8 @@ export class EditTaskModalPage implements OnInit {
     private events:Events,
     private file: File,
     private transfer: FileTransfer,
+    private filePath:FilePath,
+    private actionSheetController: ActionSheetController,
     public loadingController: LoadingController) { 
       
       
@@ -100,7 +103,7 @@ export class EditTaskModalPage implements OnInit {
       this.documentForm.get('entityId').setValue(0);
       this.documentForm.get('documentName').setValue('file.txt');
       this.documentForm.get('parentId').setValue(0);
-
+      
       this.formFile= this.documentForm.get('files');
       
       // this.taskEntity =this.documentForm.get('EntityId');
@@ -112,57 +115,97 @@ export class EditTaskModalPage implements OnInit {
       this.getProfile();
     }
     
-
-    changeListener($event) : void {
-      this.file = $event.target.files[0];
-      console.log(this.file);
-    }
-    startUpload() {
-      console.log(this.formFile.value);
-      this.file.resolveLocalFilesystemUrl(this.formFile.value)
-      .then(entry => {
-        ( < FileEntry > entry).file(file => this.readFile(file))
-      })
-      .catch(err => {
-        console.log('ERRORRRRR');
-      });
+    
+    public pathForFile(file) {
+      if (file === null) {
+        return '';
+      } else {
+        return cordova.file.dataDirectory + file;
+      }
     }
     
-
-readUrl(event:any) {
-  if (event.target.files && event.target.files[0]) {
-    var reader = new FileReader();
-
-    // reader.onload = (event: ProgressEvent) => {
-    //   this.url = (<FileReader>event.target).result;
+    
+    
+    // public uploadImage() {
+    //   // Destination URL
+    //   var url = "http://yoururl/upload.php";
+      
+    //   // File for Upload
+    //   var targetPath = this.pathForFile(this.lastFile);
+      
+    //   // File name only
+    //   var filename = this.lastFile;
+      
+    //   var options = {
+    //     fileKey: "file",
+    //     fileName: filename,
+    //     chunkedMode: false,
+    //     mimeType: "multipart/form-data",
+    //     params : {'fileName': filename}
+    //   };
+      
+    //   const fileTransfer= this.transfer.create();
+      
+      
+      
+    //   // Use the FileTransfer to upload the image
+    //   fileTransfer.upload(targetPath, url, options).then(data => {
+    //     console.log('success')
+    //   }, err => {
+    //     console.log('not success')
+    //   });
     // }
-
-    reader.readAsDataURL(event.target.files[0]);
-   console.log( reader.readAsDataURL(event.target.files[0]));
-  }
-}
-
-
-
-
-    readFile(file: any) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const formData = new FormData();
-        const fileBlob = new Blob([reader.result], {
-          type: file.type
-        });
-        formData.append('file', fileBlob, file.name);
-        this.api.initDocument(this.documentForm.value)
-        .subscribe(res => {
-          // console.log(this.documentForm.value);
-          this.closeModal();
-        }, (err) => {
-          console.log(err);
-        });
-      };
-      reader.readAsArrayBuffer(file);
-    }
+    
+    //     changeListener($event) : void {
+    //       this.file = $event.target.files[0];
+    //       console.log(this.file);
+    //     }
+    //     startUpload() {
+    //       console.log(this.formFile.value);
+    //       this.file.resolveLocalFilesystemUrl(this.formFile.value)
+    //       .then(entry => {
+    //         ( < FileEntry > entry).file(file => this.readFile(file))
+    //       })
+    //       .catch(err => {
+    //         console.log('ERRORRRRR');
+    //       });
+    //     }
+    
+    
+    // readUrl(event:any) {
+    //   if (event.target.files && event.target.files[0]) {
+    //     var reader = new FileReader();
+    
+    //     // reader.onload = (event: ProgressEvent) => {
+    //     //   this.url = (<FileReader>event.target).result;
+    //     // }
+    
+    //     reader.readAsDataURL(event.target.files[0]);
+    //    console.log( reader.readAsDataURL(event.target.files[0]));
+    //   }
+    // }
+    
+    
+    
+    
+    //     readFile(file: any) {
+    //       const reader = new FileReader();
+    //       reader.onloadend = () => {
+    //         const formData = new FormData();
+    //         const fileBlob = new Blob([reader.result], {
+    //           type: file.type
+    //         });
+    //         formData.append('file', fileBlob, file.name);
+    //         this.api.initDocument(this.documentForm.value)
+    //         .subscribe(res => {
+    //           // console.log(this.documentForm.value);
+    //           this.closeModal();
+    //         }, (err) => {
+    //           console.log(err);
+    //         });
+    //       };
+    //       reader.readAsArrayBuffer(file);
+    //     }
     
     
     // async init(){
