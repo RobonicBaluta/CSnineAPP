@@ -95,6 +95,17 @@ export class RestApiService {
 
 
 
+                       
+                
+            updateContact(data): Observable<any> {
+                const url = `${this.apiUrl}/Contacts`;
+                return this.http.put(url, data, httpOptions)
+                .pipe(
+                    catchError(this.handleError)
+                    );
+                }
+
+
         getContactById(contactId: number): any {
             const url = `${this.apiUrl}/Contacts/${contactId}`;
             return this.http.get(url, httpOptions).pipe(

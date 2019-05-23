@@ -1,28 +1,30 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Contact</ion-title>
+    <ion-title>{{contact?.firstName}} {{contact?.lastName}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   
- 
+  
   <div >
     <ion-img id="profile-photo" src="assets/logo.svg"></ion-img>
   </div>
-
+  <form [formGroup]='contactForm'>
+    
+    <ion-input value='{{contact?.id}}' hidden formControlName='id'></ion-input>
     <div class="profile-info">
       <ion-item class="ion-margin-top">
         <ion-label class="labelsDark"><strong>First Name: </strong></ion-label>
-        <ion-input placeholder="First name" value={{contact?.firstName}} disabled class="ion-padding"></ion-input>
+        <ion-input placeholder="First name" value={{contact?.firstName}}  formControlName='id' class="ion-padding"></ion-input>
       </ion-item>
       <ion-item class="ion-margin-top">
         <ion-label><strong>Last Name: </strong></ion-label>
-        <ion-input placeholder="Last name"  value={{contact?.lastName}} disabled></ion-input>
+        <ion-input placeholder="Last name"  value={{contact?.lastName}} formControlName='lastName'></ion-input>
       </ion-item>
       <ion-item class="ion-margin-top">
         <ion-label><strong>Email: </strong></ion-label>
-        <ion-input placeholder="email" type="email"  value={{contact?.email}} disabled></ion-input>
+        <ion-input placeholder="email" type="email"  value={{contact?.email}} formControlName='email'></ion-input>
       </ion-item>
     </div>
     <div class="btnsavep">
@@ -31,36 +33,63 @@
     <div class="profile-info">
       <ion-item class="ion-margin-top">
         <ion-label><strong>Mobile: </strong></ion-label>
-        <ion-input placeholder="Phone" value='{{contact?.mobile}}'></ion-input>
-      </ion-item>
-      <!-- <ion-input placeholder="Company"  value={{info.companyId}}></ion-input> -->
-      <ion-item class="ion-margin-top">
-        <ion-label><strong>Street: </strong></ion-label>
-        <ion-input placeholder="Street"  value={{contact?.street}} ></ion-input>
+        <ion-input placeholder="Phone" value='{{contact?.mobile}}' formControlName='mobile'></ion-input>
+        <ion-label><strong>Telephone: </strong></ion-label>
+        <ion-input placeholder="Phone" value='{{contact?.telephone}}' formControlName='telephone'></ion-input>
       </ion-item>
       
-      <ion-item class="ion-margin-top">
-        <ion-label><strong>City: </strong></ion-label>
-        <ion-input placeholder="City"  value={{contact?.city}} ></ion-input>
-      </ion-item>
       
-      <ion-item class="ion-margin-top">
-        <ion-label><strong>Region: </strong></ion-label>
-        <ion-input placeholder="Region"  value={{contact?.region}} ></ion-input>
-      </ion-item>
-      <ion-item class="ion-margin-top">
-        <ion-label><strong>Country: </strong></ion-label>
-        <ion-input placeholder="Country"  value={{info?.country}} ></ion-input>
-      </ion-item>
-      <ion-item class="ion-margin-top">
-        <ion-label><strong>Zip code: </strong></ion-label>
-        <ion-input placeholder="Zip code"  value={{contact?.zip}} ></ion-input>
-      </ion-item>
+      <div formGroupName='address'>
+        
+        
+        <ion-item class="ion-margin-top">
+          <ion-label><strong>Street: </strong></ion-label>
+          <ion-input placeholder="Street"  value={{contact?.address?.street}} ></ion-input>
+        </ion-item>
+        
+        <div formGroupName='city' >
+          
+          <ion-item class="ion-margin-top">
+            <ion-label><strong>City: </strong></ion-label>
+            <ion-input placeholder="City"  value={{contact?.address?.city.name}} ></ion-input>
+          </ion-item>
+          
+        </div>
+        
+        <div formGroupName='region' >
+          
+          <ion-item class="ion-margin-top">
+            <ion-label><strong>Region: </strong></ion-label>
+            <ion-input placeholder="Region"  value={{contact?.address?.region.name}} ></ion-input>
+          </ion-item>
+          
+        </div>
+        
+        <div formGroupName='country' >
+          
+          <ion-item class="ion-margin-top">
+            <ion-label><strong>Country: </strong></ion-label>
+            <ion-input placeholder="Country"  value={{contact?.address?.country.name}} ></ion-input>
+          </ion-item>
+          
+        </div>
+        <div formGroupName='zip' >
+          <ion-item class="ion-margin-top">
+            <ion-label><strong>Zip code: </strong></ion-label>
+            <ion-input placeholder="Zip code"  value={{contact?.address?.zip.number}} ></ion-input>
+          </ion-item>
+        </div>
+      </div>
+      
       <ion-item class="ion-margin-top">
         <ion-label><strong>Fax: </strong></ion-label>
         <ion-input placeholder="Fax"  value={{contact?.fax}} ></ion-input>
       </ion-item>
     </div>
-   
- 
+    <div class="btnsavep">
+      <ion-button color="secondary" (click)="updateContact()"><ion-icon name="save"></ion-icon></ion-button>
+    </div>
+  </form>
+  
+  
 </ion-content>

@@ -116,13 +116,13 @@ export class EditTaskModalPage implements OnInit {
     }
     
     
-    public pathForFile(file) {
-      if (file === null) {
-        return '';
-      } else {
-        return cordova.file.dataDirectory + file;
-      }
-    }
+    // public pathForFile(file) {
+    //   if (file === null) {
+    //     return '';
+    //   } else {
+    //     return cordova.file.dataDirectory + file;
+    //   }
+    // }
     
     
     
