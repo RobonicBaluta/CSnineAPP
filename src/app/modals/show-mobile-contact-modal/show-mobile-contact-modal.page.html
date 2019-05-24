@@ -15,35 +15,47 @@
     
     
     
-    <ion-label><strong>Emails: </strong></ion-label>
-    <div class="profile-info" *ngFor="let email of contact?.emails"></div>
+    
     <ion-item class="ion-margin-top">
-      {{email}}
+      <ion-label><strong>Emails: </strong></ion-label>
+      <div class="profile-info" *ngFor="let email of contact?.emails">
+          {{email.value}}
+    </div>
+   
+
+    </ion-item>
+    <div class="btnsavep">
+      <ion-label text-align="center"><b>Personal info</b></ion-label>
+    </div>
+    
+    <ion-item class="ion-margin-top" >
+      <ion-label><strong>Numbers: </strong></ion-label>
+      
+      <div class="profile-info" *ngFor="let number of contact?.phoneNumbers">
+        
+        {{number.value}}
+        
+        
+      </div>
       
     </ion-item>
+    
+    
+    <ion-item class="ion-margin-top" >
+      <ion-label><strong>Addresses: </strong></ion-label>
+      <div class="profile-info" *ngFor="let address of contact?.addresses">
+        
+        {{address?.streetAddress}}
+        {{address?.region}}
+        {{address?.postalCode}}
+        {{address?.country}}
+
+      </div>
+    </ion-item>
   </div>
+  
+  
   <div class="btnsavep">
-    <ion-label text-align="center"><b>Personal info</b></ion-label>
+    <ion-button color="secondary" ><ion-icon name="save"></ion-icon></ion-button>
   </div>
-  
-  
-  <ion-label><strong>Numbers: </strong></ion-label>
-  <div class="profile-info" *ngFor="let number of contact?.phoneNumbers">
-    <ion-item class="ion-margin-top" >
-      {{number}}
-    </ion-item>
-    
-  </div>
-  
-  
-  
-  <ion-label><strong>Addresses: </strong></ion-label>
-  <div class="profile-info" *ngFor="let address of contact?.addresses">
-    <ion-item class="ion-margin-top" >
-      {{address}}
-    </ion-item>
-    
-  </div>
-  
-  
 </ion-content>
