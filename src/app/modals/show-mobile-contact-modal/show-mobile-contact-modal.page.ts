@@ -49,18 +49,12 @@ export class ShowMobileContactModalPage implements OnInit {
       
       this.contacts.find(['id'],{filter: `${this.mobileContacId}`, multiple: true}).then(data => {
         this.mobileContacts = data
-
+        
         this.mobileContacts.forEach(cont => {
           this.contact=cont;
-          this.presentAlert(this.contact.displayName);
-          this.presentAlert(this.contact.id);
-          this.presentAlert(this.contact.emails[0].value);
-          this.presentAlert(this.contact.phoneNumbers[0].value);
-          this.presentAlert(this.contact.addresses[0].value);
         });
-        this.presentAlert('hey');
+        
       });
-      this.presentAlert(this.contact.displayName);
       
     }
     
