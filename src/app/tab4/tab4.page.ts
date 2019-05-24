@@ -49,7 +49,7 @@ export class Tab4Page implements OnInit {
             this.showContactModal();
         }
         
- 
+        
         
         async showContactModal() {
             const modal = await this.modalController.create({
@@ -70,14 +70,25 @@ export class Tab4Page implements OnInit {
         
         
         async getApiContacts() {
+            const loading = await this.loadingController.create({
+                message: 'Loading'
+            });
+            await loading.present();
             this.csContacts=this.api.getContacts();
+            loading.dismiss();
         }
         
         async getContacts() {
+            const loading = await this.loadingController.create({
+                message: 'Loading'
+            });
+            await loading.present();
             this.contacts.find(['displayName', 'name', 'phoneNumbers', 'emails'], {filter: "", multiple: true})
             .then(data => {
                 this.mobileContacts = data
+                console.log(this.mobileContacts);
             });
+            loading.dismiss();
         }
         
         // async delete(itemId:string){

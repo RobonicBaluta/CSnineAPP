@@ -43,15 +43,15 @@
     <div [ngSwitch]="contactTab">
         <div *ngSwitchCase="'cs'" >
             <ion-list>
-                <ion-virtual-scroll [items]="csContacts |async| search: conts" >
-                    <ion-item-sliding *virtualItem="let contact">
+                <!-- <ion-virtual-scroll [items]="csContacts |async|search: conts" > -->
+                    <ion-item-sliding *ngFor="let contact of csContacts|async|search: conts">
 
                         <ion-item (click)='setContactId(contact.id)'>
-                            <!-- <ion-avatar size='end' class="contactAvatar">
+                            <ion-avatar size='end' class="contactAvatar">
                                 <img src="https://www.w3schools.com/howto/img_avatar.png">
-                            </ion-avatar> -->
+                            </ion-avatar>
                             <ion-title mode='md'>
-                                {{contact?.lastName}}
+                                {{contact.firstName}}
                             </ion-title>
                         </ion-item>
 
@@ -63,7 +63,7 @@
                             </ion-button>
                         </ion-item-options>
                     </ion-item-sliding>
-                </ion-virtual-scroll>
+                <!-- </ion-virtual-scroll> -->
 
 
 
@@ -82,7 +82,7 @@
                             <img src="https://www.w3schools.com/howto/img_avatar.png">
                         </ion-avatar>
                         <ion-title mode='md'>
-                            {{ contact.displayName }}
+                            {{contact.displayName}}
                         </ion-title>
                     </ion-item>
 

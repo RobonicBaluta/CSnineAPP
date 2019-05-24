@@ -125,10 +125,7 @@ export class EditTaskModalPage implements OnInit {
     // }
     
     
-    
-  
-      
-      
+   
       
     //   // Use the FileTransfer to upload the image
     //   fileTransfer.upload(targetPath, url, options).then(data => {
@@ -170,25 +167,33 @@ export class EditTaskModalPage implements OnInit {
     
     
     
-    //     readFile(file: any) {
-    //       const reader = new FileReader();
-    //       reader.onloadend = () => {
-    //         const formData = new FormData();
-    //         const fileBlob = new Blob([reader.result], {
-    //           type: file.type
-    //         });
-    //         formData.append('file', fileBlob, file.name);
-    //         this.api.initDocument(this.documentForm.value)
-    //         .subscribe(res => {
-    //           // console.log(this.documentForm.value);
-    //           this.closeModal();
-    //         }, (err) => {
-    //           console.log(err);
-    //         });
-    //       };
-    //       reader.readAsArrayBuffer(file);
-    //     }
+        readFile() {
+          this.formFile= this.documentForm.get('files');
+          console.log(this.formFile);
+          console.log(this.formFile.name);
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            console.log('load');
+            const formData = new FormData();
+            const fileBlob = new Blob([reader.result], {
+              type: this.formFile.type
+            });
+            console.log(this.formFile.name);
+            formData.append('files', fileBlob, this.formFile.name);
+            console.log(formData);
+            this.api.initDocument(this.documentForm.value)
+            .subscribe(res => {
+              console.log('api');
+              this.closeModal();
+            }, (err) => {
+              console.log(err);
+            });
+          };
+         reader.readAsArrayBuffer(this.formFile);
+         
+        }
     
+
     
     // async init(){
     //   await this.api.initDocument(this.taskType,this.taskEntity,this.taskDocument)

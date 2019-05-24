@@ -90,7 +90,7 @@
             <ion-row>
                 <ion-col>
                     <ion-label>Document:</ion-label>
-                    <ion-input formControlName="files" (change)="changeListener($event)" type='file'  ></ion-input>
+                    <ion-input formControlName="files"  type='file'  ></ion-input>
                 </ion-col>
             </ion-row>
 
@@ -100,7 +100,7 @@
             <ion-input type='text' hidden formControlName="entityType"></ion-input>
 
      
-            <ion-button name='attach' (click)="readUrl()"></ion-button>
+            <ion-button name='attach' (click)="readFile()"></ion-button>
 
      
            
