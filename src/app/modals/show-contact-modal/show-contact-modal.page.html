@@ -16,12 +16,9 @@
     <div class="profile-info">
       <ion-item class="ion-margin-top">
         <ion-label class="labelsDark"><strong>First Name: </strong></ion-label>
-        <ion-input placeholder="First name" value={{contact?.firstName}}  formControlName='firstName' class="ion-padding"></ion-input>
+        <ion-input placeholder="First name" value={{contact?.displayName}}  formControlName='firstName' class="ion-padding"></ion-input>
       </ion-item>
-      <ion-item class="ion-margin-top">
-        <ion-label><strong>Last Name: </strong></ion-label>
-        <ion-input placeholder="Last name"  value={{contact?.lastName}} formControlName='lastName'></ion-input>
-      </ion-item>
+
       <ion-item class="ion-margin-top">
         <ion-label><strong>Email: </strong></ion-label>
         <ion-input placeholder="email" type="email"  value={{contact?.email}} formControlName='email'></ion-input>
@@ -34,12 +31,16 @@
       <ion-item class="ion-margin-top">
         <ion-label><strong>Mobile: </strong></ion-label>
         <ion-input placeholder="Phone" value='{{contact?.mobile}}' formControlName='mobile'></ion-input>
-        <ion-label><strong>Telephone: </strong></ion-label>
-        <ion-input placeholder="Phone" value='{{contact?.telephone}}' formControlName='telephone'></ion-input>
+   
       </ion-item>
+      <ion-item class="ion-margin-top">
+     
+          <ion-label><strong>Telephone: </strong></ion-label>
+          <ion-input placeholder="Phone" value='{{contact?.telephone}}' formControlName='telephone'></ion-input>
+        </ion-item>
       
       
-      <div formGroupName='address'>
+      <div >
         
         
         <ion-item class="ion-margin-top">
@@ -47,7 +48,7 @@
           <ion-input placeholder="Street"  value={{contact?.address?.street}} ></ion-input>
         </ion-item>
         
-        <div formGroupName='city' >
+        <div  >
           
           <ion-item class="ion-margin-top">
             <ion-label><strong>City: </strong></ion-label>
@@ -56,7 +57,7 @@
           
         </div>
         
-        <div formGroupName='region' >
+        <div >
           
           <ion-item class="ion-margin-top">
             <ion-label><strong>Region: </strong></ion-label>
@@ -65,7 +66,7 @@
           
         </div>
         
-        <div formGroupName='country' >
+        <div >
           
           <ion-item class="ion-margin-top">
             <ion-label><strong>Country: </strong></ion-label>
@@ -73,7 +74,7 @@
           </ion-item>
           
         </div>
-        <div formGroupName='zip' >
+        <div >
           <ion-item class="ion-margin-top">
             <ion-label><strong>Zip code: </strong></ion-label>
             <ion-input placeholder="Zip code"  value={{contact?.address?.zip.number}} ></ion-input>

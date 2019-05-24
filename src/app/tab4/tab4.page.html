@@ -74,14 +74,15 @@
             </ion-list>
         </div>
         <div *ngSwitchCase="'mobile'" >
-            <ion-list>
+            <ion-list >
                 <ion-item-sliding *ngFor="let contact of mobileContacts" >
 
-                    <ion-item>
+                    <ion-item (click)='setMobileContactId(contact.id)'>
                         <ion-avatar size='end' class="contactAvatar">
                             <img src="https://www.w3schools.com/howto/img_avatar.png">
                         </ion-avatar>
                         <ion-title mode='md'>
+                                {{contact.id}}
                             {{contact.displayName}}
                         </ion-title>
                     </ion-item>

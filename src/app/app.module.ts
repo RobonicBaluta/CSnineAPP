@@ -29,6 +29,7 @@ import { ShowContactModalPageModule } from './modals/show-contact-modal/show-con
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
+import { ShowMobileContactModalPageModule } from './modals/show-mobile-contact-modal/show-mobile-contact-modal.module';
 
 
 
@@ -55,6 +56,7 @@ export function jwtOptionsFactory(storage) {
     AddTaskModalPageModule,
     EditTaskModalPageModule,
     ShowContactModalPageModule,
+    ShowMobileContactModalPageModule,
     IonicStorageModule.forRoot(),
     JwtModule.forRoot({
       jwtOptionsProvider: {
