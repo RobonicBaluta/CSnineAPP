@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Contacts } from '@ionic-native/contacts/ngx';
 import { NavParams, AlertController, ModalController, LoadingController } from '@ionic/angular';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup,Validators  } from '@angular/forms';
 import { RestApiService } from 'src/app/rest-api.service';
 
 @Component({
@@ -27,18 +27,18 @@ export class ExportContactModalPage implements OnInit {
     public loadingController: LoadingController,
 
     ) { 
-// this.select='herr';
+this.select='herr';
 
   }
   ngOnInit() {
 
     this.exportForm = this.formBuilder.group({
-      // 'salutationAsString': [''],  
-      'firstName' : [''],
-      'lastName' : [''],
+      'salutationAsString': [''],  
+      'firstName': ['',[Validators.required, Validators.min(1)]],
+      'lastName': ['',[Validators.required, Validators.min(1)]],
       'mobile':[''],
       'telephone': [''],
-      'email': [''],   
+      'email': ['',[Validators.required, Validators.min(1), Validators.email]],   
         
       'address': this.formBuilder.group({
         'country': this.formBuilder.group({
@@ -63,22 +63,24 @@ export class ExportContactModalPage implements OnInit {
     
   }
 
-  // checkSalutation(){
+
+ 
+  checkSalutation(){
     
-  //   let salutation=this.select;
-  //   // console.log(server);
-  //   switch (salutation) {
-  //     case 'herr':
-  //     this.exportForm.get('salutationAsString').setValue('herr');
+    let salutation=this.select;
+    // console.log(server);
+    switch (salutation) {
+      case 'herr':
+      this.exportForm.get('salutationAsString').setValue('herr');
       
-  //     break;
-  //     case 'frau':
-  //     this.exportForm.get('salutationAsString').setValue('frau');
-  //     default:
+      break;
+      case 'frau':
+      this.exportForm.get('salutationAsString').setValue('frau');
+      default:
       
-  //     break;
-  //   }
-  // }
+      break;
+    }
+  }
   async getContact() {
     await this.getId();
     // this.presentAlert(this.mobileContacId);
@@ -91,42 +93,16 @@ export class ExportContactModalPage implements OnInit {
       
       this.mobileContacts.forEach(cont => {
         this.contact=cont; 
-        // if(this.contact.emails==null||this.contact.emails==''){
-        //   this.contact.emails=this.arrayMails;
-        //   window.alert(this.contact.emails);
-        //   window.alert(this.arrayMails+'arraymails');
-        //   window.alert(this.contact.emails[0]+'no value');
-        //   window.alert(this.contact.emails[0]);
-        // }
+
         loading.dismiss();
+    
      
-        /*      this.contacts.find(['id'],{filter: `${this.mobileContacId}`, multiple: true}).then(data => {
-        this.mobileContacts = data
-        
-        this.mobileContacts.forEach(cont => {
-          this.contact=cont; 
-          if(this.contact.emails==null){
-            this.contact.emails.push('introduce an email');
-          }
-          
-          
-          this.exportForm.get('firstName').setValue(this.contact.displayName);
-          this.exportForm.get('lastName').setValue(this.contact.displayName);
-          if(this.contact.emails!=null){
-            this.exportForm.get('email').setValue(this.contact.emails[0].value);
-          }
-          
-          if(this.contact.phoneNumbers!=null){
-            this.exportForm.get('mobile').setValue(this.contact.phoneNumbers[0].value);
-            this.exportForm.get('telephone').setValue(this.contact.phoneNumbers[1].value);
-          }*/
-        
-        // this.presentAlert(this.contact.phoneNumbers[0].value);
-        // this.presentAlert(this.contact.emails[0].value);
+       
       });
       
     }); 
   }
+
 
   async getId(){
     this.mobileContacId=this.navParams.get('exportContactId');

@@ -27,6 +27,7 @@ export class Tab4Page implements OnInit {
     contactId: number;
     mobileContactId: number;
     contact:Observable<any>;
+    displayNameFilter: any;
     
     constructor(public api: RestApiService,
         public modalController: ModalController,
@@ -123,19 +124,29 @@ export class Tab4Page implements OnInit {
         }
         
         async getContacts() {
-            // const loading = await this.loadingController.create({
-            //     message: 'Loading'
-            // });
-            // await loading.present();
+            const loading = await this.loadingController.create({
+                message: 'Loading'
+            });
+            await loading.present();
             this.contacts.find(['id','displayName', 'name', 'phoneNumbers', 'emails'], {filter: "", multiple: true})
             .then(data => {
                 this.mobileContacts = data
                 console.log(this.mobileContacts);
             });
-            // loading.dismiss();
+            loading.dismiss();
         }
 
-    
+         
+        async getFilteredContacts(filterValue) {
+
+        
+            this.contacts.find(['displayName'], {filter: `${filterValue}`, multiple: true})
+            .then(data => {
+                this.mobileContacts = data
+                console.log(this.mobileContacts);
+            });
+
+        }
         
         // async delete(itemId:string){
         //   // this.api.deleteItem(itemId);
