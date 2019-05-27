@@ -226,15 +226,15 @@ export class RestApiService {
                                                 }
                                                 
                                                 
-                                                getMyTasks(): Observable <any>{
-                                                    return this.http.get(this.apiUrl+'/Tasks?TaskListKind=3&Take=2147483647').pipe(
+                                                getMyTasks(data): Observable <any>{
+                                                    return this.http.post(this.apiUrl+'/tasks/get',data,httpOptions).pipe(
                                                         catchError(this.handleError)
                                                         );
                                                         
                                                         
                                                     }
-                                                    getGivenTasks(): Observable <any>{
-                                                        return this.http.get(this.apiUrl+'/Tasks?TaskListKind=2&Take=2147483647').pipe(
+                                                    getGivenTasks(data): Observable <any>{
+                                                        return this.http.post(this.apiUrl+'/tasks/get',data,httpOptions).pipe(
                                                             catchError(this.handleError)
                                                             );
                                                             

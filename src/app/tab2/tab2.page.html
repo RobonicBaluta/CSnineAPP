@@ -40,9 +40,9 @@
     <ion-list>
       
       
-      
-      <ion-virtual-scroll [items]="myTasks?.items| search : tsks">
-        <ion-item-sliding  *virtualItem="let myTask">
+      <ion-item-sliding *ngFor="let myTask of myTasks?.items|search: tsks">
+      <!-- <ion-virtual-scroll [items]="myTasks?.items| search : tsks">
+        <ion-item-sliding  *virtualItem="let myTask"> -->
           
           <ion-item *ngIf="myTask.status!=3" (click)='setTaskId(myTask?.id)'>
             <ion-title mode='md'>
@@ -58,7 +58,7 @@
             
           </ion-item-options>   
         </ion-item-sliding> 
-      </ion-virtual-scroll>
+      <!-- </ion-virtual-scroll> -->
       
     </ion-list> 
   </div>

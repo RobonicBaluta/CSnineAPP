@@ -8,6 +8,7 @@ import { AddTaskModalPage } from '../modals/add-task-modal/add-task-modal.page';
 import { RestApiService } from '../rest-api.service';
 import { map } from 'rxjs/operators';
 import { EditTaskModalPage } from '../modals/edit-task-modal/edit-task-modal.page';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 
 
@@ -23,6 +24,8 @@ export class Tab2Page {
   givenTasks: Observable<any>;
   taskId: number;
   tasksTab:string;
+  myTasksForm: FormGroup;
+  givenTasksForm: FormGroup;
   
 
   
@@ -45,7 +48,22 @@ export class Tab2Page {
   constructor(public modalController: ModalController,
     public api: RestApiService,private alertController: AlertController ,
     public router: Router,
-    public loadingController: LoadingController,) {}
+    public loadingController: LoadingController,
+    private formBuilder: FormBuilder) {
+
+
+      this.myTasksForm = this.formBuilder.group({
+        "taskListKind": 3,
+        "take": 2147483647,
+      
+    });
+
+    this.givenTasksForm = this.formBuilder.group({
+      "taskListKind": 2,
+      "take": 2147483647,
+    
+  });
+    }
     
 
 
@@ -74,7 +92,7 @@ export class Tab2Page {
         message: 'Loading'
       });
       await loading.present();
-      return this.api.getMyTasks().subscribe(data=>{this.myTasks=data
+      return this.api.getMyTasks(this.myTasksForm.value).subscribe(data=>{this.myTasks=data
         loading.dismiss();
       });
     }
@@ -85,7 +103,7 @@ export class Tab2Page {
         message: 'Loading'
       });
       await loading.present();
-      return this.api.getGivenTasks().subscribe(data=>{this.givenTasks=data
+      return this.api.getGivenTasks(this.givenTasksForm.value).subscribe(data=>{this.givenTasks=data
         loading.dismiss();
       });
     }
