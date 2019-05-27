@@ -10,7 +10,7 @@
   <div class="profile-info">
     <ion-item class="ion-margin-top">
       <ion-label class="labelsDark"><strong>Name: </strong></ion-label>
-      <ion-input placeholder="First name" value={{contact?.displayName}} class="ion-padding"></ion-input>
+      {{contact?.displayName}}
     </ion-item>
     
     
@@ -28,17 +28,15 @@
       <ion-label text-align="center"><b>Personal info</b></ion-label>
     </div>
     
-    <ion-item class="ion-margin-top" >
+    <div class="ion-margin-top" >
       <ion-label><strong>Numbers: </strong></ion-label>
       
-      <div class="profile-info" *ngFor="let number of contact?.phoneNumbers">
-        
+      <ion-item class="profile-info" *ngFor="let number of contact?.phoneNumbers">
         {{number.value}}
-        
-        
-      </div>
+ 
+      </ion-item>
       
-    </ion-item>
+    </div>
     
     
     <ion-item class="ion-margin-top" >

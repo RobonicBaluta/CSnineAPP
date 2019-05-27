@@ -27,7 +27,9 @@ const routes: Routes = [
   { path: 'edit-company-modal', loadChildren: './modals/edit-company-modal/edit-company-modal.module#EditCompanyModalPageModule' },
   { path: 'edit-task-modal', loadChildren: './modals/edit-task-modal/edit-task-modal.module#EditTaskModalPageModule' },
   { path: 'show-contact-modal', loadChildren: './modals/show-contact-modal/show-contact-modal.module#ShowContactModalPageModule' },
-  { path: 'show-mobile-contact-modal', loadChildren: './modals/show-mobile-contact-modal/show-mobile-contact-modal.module#ShowMobileContactModalPageModule' }
+  { path: 'show-mobile-contact-modal', loadChildren: './modals/show-mobile-contact-modal/show-mobile-contact-modal.module#ShowMobileContactModalPageModule' },
+  { path: 'export-contact-modal', loadChildren: './modals/export-contact-modal/export-contact-modal.module#ExportContactModalPageModule' },
+ 
   
   
   

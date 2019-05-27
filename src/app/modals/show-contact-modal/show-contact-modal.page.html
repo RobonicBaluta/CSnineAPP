@@ -16,8 +16,12 @@
     <div class="profile-info">
       <ion-item class="ion-margin-top">
         <ion-label class="labelsDark"><strong>First Name: </strong></ion-label>
-        <ion-input placeholder="First name" value={{contact?.displayName}}  formControlName='firstName' class="ion-padding"></ion-input>
+        <ion-input placeholder="First name" value={{contact?.firstName}}  formControlName='firstName' class="ion-padding"></ion-input>
       </ion-item>
+      <ion-item class="ion-margin-top">
+          <ion-label class="labelsDark"><strong>Last Name: </strong></ion-label>
+          <ion-input placeholder="First name" value={{contact?.lastName}}  formControlName='lastName' class="ion-padding"></ion-input>
+        </ion-item>
 
       <ion-item class="ion-margin-top">
         <ion-label><strong>Email: </strong></ion-label>

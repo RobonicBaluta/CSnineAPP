@@ -22,30 +22,12 @@ export class ShowMobileContactModalPage implements OnInit {
     }
     
     
-    
-    
-    
-    
-    
-    
-    //   async getContacts() {
-    //     // const loading = await this.loadingController.create({
-    //     //     message: 'Loading'
-    //     // });
-    //     // await loading.present();
-    //     this.contacts.find(['id','displayName', 'name', 'phoneNumbers', 'emails'], {filter: "", multiple: true})
-    //     .then(data => {
-    //         this.mobileContacts = data
-    //         console.log(this.mobileContacts);
-    //     });
-    //     // loading.dismiss();
-    // }
-    
+  
     
     
     async getContact() {
       await this.getId();
-      this.presentAlert(this.mobileContacId);
+      // this.presentAlert(this.mobileContacId);
       
       this.contacts.find(['id'],{filter: `${this.mobileContacId}`, multiple: true}).then(data => {
         this.mobileContacts = data

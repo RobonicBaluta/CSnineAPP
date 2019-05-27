@@ -1,0 +1,158 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{contact?.displayName}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+  <form [formGroup]='exportForm'>
+    <div class="profile-info">
+      <ion-select required placeholder="Select a salutation" [(ngModel)]="select" (ionChange)="checkServer()" >
+        <ion-select-option value="herr" selected>Herr</ion-select-option>
+        <ion-select-option value="frau">Frau</ion-select-option>
+      </ion-select>
+      
+      <ion-item class="ion-margin-top" *ngIf="contact?.displayName!=null">
+        <ion-label class="labelsDark"><strong>First Name: </strong></ion-label>
+        <ion-input value='{{contact?.displayName}}' formControlName='firstName'></ion-input>
+        
+      </ion-item>
+      
+      <ion-item class="ion-margin-top" *ngIf="contact?.displayName==null">
+        <ion-label class="labelsDark"><strong>First Name: </strong></ion-label>
+        <ion-input formControlName='firstName'></ion-input> 
+      </ion-item>
+      
+      <ion-item class="ion-margin-top">
+        <ion-label class="labelsDark"><strong>Last Name: </strong></ion-label>
+        <ion-input formControlName='lastName'></ion-input>
+        
+      </ion-item>
+      
+      <ion-item class="ion-margin-top" *ngIf="contact?.emails!=null">
+        <ion-label><strong>Email: </strong></ion-label>
+        <ion-input value={{contact?.emails[0]?.value}} formControlName='email'></ion-input>
+      </ion-item>
+      
+      
+      
+      
+      <ion-item class="ion-margin-top" *ngIf="contact?.emails==null">
+        <ion-label><strong>Emailo: </strong></ion-label>
+        <ion-input formControlName='email'></ion-input>
+      </ion-item>
+      
+      <div class="btnsavep">
+        <ion-label text-align="center"><b>Personal info</b></ion-label>
+      </div>
+      
+      
+      
+      <ion-item class="ion-margin-top" *ngIf="contact?.phoneNumbers!=null">
+        <ion-label><strong>Mobile: </strong></ion-label>
+        
+        <ion-input value={{contact?.phoneNumbers[0]?.value}} formControlName='mobile'></ion-input>
+        
+      </ion-item>
+      
+      <ion-item class="ion-margin-top" *ngIf="contact?.phoneNumbers==null">
+        <ion-label><strong>Mobileo: </strong></ion-label>
+        
+        <ion-input  formControlName='mobile'></ion-input>
+        
+      </ion-item>
+      
+      <ion-item class="ion-margin-top" *ngIf="contact?.phoneNumbers!=null">
+        <ion-label><strong>Telephone: </strong></ion-label>
+        
+        <ion-input value={{contact?.phoneNumbers[1]?.value}} formControlName='telephone'></ion-input>
+        
+        
+      </ion-item>
+      
+      <ion-item class="ion-margin-top"  *ngIf="contact?.phoneNumbers==null">
+        <ion-label><strong>Telephoneo: </strong></ion-label>
+        
+        <ion-input  formControlName='telephone'></ion-input>
+        
+        
+      </ion-item>
+      
+      
+      
+      
+      
+      <ion-item class="ion-margin-top" *ngIf="contact?.addresses!=null">
+        <div formGroupName='address'>
+          
+          
+          <ion-label><strong>Address: </strong></ion-label>
+          
+          <ion-label><strong>Country: </strong></ion-label>
+          <div formGroupName='country' >
+            <ion-input value={{contact?.addresses[0]?.country}} formControlName='name'></ion-input>
+          </div>
+          <div formGroupName='region' >
+            <ion-label><strong>Region: </strong></ion-label>
+            <ion-input value={{contact?.addresses[0]?.region}} formControlName='name'></ion-input>
+          </div>
+          
+          <div formGroupName='city' >
+            <ion-label><strong>City: </strong></ion-label>
+            <ion-input value={{contact?.addresses[0]?.locality}} formControlName='name'></ion-input>
+          </div>
+          <div formGroupName='zip' >
+            <ion-label><strong>Postal Code: </strong></ion-label>
+            <ion-input value={{contact?.addresses[0]?.posalCode}} formControlName='number'></ion-input>
+          </div>
+          
+          <ion-label><strong>Street: </strong></ion-label>
+          <ion-input value={{contact?.addresses[0]?.streetAddress}} formControlName='name'></ion-input>
+          
+          
+        </div>
+      </ion-item>
+      
+      
+      
+      
+      <ion-item class="ion-margin-top" *ngIf="contact?.addresses==null">
+        <div formGroupName='address'>
+          
+          
+          <ion-label><strong>Address: </strong></ion-label>
+          
+          <ion-label><strong>Country: </strong></ion-label>
+          <div formGroupName='country' >
+            <ion-input  formControlName='name'></ion-input>
+          </div>
+          <div formGroupName='region' >
+            <ion-label><strong>Region: </strong></ion-label>
+            <ion-input formControlName='name'></ion-input>
+          </div>
+          
+          <div formGroupName='city' >
+            <ion-label><strong>City: </strong></ion-label>
+            <ion-input  formControlName='name'></ion-input>
+          </div>
+          <div formGroupName='zip' >
+            <ion-label><strong>Postal Code: </strong></ion-label>
+            <ion-input  formControlName='number'></ion-input>
+          </div>
+          
+          <ion-label><strong>Street: </strong></ion-label>
+          <ion-input formControlName='name'></ion-input>
+          
+          
+        </div>
+      </ion-item>
+    </div>
+    
+    
+    <div class="btnsavep">
+      <ion-button color="secondary" (click)='exportContact()' ><ion-icon name="git-compare"></ion-icon></ion-button>
+    </div>
+  </form>
+  
+</ion-content>

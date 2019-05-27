@@ -8,6 +8,7 @@ import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/cont
 import { EditCompanyModalPage } from '../modals/edit-company-modal/edit-company-modal.page';
 import { ShowContactModalPage } from '../modals/show-contact-modal/show-contact-modal.page';
 import { ShowMobileContactModalPage } from '../modals/show-mobile-contact-modal/show-mobile-contact-modal.page';
+import { ExportContactModalPage } from '../modals/export-contact-modal/export-contact-modal.page';
 
 
 @Component({
@@ -56,7 +57,28 @@ export class Tab4Page implements OnInit {
             // console.log(this.companyId);
             this.showMobileContactModal();
         }
-        
+                
+        setExportContactId(id:number){
+            this.mobileContactId=id;
+            // console.log(this.companyId);
+            this.showExportContactModal();
+        }
+                 
+        async showExportContactModal() {
+            const modal = await this.modalController.create({
+                component: ExportContactModalPage,
+                componentProps:{
+                    exportContactId: this.mobileContactId,
+                    
+                }
+            });
+            modal.onDidDismiss().then((dataReturned) => {
+                if (dataReturned !== null) {
+                    console.log('Modal Sent Data :', dataReturned);
+                }
+            });
+            return await modal.present();
+        }
         async showContactModal() {
             const modal = await this.modalController.create({
                 component: ShowContactModalPage,
