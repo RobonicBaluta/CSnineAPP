@@ -93,6 +93,15 @@ export class RestApiService {
                 catchError(this.handleError)
                 );
             }
+            getDocumentById(documentId: number): any {
+                const url = `${this.apiUrl}/documents/${documentId}`;
+                return this.http.get(url, {responseType: 'blob'}).pipe(
+                    timeout(5000),
+                    retry(2),
+                    catchError(this.handleError)
+                    );
+                }
+            
 
 
         updateContact(data): Observable<any> {

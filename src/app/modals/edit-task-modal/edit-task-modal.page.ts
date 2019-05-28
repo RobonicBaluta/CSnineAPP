@@ -8,6 +8,8 @@ import { File, FileEntry } from '@ionic-native/file/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { FileChooser } from '@ionic-native/file-chooser/ngx';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { cordova } from '@ionic-native/core';
 
 
 @Component({
@@ -56,6 +58,8 @@ export class EditTaskModalPage implements OnInit {
   nativepath: any;
   doc: any;
   documents: Observable<any>;
+  document: Observable<any>;
+  file=new File();
   constructor(
     private modalController: ModalController,
     private alertCtrl: AlertController, 
@@ -66,9 +70,10 @@ export class EditTaskModalPage implements OnInit {
     public api: RestApiService,
     private navParams:NavParams,
     private events:Events,
-    private file: File,
+    // private file: File,
     private transfer: FileTransfer,
     private filePath:FilePath,
+    private fileOpener: FileOpener,
     private actionSheetController: ActionSheetController,
     public loadingController: LoadingController,
     private fileChooser: FileChooser) { 
@@ -121,7 +126,7 @@ export class EditTaskModalPage implements OnInit {
       this.getCompanies();
       this.getSimpleUsers();
       this.getProfile();
-      this.getDocuments()
+      this.getDocuments();
     }
     
    
@@ -139,7 +144,35 @@ export class EditTaskModalPage implements OnInit {
     async getDocuments(){
       this.documents=this.api.getDocuments(this.taskId);
     }
-    
+    async getDocumentById(documentId:number){
+      this.doc=this.api.getDocumentById(documentId).subscribe(result=>{
+             this.doc=result;
+
+             var blob = new Blob([this.doc]);
+
+    //Determine a native file path to save to
+
+    let filePath=this.file.applicationDirectory;
+    // let filePath = (this.appConfig.isNativeAndroid) ? this.file.externalRootDirectory : this.file.cacheDirectory;
+
+    //Write the file
+    this.file.writeFile(filePath, this.doc.documentName, blob, { replace: true }).then((fileEntry: FileEntry) => {
+
+      console.log("File created!");
+
+      //Open with File Opener plugin
+      this.fileOpener.open(fileEntry.toURL(), 'application/pdf')
+        .then(() => console.log('File is opened'))
+        .catch(err => console.error('Error openening file: ' + err));
+    })
+      .catch((err) => {
+        console.error("Error creating file: " + err);
+        throw err;  //Rethrow - will be caught by caller
+      });
+      
+    });
+  }
+
     
     
     async getProfile(){

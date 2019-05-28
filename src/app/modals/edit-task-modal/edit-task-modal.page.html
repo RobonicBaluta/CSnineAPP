@@ -116,7 +116,7 @@
         <div class="ion-margin-top" >
             <ion-label><strong>Documents: </strong></ion-label>
             
-            <ion-item class="profile-info" *ngFor="let document of documents|async">
+            <ion-item class="profile-info" *ngFor="let document of documents|async" (click)="getDocumentById(document?.id)">
               {{document.documentName}}
        
             </ion-item>
