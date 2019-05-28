@@ -69,7 +69,7 @@ export class AuthService {
           if(e.error==null|| e.error==''){
             this.showAlert('Connection error');
           }else{
-            this.showAlert(e.error);
+            this.showAlert(e.error.message);
           }
           
           throw new Error(e);
