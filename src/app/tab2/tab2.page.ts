@@ -63,6 +63,7 @@ export class Tab2Page {
       'id':[null],
       "status": 3,
       "title":[null],
+      "deadline":[null],
   });
 
     this.givenTasksForm = this.formBuilder.group({
@@ -140,9 +141,10 @@ export class Tab2Page {
 
 
 
-    async setTaskAsDone(id:number, title:string){
+    async setTaskAsDone(id:number, title:string, deadline){
       this.taskStatusForm.get('id').setValue(id);
       this.taskStatusForm.get('title').setValue(title);
+      this.taskStatusForm.get('deadline').setValue(deadline);
       const alert = await this.alertController.create({
           header: 'Task done',
           cssClass: 'alert',
@@ -159,7 +161,7 @@ export class Tab2Page {
                   handler: () => {
                     this.api.updateTask(this.taskStatusForm.value)
                     .subscribe(res => {
-
+                      this.doRefresh(event);
                       window.alert('task successfully updated');
                     }, (err) => {
                       console.log(err);
