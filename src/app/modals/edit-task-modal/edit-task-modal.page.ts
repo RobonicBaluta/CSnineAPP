@@ -10,6 +10,7 @@ import { FilePath } from '@ionic-native/file-path/ngx';
 import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { cordova } from '@ionic-native/core';
+import { Platform } from '@ionic/angular';
 
 
 @Component({
@@ -76,7 +77,8 @@ export class EditTaskModalPage implements OnInit {
     private fileOpener: FileOpener,
     private actionSheetController: ActionSheetController,
     public loadingController: LoadingController,
-    private fileChooser: FileChooser) { 
+    private fileChooser: FileChooser,
+    private platform: Platform,) { 
       
       
       this.taskForm = this.formBuilder.group({
@@ -147,26 +149,32 @@ export class EditTaskModalPage implements OnInit {
     async getDocumentById(documentId:number){
       this.doc=this.api.getDocumentById(documentId).subscribe(result=>{
              this.doc=result;
-
-             var blob = new Blob([this.doc]);
-
+       
+            //  var blob = new Blob([this.doc]);
+            
     //Determine a native file path to save to
-
-    let filePath=this.file.applicationDirectory;
+      
+    let filePath=this.file.dataDirectory;
     // let filePath = (this.appConfig.isNativeAndroid) ? this.file.externalRootDirectory : this.file.cacheDirectory;
 
     //Write the file
-    this.file.writeFile(filePath, this.doc.documentName, blob, { replace: true }).then((fileEntry: FileEntry) => {
 
-      console.log("File created!");
+    // this.platform.ready();
+
+    this.file.writeFile(filePath, 'testaso.txt', this.doc, { replace: true }).then((fileEntry: FileEntry) => {
+
+     window.alert("File created!");
 
       //Open with File Opener plugin
-      this.fileOpener.open(fileEntry.toURL(), 'application/pdf')
+      this.fileOpener.open(fileEntry.toURL(), 'application/octet-stream')
         .then(() => console.log('File is opened'))
-        .catch(err => console.error('Error openening file: ' + err));
+        .catch(err => window.alert('Error openening file: ' + err)
+        );
     })
       .catch((err) => {
         console.error("Error creating file: " + err);
+        window.alert("Error creating file: " + err);
+
         throw err;  //Rethrow - will be caught by caller
       });
       
