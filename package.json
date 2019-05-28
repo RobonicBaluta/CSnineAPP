@@ -92,7 +92,8 @@
       "cordova-plugin-headercolor": {},
       "cordova-plugin-file": {},
       "cordova-plugin-file-transfer": {},
-      "cordova-plugin-filepath": {}
+      "cordova-plugin-filepath": {},
+      "cordova-plugin-filechooser": {}
     },
     "platforms": [
       "ios",

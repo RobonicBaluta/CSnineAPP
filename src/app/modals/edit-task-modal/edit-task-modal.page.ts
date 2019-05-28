@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { File, FileEntry } from '@ionic-native/file/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
+import { FileChooser } from '@ionic-native/file-chooser/ngx';
 
 
 @Component({
@@ -45,10 +46,15 @@ export class EditTaskModalPage implements OnInit {
   
   
   lastFile: string = null;
+ 
+   fd = new FormData();
   
   info: any;
   me: boolean;
   formFile: any;
+  testResponse: any;
+  nativepath: any;
+  doc: any;
   constructor(
     private modalController: ModalController,
     private alertCtrl: AlertController, 
@@ -63,7 +69,8 @@ export class EditTaskModalPage implements OnInit {
     private transfer: FileTransfer,
     private filePath:FilePath,
     private actionSheetController: ActionSheetController,
-    public loadingController: LoadingController) { 
+    public loadingController: LoadingController,
+    private fileChooser: FileChooser) { 
       
       
       this.taskForm = this.formBuilder.group({
@@ -125,8 +132,8 @@ export class EditTaskModalPage implements OnInit {
     // }
     
     
-   
-      
+    
+    
     //   // Use the FileTransfer to upload the image
     //   fileTransfer.upload(targetPath, url, options).then(data => {
     //     console.log('success')
@@ -167,33 +174,33 @@ export class EditTaskModalPage implements OnInit {
     
     
     
-        readFile() {
-          this.formFile= this.documentForm.get('files');
-          console.log(this.formFile);
-          console.log(this.formFile.name);
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            console.log('load');
-            const formData = new FormData();
-            const fileBlob = new Blob([reader.result], {
-              type: this.formFile.type
-            });
-            console.log(this.formFile.name);
-            formData.append('files', fileBlob, this.formFile.name);
-            console.log(formData);
-            this.api.initDocument(this.documentForm.value)
-            .subscribe(res => {
-              console.log('api');
-              this.closeModal();
-            }, (err) => {
-              console.log(err);
-            });
-          };
-         reader.readAsArrayBuffer(this.formFile);
-         
-        }
+    // readFile() {
+    //   this.formFile= this.documentForm.get('files');
+    //   console.log(this.formFile);
+    //   console.log(this.formFile.name);
+    //   const reader = new FileReader();
+    //   reader.onloadend = () => {
+    //     console.log('load');
+    //     const formData = new FormData();
+    //     const fileBlob = new Blob([reader.result], {
+    //       type: this.formFile.type
+    //     });
+    //     console.log(this.formFile.name);
+    //     formData.append('files', fileBlob, this.formFile.name);
+    //     console.log(formData);
+    //     this.api.initDocument(this.documentForm.value)
+    //     .subscribe(res => {
+    //       console.log('api');
+    //       this.closeModal();
+    //     }, (err) => {
+    //       console.log(err);
+    //     });
+    //   };
+    //   reader.readAsArrayBuffer(this.formFile);
+      
+    // }
     
-
+    
     
     // async init(){
     //   await this.api.initDocument(this.taskType,this.taskEntity,this.taskDocument)
@@ -335,88 +342,157 @@ export class EditTaskModalPage implements OnInit {
     
     
     
-    
-    
-    checkDate(){
+    async selectFile(){ this.fileChooser.open()
+      .then(uri => 
+        {(<any>window).FilePath.resolveNativePath(uri, async (result) => {
+          const fileLoader = await this.loadingController.create({
+            message: "Uploading File..."
+          });
+          fileLoader.present();
+          
+          window.alert('before filepath');
+          // this.fd.append('doc',result);
+          this.testResponse = result;
+          this.nativepath = result;
+          this.readfile(fileLoader);
+          window.alert('after readfile');
+        })
+      })
+      .catch(e => 
+        this.testResponse = 'Error - '+e);
+      }
       
-      let date=this.select;
-      // console.log(date);
-      // console.log(this.currentDate);
-      // console.log(this.toDate);
-      switch (date) {
-        case 'immediately':
-        
-        this.showTo=false;
-        this.showFrom=false;
-        this.taskForm.get('deadlineType').setValue(0);
-        this.taskForm.get('deadline').setValue(this.currentDate);
-        break;
-        
-        case 'forYouInfomation':
-        
-        this.showTo=false;
-        this.showFrom=false;
-        this.taskForm.get('deadlineType').setValue(6);
-        this.taskForm.get('deadline').setValue(this.currentDate);
-        break;
-        
-        case 'enableOn':
-        this.showFrom=false;
-        this.showTo=true;
-        
-        
-        
-        break;
-        case 'enableFrom':
-        this.showFrom=true;
-        this.showTo=true;
-        
-        
-        
-        break;
-        
-        
-        default:
-        
-        break;
-      }
-    }
-    
-    
-    setTo(){
-      this.taskForm.get('deadlineType').setValue(3);
-      this.taskForm.get('deadline').setValue(this.toDate);
-    }
-    setFrom(){
-      this.taskForm.get('deadlineType').setValue(4);
-      this.taskForm.get('fromDate').setValue(this.fromDate);
-    }
-    
-    async updateTask(){
-      if (this.taskForm.valid){
-        await this.api.updateTask( this.taskForm.value)
-        .subscribe(res => {
-          
-          this.updateAlert();
-          this.closeModal();
-          
-        }, (err) => {
-          console.log(err);
+      readfile(fileLoader) {
+       
+        (<any>window).resolveLocalFileSystemURL(this.nativepath, (res) => {
+          res.file((resFile) => {
+            var reader = new FileReader();
+            // reader.readAsArrayBuffer(resFile);
+            
+            reader.onloadend = (evt: any) => {
+              window.alert(this.nativepath);
+              window.alert('end loader');
+              fileLoader.dismiss();
+              window.alert('before blob');
+              // var src = evt.target.result;
+              // src = src.split("base64,");
+              // var contentType = src[0].split(':');
+              // this.testResponse = contentType[1].replace(';','');
+              // contentType = JSON.stringify(contentType[1].replace(';',''));
+              var fileBlob = new Blob([evt.target.result]);
+              window.alert('after blob');
+              window.alert('befor blob apend');
+              this.fd.append('files',fileBlob);
+              //do what you want to do with the file
+              window.alert('after blob append');
+              window.alert(fileBlob.size);
+            }
+            //  reader.readAsDataURL(resFile);
+            reader.readAsBinaryString(resFile);
+            
+          });
         });
-      }else{
-        // this.errorAlert();
+      }
+
+
+      submitDoc(){
+        window.alert('start submit');
+        this.fd.append('entityId',this.documentForm.get('entityId').value);
+        window.alert('first append');
+
+        this.fd.append('entityType',this.documentForm.get('entityType').value);
+        this.fd.append('parentId',this.documentForm.get('parentId').value);
+        this.fd.append('parentId',  this.documentForm.get('documentName').value);
+        window.alert('last append');
+        window.alert(this.documentForm.get('documentName').value);
+        window.alert('before api');
+        this.doc = this.api.initDocument(this.fd);
+        window.alert('after api');
+        this.doc.subscribe(data => {
+        this.testResponse = JSON.stringify(data);
+      })
+   }
+      
+      checkDate(){
+        
+        let date=this.select;
+        // console.log(date);
+        // console.log(this.currentDate);
+        // console.log(this.toDate);
+        switch (date) {
+          case 'immediately':
+          
+          this.showTo=false;
+          this.showFrom=false;
+          this.taskForm.get('deadlineType').setValue(0);
+          this.taskForm.get('deadline').setValue(this.currentDate);
+          break;
+          
+          case 'forYouInfomation':
+          
+          this.showTo=false;
+          this.showFrom=false;
+          this.taskForm.get('deadlineType').setValue(6);
+          this.taskForm.get('deadline').setValue(this.currentDate);
+          break;
+          
+          case 'enableOn':
+          this.showFrom=false;
+          this.showTo=true;
+          
+          
+          
+          break;
+          case 'enableFrom':
+          this.showFrom=true;
+          this.showTo=true;
+          
+          
+          
+          break;
+          
+          
+          default:
+          
+          break;
+        }
+      }
+      
+      
+      setTo(){
+        this.taskForm.get('deadlineType').setValue(3);
+        this.taskForm.get('deadline').setValue(this.toDate);
+      }
+      setFrom(){
+        this.taskForm.get('deadlineType').setValue(4);
+        this.taskForm.get('fromDate').setValue(this.fromDate);
+      }
+      
+      async updateTask(){
+        if (this.taskForm.valid){
+          await this.api.updateTask( this.taskForm.value)
+          .subscribe(res => {
+            
+            this.updateAlert();
+            this.closeModal();
+            
+          }, (err) => {
+            console.log(err);
+          });
+        }else{
+          // this.errorAlert();
+        }
+      }
+      
+      
+      async updateAlert() {
+        const alert = await this.alertController.create({
+          header: 'Alert',
+          cssClass: 'alert',
+          message: 'Changes succesfully saved',
+          buttons: ['OK']
+        });
+        alert.present();
       }
     }
     
-    
-    async updateAlert() {
-      const alert = await this.alertController.create({
-        header: 'Alert',
-        cssClass: 'alert',
-        message: 'Changes succesfully saved',
-        buttons: ['OK']
-      });
-      alert.present();
-    }
-  }
-  

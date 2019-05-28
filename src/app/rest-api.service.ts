@@ -25,14 +25,7 @@ export class RestApiService {
     status:boolean;
     apiUrl=' http://csapi.soltystudio.com/api/v1';
     constructor(private http:HttpClient) { }
-    
-    
-    
-    
-    
-    
-    
-    
+
     // commitFile(entityType: string, entityId: number, document: object): Observable<any> {
     //     const httpUploadOptions = {
     //       headers: new HttpHeaders()
@@ -73,10 +66,8 @@ export class RestApiService {
             
     //     }
 
-
-
         initDocument(data): Observable<any> {
-        
+        window.alert('into api');
             const httpUploadOptions = {
                 headers: new HttpHeaders()
                 
@@ -93,26 +84,21 @@ export class RestApiService {
                 )       
             }
 
+        updateContact(data): Observable<any> {
+            const url = `${this.apiUrl}/Contacts`;
+            return this.http.put(url, data, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+                );
+            }
 
-
-                       
-                
-            updateContact(data): Observable<any> {
-                const url = `${this.apiUrl}/Contacts`;
-                return this.http.put(url, data, httpOptions)
-                .pipe(
-                    catchError(this.handleError)
-                    );
-                }
-
-                exportContact(data): Observable<any> {
-                    const url = `${this.apiUrl}/Contacts`;
-                    return this.http.post(url, data, httpOptions)
-                    .pipe(
-                        catchError(this.handleError)
-                        );
-                        
-                    }
+        exportContact(data): Observable<any> {
+            const url = `${this.apiUrl}/Contacts`;
+            return this.http.post(url, data, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+                );       
+            }
 
         getContactById(contactId: number): any {
             const url = `${this.apiUrl}/Contacts/${contactId}`;
@@ -122,51 +108,50 @@ export class RestApiService {
                 catchError(this.handleError)
                 );
             }
-            setSolty(){
-                this.apiUrl=' http://csapi.soltystudio.com/api/v1';
-            }
-            setBiz(){
-                this.apiUrl=' http://webapi.contentshare.biz/api/v1'
-                // console.log(this.apiUrl);
-            }
+        setSolty(){
+            this.apiUrl=' http://csapi.soltystudio.com/api/v1';
+        }
+        setBiz(){
+            this.apiUrl=' http://webapi.contentshare.biz/api/v1'
+            // console.log(this.apiUrl);
+        }
             
-            getProfile(): Observable <any>{
-                
-                return this.http.get(this.apiUrl+'/Account/MyContactInfo').pipe(
-                    timeout(5000),
-                    retry(2),
-                    catchError(this.handleError)
-                    );
-                }
-                
+        getProfile(): Observable <any>{            
+            return this.http.get(this.apiUrl+'/Account/MyContactInfo').pipe(
+                timeout(5000),
+                retry(2),
+                catchError(this.handleError)
+                );
+            }
                 
                 
-                updateProfile(data): Observable<any> {
-                    const url = `${this.apiUrl}/Account/MyContactInfo`;
-                    return this.http.put(url, data, httpOptions)
-                    .pipe(
-                        catchError(this.handleError)
-                        );
-                    }
+                
+        updateProfile(data): Observable<any> {
+            const url = `${this.apiUrl}/Account/MyContactInfo`;
+            return this.http.put(url, data, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+                );
+            }
                     
-                    getCompanies() :Observable <any>{
+        getCompanies() :Observable <any>{
                         
-                        return this.http.get(this.apiUrl+'/Companies/Get').pipe(
-                            timeout(5000),
-                            retry(2),
-                            catchError(this.handleError)
-                            )
-                        }
+        return this.http.get(this.apiUrl+'/Companies/Get').pipe(
+                timeout(5000),
+                retry(2),
+                catchError(this.handleError)
+                );
+            }
                         
                         
-                        getCompanyById(id:number) :Observable <any>{
-                            const url = `${this.apiUrl}/Companies/${id}`;
-                            return this.http.get(url).pipe(
-                                timeout(5000),
-                                retry(2),
-                                catchError(this.handleError)
-                                );
-                            }
+        getCompanyById(id:number) :Observable <any>{
+            const url = `${this.apiUrl}/Companies/${id}`;
+            return this.http.get(url).pipe(
+                timeout(5000),
+                retry(2),
+                catchError(this.handleError)
+                );
+            }
                             
                             
                             

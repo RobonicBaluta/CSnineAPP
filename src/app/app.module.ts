@@ -31,6 +31,7 @@ import { File } from '@ionic-native/file/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { ShowMobileContactModalPageModule } from './modals/show-mobile-contact-modal/show-mobile-contact-modal.module';
 import { ExportContactModalPageModule } from './modals/export-contact-modal/export-contact-modal.module';
+import { FileChooser } from '@ionic-native/file-chooser/ngx';
 
 
 
@@ -80,6 +81,7 @@ export function jwtOptionsFactory(storage) {
       FileTransfer,
       File,
       FilePath,
+      FileChooser,
 
     ],
     
