@@ -55,6 +55,7 @@ export class EditTaskModalPage implements OnInit {
   testResponse: any;
   nativepath: any;
   doc: any;
+  documents: Observable<any>;
   constructor(
     private modalController: ModalController,
     private alertCtrl: AlertController, 
@@ -120,90 +121,14 @@ export class EditTaskModalPage implements OnInit {
       this.getCompanies();
       this.getSimpleUsers();
       this.getProfile();
+      this.getDocuments()
     }
     
-    
-    // public pathForFile(file) {
-    //   if (file === null) {
-    //     return '';
-    //   } else {
-    //     return cordova.file.dataDirectory + file;
-    //   }
-    // }
-    
-    
-    
-    
-    //   // Use the FileTransfer to upload the image
-    //   fileTransfer.upload(targetPath, url, options).then(data => {
-    //     console.log('success')
-    //   }, err => {
-    //     console.log('not success')
-    //   });
-    // }
-    
-    //     changeListener($event) : void {
-    //       this.file = $event.target.files[0];
-    //       console.log(this.file);
-    //     }
-    //     startUpload() {
-    //       console.log(this.formFile.value);
-    //       this.file.resolveLocalFilesystemUrl(this.formFile.value)
-    //       .then(entry => {
-    //         ( < FileEntry > entry).file(file => this.readFile(file))
-    //       })
-    //       .catch(err => {
-    //         console.log('ERRORRRRR');
-    //       });
-    //     }
-    
-    
-    // readUrl(event:any) {
-    //   if (event.target.files && event.target.files[0]) {
-    //     var reader = new FileReader();
-    
-    //     // reader.onload = (event: ProgressEvent) => {
-    //     //   this.url = (<FileReader>event.target).result;
-    //     // }
-    
-    //     reader.readAsDataURL(event.target.files[0]);
-    //    console.log( reader.readAsDataURL(event.target.files[0]));
-    //   }
-    // }
-    
-    
-    
-    
-    // readFile() {
-    //   this.formFile= this.documentForm.get('files');
-    //   console.log(this.formFile);
-    //   console.log(this.formFile.name);
-    //   const reader = new FileReader();
-    //   reader.onloadend = () => {
-    //     console.log('load');
-    //     const formData = new FormData();
-    //     const fileBlob = new Blob([reader.result], {
-    //       type: this.formFile.type
-    //     });
-    //     console.log(this.formFile.name);
-    //     formData.append('files', fileBlob, this.formFile.name);
-    //     console.log(formData);
-    //     this.api.initDocument(this.documentForm.value)
-    //     .subscribe(res => {
-    //       console.log('api');
-    //       this.closeModal();
-    //     }, (err) => {
-    //       console.log(err);
-    //     });
-    //   };
-    //   reader.readAsArrayBuffer(this.formFile);
-      
-    // }
-    
-    
+   
     
     // async init(){
-    //   await this.api.initDocument(this.taskType,this.taskEntity,this.taskDocument)
+    //   console.log(this.documentForm.value);
+    //   await this.api.initDocument(this.documentForm.value)
     //   .subscribe(res => {
     //     // console.log(this.documentForm.value);
     //     this.closeModal();
@@ -211,18 +136,9 @@ export class EditTaskModalPage implements OnInit {
     //     console.log(err);
     //   });
     // }
-    
-    async init(){
-      console.log(this.documentForm.value);
-      await this.api.initDocument(this.documentForm.value)
-      .subscribe(res => {
-        // console.log(this.documentForm.value);
-        this.closeModal();
-      }, (err) => {
-        console.log(err);
-      });
+    async getDocuments(){
+      this.documents=this.api.getDocuments(this.taskId);
     }
-    
     
     
     

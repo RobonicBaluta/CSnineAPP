@@ -84,6 +84,17 @@ export class RestApiService {
                 )       
             }
 
+       
+        getDocuments(id:number) :Observable <any>{
+            const url = `${this.apiUrl}/documents/GetView?EntityId=${id}&EntityType=task`;
+            return this.http.get(url).pipe(
+                timeout(5000),
+                retry(2),
+                catchError(this.handleError)
+                );
+            }
+
+
         updateContact(data): Observable<any> {
             const url = `${this.apiUrl}/Contacts`;
             return this.http.put(url, data, httpOptions)
