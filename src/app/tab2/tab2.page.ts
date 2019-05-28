@@ -26,6 +26,7 @@ export class Tab2Page {
   tasksTab:string;
   myTasksForm: FormGroup;
   givenTasksForm: FormGroup;
+  taskStatusForm: FormGroup;
   
 
   
@@ -57,6 +58,13 @@ export class Tab2Page {
         "take": 2147483647,
       
     });
+
+    this.taskStatusForm = this.formBuilder.group({
+      'id':[null],
+      "status": 3,
+      "title":[null],
+      "deadline":[null],
+  });
 
     this.givenTasksForm = this.formBuilder.group({
       "taskListKind": 2,
@@ -112,7 +120,6 @@ export class Tab2Page {
 
     setTaskId(id:number){
       this.taskId=id;
-      console.log(this.taskId);
       this.editModal();
     }
     async editModal() {
@@ -134,16 +141,44 @@ export class Tab2Page {
 
 
 
-
+    async setTaskAsDone(id:number, title:string, deadline){
+      this.taskStatusForm.get('id').setValue(id);
+      this.taskStatusForm.get('title').setValue(title);
+      this.taskStatusForm.get('deadline').setValue(deadline);
+      const alert = await this.alertController.create({
+          header: 'Task done',
+          cssClass: 'alert',
+          message: '<strong>Do you want to mark this task as done?</strong>',
+          buttons: [
+              {
+                  text: 'No',
+                  role: 'cancel',
+                  cssClass: 'secondary',
+                  handler: () => {
+                  }
+              }, {
+                  text: 'Yes',
+                  handler: () => {
+                    this.api.updateTask(this.taskStatusForm.value)
+                    .subscribe(res => {
+                      this.doRefresh(event);
+                      window.alert('task successfully updated');
+                    }, (err) => {
+                      console.log(err);
+                    });
+                  }
+              }
+          ]
+      });
+      await alert.present();
+      
+  }
 
 
     doRefresh(event) {
       this.getMyTasks();
       this.getGivenTasks();
-      console.log('Begin async operation');
-
       setTimeout(() => {
-        console.log('Async operation has ended');
         event.target.complete();
       }, 2000);
     }
