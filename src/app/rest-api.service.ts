@@ -241,8 +241,6 @@ export class RestApiService {
                                                                     catchError(this.handleError)
                                                                     );
                                                                 }
-                                                                
-                                                                
                                                                 getContacts(): Observable <any>{
                                                                     
                                                                     return this.http.get(this.apiUrl+'/Contacts/GetAllSimple').pipe(

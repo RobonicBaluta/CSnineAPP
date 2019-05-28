@@ -52,7 +52,7 @@
           
           <ion-item-options side="end" >
             
-            <ion-button ion-button  size='large' class='sliderButtons'>
+            <ion-button ion-button  size='large' (click)='setTaskAsDone(myTask?.id, myTask?.title)' class='sliderButtons'>
               <ion-icon name="checkbox"></ion-icon>
             </ion-button>
             
@@ -81,7 +81,7 @@
           
           <ion-item-options side="end" >
             
-            <ion-button ion-button  size='large' class='sliderButtons'>
+            <ion-button ion-button  size='large' (click)='setTaskAsDone(givenTask?.id, givenTask?.title)' class='sliderButtons'>
               <ion-icon name="checkbox"></ion-icon>
             </ion-button>
             
