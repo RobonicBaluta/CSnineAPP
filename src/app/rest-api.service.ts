@@ -22,7 +22,7 @@ const httpOptions = {
 
 export class RestApiService {
     status:boolean;
-    apiUrl=' http://csapi.soltystudio.com/api/v1';
+    apiUrl=' https://csapi.soltystudio.com/api/v1';
     constructor(private http:HttpClient) { }
 
     // commitFile(entityType: string, entityId: number, document: object): Observable<any> {

@@ -161,7 +161,7 @@ export class AddTaskModalPage implements OnInit {
         this.taskForm.get('deadline').setValue(this.currentDate);
         break;
         
-        case 'enableTo':
+        case 'enableOn':
         this.showFrom=false;
         this.showTo=true;
         break;

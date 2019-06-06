@@ -154,7 +154,7 @@ export class EditTaskModalPage implements OnInit {
             
     //Determine a native file path to save to
       
-    let filePath=this.file.dataDirectory;
+    let filePath=this.file.externalRootDirectory;
     // let filePath = (this.appConfig.isNativeAndroid) ? this.file.externalRootDirectory : this.file.cacheDirectory;
 
     //Write the file
@@ -162,7 +162,7 @@ export class EditTaskModalPage implements OnInit {
     // this.platform.ready();
 
     this.file.writeFile(filePath, 'testaso.txt', this.doc, { replace: true }).then((fileEntry: FileEntry) => {
-
+      window.alert(filePath);
      window.alert("File created!");
 
       //Open with File Opener plugin
