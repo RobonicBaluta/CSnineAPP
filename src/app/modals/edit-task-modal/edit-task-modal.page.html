@@ -85,7 +85,7 @@
         </form>
         
         <!-- enctype="multipart/form-data" -->
-
+        
         <form (ngSubmit)="submitDoc()" [formGroup]="documentForm" >
             <!-- <ion-row>
                 <ion-col>
@@ -93,35 +93,37 @@
                     <ion-input formControlName="files"  type='file'  ></ion-input>
                 </ion-col>
             </ion-row> -->
-
-
+            
+            
             <ion-input type='text' hidden value='{{task?.id}}' formControlName="entityId"></ion-input>
-        
+            
             <ion-input type='text' hidden formControlName="entityType"></ion-input>
-
-     
+            
+            
             <!-- <ion-button name='attach' (click)="readFile()"></ion-button> -->
             <ion-item>
                 <ion-label>Select File</ion-label>
                 <ion-icon name="md-add-circle" item-end color="secondary" (click)="selectFile()"></ion-icon>
             </ion-item>
+
+            <input type="file" id="file" (change)="handleFileInput($event.target.files)" multiple>
             <div padding> 
                 <button ion-button type="submit" type="submit"  block>Submit</button>
             </div>
            
         </form>
-
-
-
+        
+        
+        
         <div class="ion-margin-top" >
             <ion-label><strong>Documents: </strong></ion-label>
             
             <ion-item class="profile-info" *ngFor="let document of documents|async" (click)="getDocumentById(document?.id)">
-              {{document.documentName}}
-       
+                {{document.documentName}}
+                
             </ion-item>
             
-          </div>
+        </div>
     </ion-grid>
     
 </ion-content>

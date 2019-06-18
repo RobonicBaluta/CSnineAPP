@@ -7,7 +7,7 @@
 <ion-content>
     <ion-img id="profile-photo" src="assets/logo.svg"></ion-img>
     
-    <ion-row class="ion-margin-top">
+    <!-- <ion-row class="ion-margin-top">
         <ion-item>
             <ion-label>Pick a server:</ion-label>
             <ion-select required placeholder="Select a server" [(ngModel)]="select" (ionChange)="checkServer()" >
@@ -15,12 +15,12 @@
                 <ion-select-option value="http://webapi.contentshare.biz/api/v1">CS biz</ion-select-option>
             </ion-select>
         </ion-item>
-    </ion-row>
+    </ion-row> -->
     
     <form [formGroup]="credentialsForm" (ngSubmit)="onSubmit()">
         <ion-item class="ion-margin-top">
             <ion-label>Email</ion-label>
-            <ion-input required type="email" placeholder="Email" class="ion-padding" formControlName="username" ></ion-input>
+            <ion-input required type="email" placeholder="Email" value='{{userEmail}}' [(ngModel)]='userEmail'  class="ion-padding" formControlName="username" ></ion-input>
         </ion-item>
         <ion-item>
             <ion-label>Password</ion-label>
@@ -28,23 +28,33 @@
         </ion-item>
         
         
-        <!-- <ion-radio-group>
+        <ion-radio-group>
             <ion-list-header>
                 <ion-label>Server</ion-label>
             </ion-list-header>
+
+
+            <!-- <div *ngFor="let server of servers">
+                <ion-item>
+                    <ion-label>{{server.clientName}}</ion-label>
+                    <ion-radio slot="start" (ionSelect)="soltyStudio()" value="biff" ></ion-radio>
+                </ion-item>
+              </div> -->
+
+              <ion-col>
+                <ion-label>Servers:</ion-label>
+                <ion-select> 
+                    <ion-select-option *ngFor="let server of servers"  (ionChange)="showServer()" >{{server.clientName}}</ion-select-option>
+                </ion-select>
+            </ion-col>
             
-            <ion-item>
-                <ion-label>CS SoltyStudio</ion-label>
-                <ion-radio slot="start" (ionSelect)="soltyStudio()" value="biff" checked></ion-radio>
-            </ion-item>
-            
-            <ion-item>
+            <!-- <ion-item>
                 <ion-label>Biz</ion-label>
                 <ion-radio slot="start" (ionSelect)="csBiz()" value="griff"></ion-radio>
-            </ion-item>
+            </ion-item> -->
             
             
-        </ion-radio-group> -->
+        </ion-radio-group>
         
         
         

@@ -5,6 +5,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { environment } from 'src/environments/environment';
 import { RestApiService } from '../rest-api.service';
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
@@ -14,14 +16,24 @@ import { RestApiService } from '../rest-api.service';
 export class LoginPage implements OnInit {
   credentialsForm: FormGroup;
   select:string='http://csapi.soltystudio.com/api/v1';
+  servers: any;
+  userEmail:string;
+  sub: any;
   
   constructor(public api: RestApiService,
     private alertCtrl: AlertController,
     public navCtrl: NavController,
     private formBuilder: FormBuilder,
-    private authService: AuthService 
+    private authService: AuthService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
     ){
-      
+      this.activatedRoute.queryParams.subscribe(params => {
+        if (this.router.getCurrentNavigation().extras.state) {
+          this.userEmail = this.router.getCurrentNavigation().extras.state.email;
+          console.log(this.userEmail);
+        }
+      });
     }
     
     @ViewChild('myNav') nav: NavController
@@ -47,33 +59,43 @@ export class LoginPage implements OnInit {
     
     ngOnInit() {
       this.credentialsForm = this.formBuilder.group({
-        username: ['', [Validators.required, Validators.email]],
+        username: [{value: ''},[Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(6)]],
       });
+      console.log('usermail'+this.userEmail);
+      this.getServers();
     }
     
     onSubmit() {
       this.authService.login(this.credentialsForm.value).subscribe();
     }
     
-    // soltyStudio(){
-    //   this.api.setSolty();
-    // }
-    // csBiz(){
-    //   this.api.setBiz();
+    soltyStudio(){
+      this.api.setSolty();
+    }
+    csBiz(){
+      this.api.setBiz();
       
-    // }
+    }
+    showServer(){
+      console.log('eeeeeee');
+      
+    }
+   async getServers(){
+    this.servers= this.api.getServers();
+    }
+
+
+    async checkServer(server){
     
-    checkServer(){
-    
-      let server=this.select;
-      // console.log(server);
+    console.log('hello');
+     console.log(server);
       switch (server) {
-        case 'http://csapi.soltystudio.com/api/v1':
+        case 'CS Test Solty':
         this.api.setSolty();
         
         break;
-        case 'http://webapi.contentshare.biz/api/v1':
+        case 'Internal CS':
         this.api.setBiz();
         default:
         

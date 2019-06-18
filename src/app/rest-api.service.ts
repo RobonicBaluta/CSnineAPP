@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError, from } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap, map ,retryWhen, retry, timeout} from 'rxjs/operators';
+import { Router, NavigationExtras } from '@angular/router';
 // import { HTTP } from '@ionic-native/http/ngx';
 
 
@@ -23,7 +24,23 @@ const httpOptions = {
 export class RestApiService {
     status:boolean;
     apiUrl=' https://csapi.soltystudio.com/api/v1';
-    constructor(private http:HttpClient) { }
+    servers: Observable<any>;
+    email: any;
+    constructor(private http:HttpClient,
+        private router: Router) { }
+
+
+
+    checkServer(email): Observable<any> {
+        console.log(email);
+        const url = `https://serverconsoleapi.contentshare.biz/api/v1/Security/check?email=${email}`;
+        console.log(url);
+        return this.http.get(url).pipe(
+            timeout(5000),
+            retry(2),
+            catchError(this.handleError)
+        );       
+    }
 
     // commitFile(entityType: string, entityId: number, document: object): Observable<any> {
     //     const httpUploadOptions = {
@@ -83,24 +100,62 @@ export class RestApiService {
     }
 
        
-        getDocuments(id:number) :Observable <any>{
-            const url = `${this.apiUrl}/documents/GetView?EntityId=${id}&EntityType=task`;
-            return this.http.get(url).pipe(
-                timeout(5000),
-                retry(2),
-                catchError(this.handleError)
-                );
-            }
-            getDocumentById(documentId: number): any {
-                const url = `${this.apiUrl}/documents/${documentId}`;
-                return this.http.get(url, {responseType: 'blob'}).pipe(
-                    timeout(5000),
-                    retry(2),
-                    catchError(this.handleError)
-                    );
-                }
+    getDocuments(id:number) :Observable <any>{
+        const url = `${this.apiUrl}/documents/GetView?EntityId=${id}&EntityType=task`;
+        return this.http.get(url).pipe(
+            timeout(5000),
+            retry(2),
+            catchError(this.handleError)
+            );
+        }
+    getDocumentById(documentId: number): any {
+        const url = `${this.apiUrl}/documents/${documentId}`;
+        return this.http.get(url, {responseType: 'blob'}).pipe(
+            timeout(5000),
+            retry(2),
+            catchError(this.handleError)
+            );
+        }
             
 
+
+    uploadFiles(files: Blob, entityType: string, entityId: number, documentName: string): Observable<any> {
+        const httpUploadOptions = {
+            headers: new HttpHeaders()
+        };
+        window.alert(`preup:`);
+        httpUploadOptions.headers.append('Content-Type', 'multipart/form-gridData');
+        httpUploadOptions.headers.append('Cache-Control', 'no-cach e');
+        const formData = new FormData();
+        formData.append('entityType', entityType);
+        formData.append('entityId', `${entityId}`);
+        formData.append('documentName', documentName);
+        formData.append('files', files, documentName);
+        const url = `${this.apiUrl}/Documents/.init`;
+        window.alert(`finishup:`);
+        return this.http.post(url, formData, httpUploadOptions).pipe(
+            catchError(this.handleError)
+        );
+        }
+
+    commitFile(entityType: string, entityId: number, doc: any): Observable<any> {
+
+        const httpUploadOptions = {
+            headers: new HttpHeaders()
+        };
+        window.alert(`precommit:`);
+        httpUploadOptions.headers.append('Content-Type', 'multipart/form-gridData');
+        httpUploadOptions.headers.append('Cache-Control', 'no-cache');
+        const formData = new FormData();
+        formData.append('entityType', entityType);
+        formData.append('entityId', entityId.toString());
+        formData.append('document', JSON.stringify(doc));
+        const url = `${this.apiUrl}/Documents/.commit`;
+        window.alert(`finishcommit:`);
+        return this.http.post(url, formData, httpUploadOptions).pipe(
+            catchError(this.handleError)
+        );     
+    }
 
     updateContact(data): Observable<any> {
         const url = `${this.apiUrl}/Contacts`;
@@ -125,6 +180,29 @@ export class RestApiService {
         );
     }
 
+
+    setServers(servers,email){
+        console.log('dis mail: '+email);
+        console.log(servers);
+        this.servers=servers;
+        this.email=email;
+        console.log('the serverss:'+this.servers);
+        // this.router.navigate(['/login'], email);
+
+
+        let navigationExtras: NavigationExtras = {
+            state: {
+              email: this.email
+            }
+          };
+          console.log('the email exists:'+this.email);
+          this.router.navigate(['login'], navigationExtras);
+       
+     
+    }
+    getServers(){  
+        return this.servers;
+    }
     setSolty(){
         this.apiUrl=' http://csapi.soltystudio.com/api/v1';
     }
@@ -268,52 +346,52 @@ export class RestApiService {
         );
     }
 
-    // private handleError(error) {
-    //     let errorMessage = '';
-    //     if (error.error instanceof ErrorEvent) {
-    //         // client-side error
-    //         errorMessage = `Error: ${error.error.message}`;
-    //     } else {
-    //         // server-side error
-    //         errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    //     }
-    //     window.alert(errorMessage);
-    //     return throwError(errorMessage);
-    // }
-
-    handleError(error: HttpErrorResponse) {
+    private handleError(error) {
+        let errorMessage = '';
         if (error.error instanceof ErrorEvent) {
-            // A client-side or network error occurred. Handle it accordingly.
-            console.error('An error occurred:', error.error.message);
+            // client-side error
+            errorMessage = `Error: ${error.error.message}`;
         } else {
-            // The backend returned an unsuccessful response code.
-            // The response body may contain clues as to what went wrong,
-            console.error(
-                `Backend returned code ${error.status}, ` +
-                `body was: ${error.error}`);
-            }
-            switch (error.status) {
-                case 400:
-                        window.alert('The request made was not successful');
-                    break;
-                case 403:
-                        window.alert('Permision denied');
-                    break;
-                case 500:
-                        window.alert('Server error, contact with admin');
-                    break;
-                default:
-                    break;
-            }
-            // return an observable with a user-facing error message
-            // window.alert(error.error);
-            if(error.error.message==null ||error.error.message==''){
-                window.alert('Connection error');
-            }else{
-                window.alert(error.error.message);
-            }
-            return throwError('Something bad happened; please try again later.');
+            // server-side error
+            errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
         }
+        window.alert(errorMessage);
+        return throwError(errorMessage);
+    }
+
+    // handleError(error: HttpErrorResponse) {
+    //     if (error.error instanceof ErrorEvent) {
+    //         // A client-side or network error occurred. Handle it accordingly.
+    //         console.error('An error occurred:', error.error.message);
+    //     } else {
+    //         // The backend returned an unsuccessful response code.
+    //         // The response body may contain clues as to what went wrong,
+    //         console.error(
+    //             `Backend returned code ${error.status}, ` +
+    //             `body was: ${error.error}`);
+    //         }
+    //         switch (error.status) {
+    //             case 400:
+    //                     window.alert('400:The request made was not successful');
+    //                 break;
+    //             case 403:
+    //                     window.alert('403:Permision denied');
+    //                 break;
+    //             case 500:
+    //                     window.alert('500:Server error, contact with admin');
+    //                 break;
+    //             default:
+    //                 break;
+    //         }
+    //         // return an observable with a user-facing error message
+    //         // window.alert(error.error);
+    //         if(error.error.message==null ||error.error.message==''){
+    //             window.alert('Connection error');
+    //         }else{
+    //             window.alert(error.error.message);
+    //         }
+    //         return throwError('Something bad happened; please try again later.');
+    //     }
 
     setStatus(stat){
         this.status=stat;

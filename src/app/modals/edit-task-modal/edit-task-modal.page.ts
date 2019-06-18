@@ -11,6 +11,7 @@ import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { cordova } from '@ionic-native/core';
 import { Platform } from '@ionic/angular';
+import { saveAs } from 'file-saver';
 
 
 @Component({
@@ -23,7 +24,6 @@ export class EditTaskModalPage implements OnInit {
   notes: Observable <any>;
   taskForm: FormGroup;
   taskId: null;
-  
   entityType: any;
   entityId: any;
   companyId: any;
@@ -61,6 +61,7 @@ export class EditTaskModalPage implements OnInit {
   documents: Observable<any>;
   document: Observable<any>;
   file=new File();
+  fileArray:any;
   constructor(
     private modalController: ModalController,
     private alertCtrl: AlertController, 
@@ -149,39 +150,57 @@ export class EditTaskModalPage implements OnInit {
     async getDocumentById(documentId:number){
       this.doc=this.api.getDocumentById(documentId).subscribe(result=>{
              this.doc=result;
-       
+        saveAs(this.doc,'theDoc');
+        window.alert('saved');
             //  var blob = new Blob([this.doc]);
             
     //Determine a native file path to save to
       
-    let filePath=this.file.externalRootDirectory;
-    // let filePath = (this.appConfig.isNativeAndroid) ? this.file.externalRootDirectory : this.file.cacheDirectory;
+    // let filePath=this.file.externalRootDirectory;
+    // // let filePath = (this.appConfig.isNativeAndroid) ? this.file.externalRootDirectory : this.file.cacheDirectory;
 
-    //Write the file
+    // //Write the file
 
-    // this.platform.ready();
+    // // this.platform.ready();
 
-    this.file.writeFile(filePath, 'testaso.txt', this.doc, { replace: true }).then((fileEntry: FileEntry) => {
-      window.alert(filePath);
-     window.alert("File created!");
+    // this.file.writeFile(filePath, 'testaso.txt', this.doc, { replace: true }).then((fileEntry: FileEntry) => {
+    //   window.alert(filePath);
+    //  window.alert("File created!");
 
-      //Open with File Opener plugin
-      this.fileOpener.open(fileEntry.toURL(), 'application/octet-stream')
-        .then(() => console.log('File is opened'))
-        .catch(err => window.alert('Error openening file: ' + err)
-        );
-    })
-      .catch((err) => {
-        console.error("Error creating file: " + err);
-        window.alert("Error creating file: " + err);
+    //   //Open with File Opener plugin
+    //   this.fileOpener.open(fileEntry.toURL(), 'application/octet-stream')
+    //     .then(() => console.log('File is opened'))
+    //     .catch(err => window.alert('Error openening file: ' + err)
+    //     );
+    // })
+    //   .catch((err) => {
+    //     console.error("Error creating file: " + err);
+    //     window.alert("Error creating file: " + err);
 
-        throw err;  //Rethrow - will be caught by caller
-      });
+    //     throw err;  //Rethrow - will be caught by caller
+    //   });
       
     });
   }
 
-    
+  handleFileInput(files: FileList) {
+    const entityType = 'Ticket';
+    const entityId = 20303;
+    const self = this;
+    window.alert(`prefor`);
+    for (let i = 0; i < files.length; i++) {
+
+      var blob = new Blob([files[i]] as any);
+      self.api.uploadFiles(blob, entityType, entityId, files[i].name).subscribe(data => {
+       window.alert(`Initialized`);
+        console.log(data);
+        self.api.commitFile(entityType,entityId, data.document).subscribe(data=>{
+          window.alert(`Uploaded:`);
+          console.log(data);
+        })
+      });
+    }
+  }
     
     async getProfile(){
       const loading = await this.loadingController.create({
@@ -336,9 +355,10 @@ export class EditTaskModalPage implements OnInit {
               // var contentType = src[0].split(':');
               // this.testResponse = contentType[1].replace(';','');
               // contentType = JSON.stringify(contentType[1].replace(';',''));
-              var fileBlob = new Blob([evt.target.result]);
+              var fileBlob  = evt.target.result as any ;
               window.alert('after blob');
               window.alert('befor blob apend');
+              
               this.fd.append('files',fileBlob);
               //do what you want to do with the file
               window.alert('after blob append');
@@ -352,18 +372,19 @@ export class EditTaskModalPage implements OnInit {
       }
 
 
-      submitDoc(){
+     async submitDoc(){
         window.alert('start submit');
         this.fd.append('entityId',this.documentForm.get('entityId').value);
         window.alert('first append');
 
         this.fd.append('entityType',this.documentForm.get('entityType').value);
         this.fd.append('parentId',this.documentForm.get('parentId').value);
-        this.fd.append('parentId',  this.documentForm.get('documentName').value);
+        this.fd.append('documentName',  this.documentForm.get('documentName').value);
+        
         window.alert('last append');
         window.alert(this.documentForm.get('documentName').value);
         window.alert('before api');
-        this.doc = this.api.initDocument(this.fd);
+        this.doc = await this.api.initDocument(this.fd);
         window.alert('after api');
         this.doc.subscribe(data => {
         this.testResponse = JSON.stringify(data);
