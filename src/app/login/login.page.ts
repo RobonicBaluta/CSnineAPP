@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AlertController} from '@ionic/angular';
+import { AlertController, LoadingController} from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { environment } from 'src/environments/environment';
 import { RestApiService } from '../rest-api.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
 
 
 @Component({
@@ -27,6 +28,9 @@ export class LoginPage implements OnInit {
     private authService: AuthService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
+    public loadingController: LoadingController,
+    private storage: Storage,
+    
     ){
       this.activatedRoute.queryParams.subscribe(params => {
         if (this.router.getCurrentNavigation().extras.state) {
@@ -81,21 +85,40 @@ export class LoginPage implements OnInit {
       console.log('eeeeeee');
       
     }
-   async getServers(){
-    this.servers= this.api.getServers();
+    async getServers(){
+      const loading = await this.loadingController.create({
+        message: 'Loading'
+      });
+      await loading.present();
+      await this.api.checkServer(this.userEmail).subscribe(info=>{this.servers=info
+        console.log(this.servers);   
+      });  
+      loading.dismiss();
     }
-
-
-    async checkServer(server){
     
-    console.log('hello');
-     console.log(server);
+    
+    async checkServer(server){
+      
+      console.log('hello');
+      console.log(server);
       switch (server) {
+        
         case 'CS Test Solty':
+      
+        this.authService.storage.set('server',server);
+       this.authService.storage.get('server').then((val) => {
+          console.log('Your server is', val);
+        });
         this.api.setSolty();
         
         break;
         case 'Internal CS':
+        console.log('biz: '+server);
+      
+        this.authService.storage.set('server',server);
+        this.authService.storage.get('server').then((val) => {
+          console.log('Your server is', val);
+        });
         this.api.setBiz();
         default:
         

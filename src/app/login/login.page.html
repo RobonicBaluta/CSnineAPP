@@ -30,38 +30,31 @@
         
         <ion-radio-group>
             <ion-list-header>
-                <ion-label>Server</ion-label>
+                <ion-label>Server:</ion-label>
             </ion-list-header>
 
-
-            <!-- <div *ngFor="let server of servers">
-                <ion-item>
-                    <ion-label>{{server.clientName}}</ion-label>
-                    <ion-radio slot="start" (ionSelect)="soltyStudio()" value="biff" ></ion-radio>
-                </ion-item>
-              </div> -->
-
-              <ion-col>
-                <ion-label>Servers:</ion-label>
-                <ion-select> 
-                    <ion-select-option *ngFor="let server of servers"  (ionChange)="showServer()" >{{server.clientName}}</ion-select-option>
-                </ion-select>
-            </ion-col>
             
-            <!-- <ion-item>
-                <ion-label>Biz</ion-label>
-                <ion-radio slot="start" (ionSelect)="csBiz()" value="griff"></ion-radio>
-            </ion-item> -->
+                <ion-item *ngFor="let server of servers, let i = index">
+                    <ion-label>{{server.clientName}}</ion-label>
+                    <ion-radio checked="{{i == 0}}" value="{{server.clientName}}"  (ionSelect)="checkServer(server.clientName)"></ion-radio>
+                </ion-item>
+   
             
             
         </ion-radio-group>
         
         
+        <!-- <ion-col>
+            <ion-label>Servers:</ion-label>
+            <ion-select> 
+                <ion-select-option *ngFor="let server of servers" [value]="server?.clientName" (ionChange)="checkServer(server?.clientName)" ></ion-select-option>
+            </ion-select>
+        </ion-col> -->
         
-        <ion-row class="ion-padding">
+        <!-- <ion-row class="ion-padding">
             <ion-label>Remember</ion-label>
             <ion-checkbox class="ion-margin-start"></ion-checkbox>
-        </ion-row>
+        </ion-row> -->
         
         <ion-row>
             <ion-col>

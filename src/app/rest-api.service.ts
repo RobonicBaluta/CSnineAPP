@@ -23,7 +23,7 @@ const httpOptions = {
 
 export class RestApiService {
     status:boolean;
-    apiUrl=' https://csapi.soltystudio.com/api/v1';
+    apiUrl:string;
     servers: Observable<any>;
     email: any;
     constructor(private http:HttpClient,
@@ -204,12 +204,12 @@ export class RestApiService {
         return this.servers;
     }
     setSolty(){
-        this.apiUrl=' http://csapi.soltystudio.com/api/v1';
+        this.apiUrl=' https://csapi.soltystudio.com/api/v1';
     }
 
     setBiz(){
-        this.apiUrl=' http://webapi.contentshare.biz/api/v1'
-        // console.log(this.apiUrl);
+        this.apiUrl=' https://webapi.contentshare.biz/api/v1'
+     console.log(this.apiUrl);
     }
             
     getProfile(): Observable <any>{            

@@ -8,8 +8,9 @@ import { tap, catchError } from 'rxjs/operators';
 import { BehaviorSubject, from } from 'rxjs';
 import { RestApiService } from '../rest-api.service';
 // import { HTTP } from '@ionic-native/http/ngx';
- 
+
 const TOKEN_KEY = 'accessToken';
+const SERVER = 'server';
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
@@ -18,46 +19,68 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AuthService {
- 
+  
   url ;
   user = null;
   authenticationState = new BehaviorSubject(false);
- 
+  
   constructor(
     private http: HttpClient,
     private helper: JwtHelperService, 
     public api: RestApiService, 
-    private storage: Storage,
+    public storage: Storage,
     private plt: Platform, 
     public loadingController: LoadingController,
     private alertController: AlertController) {
-    this.plt.ready().then(() => {
-      this.checkToken();
-    });
-  }
- 
-  checkToken() {
-    this.storage.get(TOKEN_KEY).then(token => {
-      if (token) {
-        let decoded = this.helper.decodeToken(token);
-        let isExpired = this.helper.isTokenExpired(token);
- 
-        if (!isExpired) {
-          this.user = decoded;
-          this.authenticationState.next(true);
-        } else {
-          this.storage.remove(TOKEN_KEY);
+      this.plt.ready().then(() => {
+        this.checkToken();
+        this.checkServer();
+      });
+    }
+    
+    checkToken() {
+      this.storage.get(TOKEN_KEY).then(token => {
+        if (token) {
+          let decoded = this.helper.decodeToken(token);
+          let isExpired = this.helper.isTokenExpired(token);
+          
+          if (!isExpired) {
+            this.user = decoded;
+            this.authenticationState.next(true);
+          } else {
+            this.storage.remove(TOKEN_KEY);
+          }
         }
-      }
-    });
-  }
- 
+      });
+    }
+    
+    checkServer() {
+     
+        this.storage.get('server').then(server => {
+          console.log('serverOnInit'+server);
+          switch (server) {
 
- 
-  login(credentials) {
-   this.url=this.api.getUrl();
-   
-    return this.http.post(`${this.url}/Account/Login`, credentials)
+            case 'CS Test Solty':
+            this.api.setSolty();
+            
+            break;
+            case 'Internal CS':
+            this.api.setBiz();
+            default:
+            this.api.apiUrl='https://webapi.contentshare.biz/api/v1';
+            break;
+          }
+          console.log('the api url at init'+this.api.apiUrl);
+        });
+     
+    }
+    
+    
+    
+    login(credentials) {
+      this.url=this.api.getUrl();
+      
+      return this.http.post(`${this.url}/Account/Login`, credentials)
       .pipe(
         tap(res => {
           this.storage.set(TOKEN_KEY, res['accessToken']);
@@ -74,30 +97,31 @@ export class AuthService {
           
           throw new Error(e);
         })
-     );
-  }
-
-
-
- 
-  logout() {
-    this.storage.remove(TOKEN_KEY).then(() => {
-      this.authenticationState.next(false);
-    });
-  }
- 
- 
- 
-  isAuthenticated() {
-    return this.authenticationState.value;
-  }
- 
-  showAlert(msg) {
-    let alert = this.alertController.create({
-      message: msg,
-      header: 'Error',
-      buttons: ['OK']
-    });
-    alert.then(alert => alert.present());
-  }
-}
+        );
+      }
+      
+      
+      
+      
+      logout() {
+        this.storage.remove(TOKEN_KEY).then(() => {
+          this.authenticationState.next(false);
+        });
+        this.storage.remove(SERVER);
+      }
+      
+      
+      
+      isAuthenticated() {
+        return this.authenticationState.value;
+      }
+      
+      showAlert(msg) {
+        let alert = this.alertController.create({
+          message: msg,
+          header: 'Error',
+          buttons: ['OK']
+        });
+        alert.then(alert => alert.present());
+      }
+    }

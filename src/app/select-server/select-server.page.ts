@@ -23,10 +23,13 @@ email:any;
   
   }
   async getServers(){
- 
+    const loading = await this.loadingController.create({
+      message: 'Conecting'
+    });
+    await loading.present();
   await this.api.checkServer(this.email).subscribe(info=>{this.servers=info
     console.log(this.servers);
-   
+    loading.dismiss();
     this.api.setServers(this.servers,this.email);
     // this.router.navigate(['/login']);
     });   
