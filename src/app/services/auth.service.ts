@@ -106,8 +106,10 @@ export class AuthService {
       logout() {
         this.storage.remove(TOKEN_KEY).then(() => {
           this.authenticationState.next(false);
+          this.api.setBiz();
+          this.storage.set('server','Internal CS');
         });
-        this.storage.remove(SERVER);
+       
       }
       
       

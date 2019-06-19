@@ -16,7 +16,7 @@ import { Storage } from '@ionic/storage';
 })
 export class LoginPage implements OnInit {
   credentialsForm: FormGroup;
-  select:string='http://csapi.soltystudio.com/api/v1';
+  // select:string='http://csapi.soltystudio.com/api/v1';
   servers: any;
   userEmail:string;
   sub: any;
@@ -81,10 +81,7 @@ export class LoginPage implements OnInit {
       this.api.setBiz();
       
     }
-    showServer(){
-      console.log('eeeeeee');
-      
-    }
+
     async getServers(){
       const loading = await this.loadingController.create({
         message: 'Loading'
@@ -99,16 +96,16 @@ export class LoginPage implements OnInit {
     
     async checkServer(server){
       
-      console.log('hello');
+  
       console.log(server);
       switch (server) {
         
         case 'CS Test Solty':
       
         this.authService.storage.set('server',server);
-       this.authService.storage.get('server').then((val) => {
-          console.log('Your server is', val);
-        });
+      //  this.authService.storage.get('server').then((val) => {
+      //     console.log('Your server is', val);
+      //   });
         this.api.setSolty();
         
         break;
@@ -116,9 +113,10 @@ export class LoginPage implements OnInit {
         console.log('biz: '+server);
       
         this.authService.storage.set('server',server);
-        this.authService.storage.get('server').then((val) => {
-          console.log('Your server is', val);
-        });
+        // console.log('Your server issss', this.authService.storage.get('server'));
+        // this.authService.storage.get('server').then((val) => {
+        //   console.log('Your server is', val);
+        // });
         this.api.setBiz();
         default:
         
