@@ -7,6 +7,8 @@ import { environment } from 'src/environments/environment';
 import { RestApiService } from '../rest-api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
+import { HttpErrorResponse } from '@angular/common/http';
+import { throwError } from 'rxjs';
 
 
 @Component({
@@ -81,7 +83,7 @@ export class LoginPage implements OnInit {
       this.api.setBiz();
       
     }
-
+    
     async getServers(){
       const loading = await this.loadingController.create({
         message: 'Loading'
@@ -96,22 +98,22 @@ export class LoginPage implements OnInit {
     
     async checkServer(server){
       
-  
+      
       console.log(server);
       switch (server) {
         
         case 'CS Test Solty':
-      
+        
         this.authService.storage.set('server',server);
-      //  this.authService.storage.get('server').then((val) => {
-      //     console.log('Your server is', val);
-      //   });
+        //  this.authService.storage.get('server').then((val) => {
+        //     console.log('Your server is', val);
+        //   });
         this.api.setSolty();
         
         break;
         case 'Internal CS':
         console.log('biz: '+server);
-      
+        
         this.authService.storage.set('server',server);
         // console.log('Your server issss', this.authService.storage.get('server'));
         // this.authService.storage.get('server').then((val) => {
@@ -124,5 +126,42 @@ export class LoginPage implements OnInit {
       }
     }
     
-  }
-  
+    handleError(error: HttpErrorResponse) {
+      if (error.error instanceof ErrorEvent) {
+        // A client-side or network error occurred. Handle it accordingly.
+        console.error('An error occurred:', error.error.message);
+      } else {
+        // The backend returned an unsuccessful response code.
+        // The response body may contain clues as to what went wrong,
+        console.error(
+          `Backend returned code ${error.status}, ` +
+          `body was: ${error.error}`);
+        }
+        switch (error.status) {
+          case 400:
+          window.alert('400:The request made was not successful');
+          break;
+          case 401:
+          window.alert('Invalid user or password');
+          break;
+          case 403:
+          window.alert('403:Permision denied');
+          break;
+          case 500:
+          window.alert('500:Server error, contact with admin');
+          break;
+          default:
+          break;
+        }
+        // return an observable with a user-facing error message
+        // window.alert(error.error);
+        if(error.error.message==null ||error.error.message==''){
+          window.alert('Connection error');
+        }else{
+          window.alert(error.error.message);
+        }
+        return throwError('Something bad happened; please try again later.');
+      }
+      
+    }
+    

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, NavParams, LoadingController } from '@ionic/angular';
+import { ModalController, NavParams, LoadingController, AlertController } from '@ionic/angular';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { RestApiService } from 'src/app/rest-api.service';
@@ -35,7 +35,8 @@ export class AddTaskModalPage implements OnInit {
     private formBuilder: FormBuilder,
     private navParams:NavParams,
     public api: RestApiService,
-    public loadingController: LoadingController) { 
+    public loadingController: LoadingController,
+    private alertCtrl: AlertController) { 
       
       
       this.taskTab = 'description';
@@ -134,12 +135,30 @@ export class AddTaskModalPage implements OnInit {
       .subscribe(res => {
         console.log(this.taskForm.value);
         this.closeModal();
+        this.presentAlert();
       }, (err) => {
         console.log(err);
       });
       
     }
-    
+    async presentAlert() {
+
+      const alert = await this.alertCtrl.create({
+        header: 'Alert',
+        message: 'Task successfully created',
+        buttons: [
+          {
+            text: 'Ok',
+            cssClass: 'secondary',
+            handler: (blah) => {
+              console.log('Confirm Cancel: blah');
+            }
+          }
+        ]
+      });
+
+      await alert.present();
+    }
     
     checkDate(){
       

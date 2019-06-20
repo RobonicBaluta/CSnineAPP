@@ -93,7 +93,7 @@ export class AddCompanyModalPage implements OnInit {
     async createCompanyAlert() {
 
       const alert = await this.alertCtrl.create({
-        header: 'Add',
+        header: 'Alert',
         message: 'Company successfully created',
         buttons: [
           {

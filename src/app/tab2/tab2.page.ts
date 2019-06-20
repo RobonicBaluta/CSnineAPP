@@ -162,7 +162,7 @@ export class Tab2Page {
                     this.api.updateTask(this.taskStatusForm.value)
                     .subscribe(res => {
                       this.doRefresh(event);
-                      window.alert('task successfully updated');
+                      this.presentAlert();
                     }, (err) => {
                       console.log(err);
                     });
@@ -173,7 +173,15 @@ export class Tab2Page {
       await alert.present();
       
   }
-
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Alert',
+      cssClass: 'alert',
+      message: 'Task successfully updated',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
 
     doRefresh(event) {
       this.getMyTasks();

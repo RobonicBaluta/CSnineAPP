@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthService } from './services/auth.service';
 import { Router } from '@angular/router';
 import { HeaderColor } from '@ionic-native/header-color/ngx';
+import { RestApiService } from './rest-api.service';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,7 @@ export class AppComponent {
     private authService: AuthService,
     private router: Router,
     private headerColor: HeaderColor,
+    public api: RestApiService,
   ) {
     this.initializeApp();
     //console.log("Hola: " + this.router.url);
@@ -26,6 +28,12 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
+
+      this.platform.backButton.subscribe(() => {
+       if(this.router.url=='/login'){
+       this.api.setBiz();
+       }
+      })
       // this.statusBar.overlaysWebView(false);
 
       // set status bar to white

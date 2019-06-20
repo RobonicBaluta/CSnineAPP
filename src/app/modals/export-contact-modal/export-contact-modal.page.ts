@@ -83,7 +83,7 @@ this.select='herr';
   }
   async getContact() {
     await this.getId();
-    // this.presentAlert(this.mobileContacId);
+    this.presentAlert('To export contact successfully you should fill some required fields');
      const loading = await this.loadingController.create({
         message: 'Loading'
       });
@@ -140,7 +140,7 @@ this.select='herr';
   async exportAlert() {
 
     const alert = await this.alertCtrl.create({
-      header: 'Add',
+      header: 'Alert',
       message: 'Contact successfully exported to CS',
       buttons: [
         {

@@ -70,11 +70,11 @@ export class ResetPasswordPage implements OnInit {
       let server=this.select;
       // console.log(server);
       switch (server) {
-        case 'http://csapi.soltystudio.com/api/v1':
+        case 'https://csapi.soltystudio.com/api/v1':
         this.api.setSolty();
         
         break;
-        case 'http://webapi.contentshare.biz/api/v1':
+        case 'https://webapi.contentshare.biz/api/v1':
         this.api.setBiz();
         default:
         

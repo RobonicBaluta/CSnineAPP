@@ -28,10 +28,10 @@ export class Tab5Page implements OnInit {
     public navctrl: NavController,
     public loadingController: LoadingController) { 
 
-    platform.backButton.subscribeWithPriority(1, () => {
-      event.preventDefault();
-      alert("Hello :-)");
-    });
+    // platform.backButton.subscribeWithPriority(1, () => {
+    //   event.preventDefault();
+    //   alert("Hello :-)");
+    // });
     
 
 
