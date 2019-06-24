@@ -25,8 +25,7 @@
         <ion-icon  side='end' class="searchLogo" src="assets/logo.svg"></ion-icon>
        
     </ion-row>
-
-
+   
     <!-- Default Segment -->
     <ion-row>
         <ion-segment [(ngModel)]="contactTab" size='start'>
@@ -46,7 +45,7 @@
         <div *ngSwitchCase="'cs'" >
             <ion-list>
                 <!-- <ion-virtual-scroll [items]="csContacts |async|search: conts" > -->
-                    <ion-item-sliding *ngFor="let contact of csContacts|async|search: conts">
+                    <ion-item-sliding *ngFor="let contact of csContacts|async|search: conts| sort: {property: column, order: order}" >
 
                         <ion-item (click)='setContactId(contact.id)'>
                             <ion-avatar size='end' class="contactAvatar">

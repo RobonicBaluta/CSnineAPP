@@ -28,7 +28,9 @@ export class Tab4Page implements OnInit {
     mobileContactId: number;
     contact:Observable<any>;
     displayNameFilter: any;
-    
+    descending: boolean = true;
+    order: number;
+    column: string = 'firstName';
     constructor(public api: RestApiService,
         public modalController: ModalController,
         private contacts: Contacts,
@@ -44,7 +46,10 @@ export class Tab4Page implements OnInit {
             this.contactTab = 'cs';
         }
         
-        
+        sort(){
+            // this.descending = !this.descending;
+            this.order = this.descending ? 1 : -1;
+          }
         
         
         setContactId(id:number){
@@ -58,13 +63,13 @@ export class Tab4Page implements OnInit {
             // console.log(this.companyId);
             this.showMobileContactModal();
         }
-                
+        
         setExportContactId(id:number){
             this.mobileContactId=id;
             // console.log(this.companyId);
             this.showExportContactModal();
         }
-                 
+        
         async showExportContactModal() {
             const modal = await this.modalController.create({
                 component: ExportContactModalPage,
@@ -96,7 +101,7 @@ export class Tab4Page implements OnInit {
             return await modal.present();
         }
         
-           
+        
         async showMobileContactModal() {
             const modal = await this.modalController.create({
                 component: ShowMobileContactModalPage,
@@ -119,7 +124,8 @@ export class Tab4Page implements OnInit {
                 message: 'Loading'
             });
             await loading.present();
-            this.csContacts=this.api.getContacts();
+           this.csContacts= await this.api.getContacts();
+           this.sort();
             loading.dismiss();
         }
         
@@ -135,30 +141,18 @@ export class Tab4Page implements OnInit {
             });
             loading.dismiss();
         }
-
-         
-        async getFilteredContacts(filterValue) {
-
         
+        
+        async getFilteredContacts(filterValue) {
+            
+            
             this.contacts.find(['displayName'], {filter: `${filterValue}`, multiple: true})
             .then(data => {
                 this.mobileContacts = data
                 console.log(this.mobileContacts);
             });
-
+            
         }
-        
-        // async delete(itemId:string){
-        //   // this.api.deleteItem(itemId);
-        
-        //   this.api.deleteItem(itemId)
-        //   .subscribe(res => {
-        //     this.router.navigate(['/home']);
-        //   }, err => {
-        //     console.log(err);
-        //   });
-        //   location.reload();
-        // }
         
         
         

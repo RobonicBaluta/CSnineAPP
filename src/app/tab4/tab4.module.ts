@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { Tab4Page } from './tab4.page';
 import { SearchModuleModule } from '../search-module/search-module.module';
+import { SortModuleModule } from '../sort-module/sort-module.module';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
     FormsModule,
     SearchModuleModule,
     IonicModule,
+    SortModuleModule,
     RouterModule.forChild(routes)
   ],
   declarations: [Tab4Page]
