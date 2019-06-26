@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Tab2Page } from './tab2.page';
 import { BrowserModule } from '@angular/platform-browser';
 import { SearchModuleModule } from '../search-module/search-module.module';
+import { SortModuleModule } from '../sort-module/sort-module.module';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { SearchModuleModule } from '../search-module/search-module.module';
     FormsModule,
     CommonModule, 
     FormsModule,
-    SearchModuleModule, 
+    SearchModuleModule,
+    SortModuleModule, 
     ReactiveFormsModule,
     RouterModule.forChild([{ path: '', component: Tab2Page }])
   ],

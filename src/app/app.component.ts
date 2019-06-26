@@ -7,7 +7,7 @@ import { AuthService } from './services/auth.service';
 import { Router } from '@angular/router';
 import { HeaderColor } from '@ionic-native/header-color/ngx';
 import { RestApiService } from './rest-api.service';
-
+import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html'
@@ -21,6 +21,7 @@ export class AppComponent {
     private router: Router,
     private headerColor: HeaderColor,
     public api: RestApiService,
+    private location:Location,
   ) {
     this.initializeApp();
     //console.log("Hola: " + this.router.url);
@@ -29,9 +30,12 @@ export class AppComponent {
   initializeApp() {
     this.platform.ready().then(() => {
 
-      this.platform.backButton.subscribe(() => {
+      this.platform.backButton.subscribeWithPriority(0,() => {
        if(this.router.url=='/login'){
+         this.router.navigate(['select-server']);
        this.api.setBiz();
+       }else{
+        this.location.back();
        }
       })
       // this.statusBar.overlaysWebView(false);
@@ -49,5 +53,7 @@ export class AppComponent {
       });
     });
   }
+
+  
 } 
   

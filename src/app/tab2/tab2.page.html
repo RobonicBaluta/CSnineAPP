@@ -40,7 +40,7 @@
     <ion-list>
       
       
-      <ion-item-sliding *ngFor="let myTask of myTasks?.items|search: tsks">
+      <ion-item-sliding *ngFor="let myTask of myTasks?.items|search: tsks| sort: {property: column, order: order}">
       <!-- <ion-virtual-scroll [items]="myTasks?.items| search : tsks">
         <ion-item-sliding  *virtualItem="let myTask"> -->
           

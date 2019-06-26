@@ -155,14 +155,19 @@ export class EditTaskModalPage implements OnInit {
     // this.platform.ready();
 
     this.file.writeFile(filePath, documentName, this.doc, { replace: true }).then((fileEntry: FileEntry) => {
-      window.alert(filePath);
-     window.alert("File created!");
+      window.alert(fileEntry.toURL());
+     window.alert("File saved!");
+
+
+
+    //  let fileExtn=documentName.split('.').reverse()[0];
+    //  let fileMIMEType=this.getMIMEtype(fileExtn);
 
       // Open with File Opener plugin
-      this.fileOpener.open(filePath, 'application/octet-stream')
-        .then(() => console.log('File is opened'))
-        .catch(err => window.alert('Error openening file: ' + err)
-        );
+      // this.fileOpener.open(fileEntry.toURL(), fileMIMEType)
+      //   .then(() => console.log('File is opened'))
+      //   .catch(err => window.alert('Error openening file: ' + err)
+      //   );
     })
       .catch((err) => {
         console.error("Error creating file: " + err);
@@ -173,7 +178,24 @@ export class EditTaskModalPage implements OnInit {
       
     });
   }
-
+  getMIMEtype(extn){
+    let ext=extn.toLowerCase();
+    let MIMETypes={
+      'txt' :'text/plain',
+      'docx':'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'doc' : 'application/msword',
+      'pdf' : 'application/pdf',
+      'jpg' : 'image/jpeg',
+      'bmp' : 'image/bmp',
+      'png' : 'image/png',
+      'xls' : 'application/vnd.ms-excel',
+      'xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      'rtf' : 'application/rtf',
+      'ppt' : 'application/vnd.ms-powerpoint',
+      'pptx': 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+    }
+    return MIMETypes[ext];
+  }
   doRefresh(event) {
     this.getDocuments();
     console.log('Begin async operation');

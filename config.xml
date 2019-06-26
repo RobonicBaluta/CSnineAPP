@@ -34,7 +34,7 @@
         <splash density="port-xxhdpi" src="resources/res/screen/android/splash-port-xxhdpi.png" />
         <splash density="port-xxxhdpi" src="resources/res/screen/android/splash-port-xxxhdpi.png" />
         <edit-config file="AndroidManifest.xml" mode="merge" target="/manifest/application">
-            <application android:usesCleartextTraffic="true" />
+            <application android:allowBackup="true" android:usesCleartextTraffic="true" />
         </edit-config>
     </platform>
     <platform name="ios">

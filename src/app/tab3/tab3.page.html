@@ -26,7 +26,7 @@
 <ion-list>
 
 
-  <ion-virtual-scroll [items]="companies |async| search : comps">
+  <ion-virtual-scroll [items]="companies |async| search : comps| sort: {property: column, order: order}">
     <ion-item-sliding *virtualItem="let company">
 
       <ion-item (click)='setCompanyId(company.id)'>

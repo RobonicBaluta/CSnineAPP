@@ -20,6 +20,8 @@ export class Tab3Page {
   items:any;
   companies: Observable<any>;
   companyId: number;
+  order: number;
+  descending: boolean = true;
   constructor(public api: RestApiService,
     public modalController: ModalController,
     public router: Router, private alertController: AlertController,
@@ -36,7 +38,8 @@ export class Tab3Page {
         message: 'Loading'
       });
       await loading.present();
-      this.companies=this.api.getCompanies();
+      this.companies= await this.api.getCompanies();
+      this.sort();
       loading.dismiss();
     }
 
@@ -60,7 +63,10 @@ export class Tab3Page {
       this.addTaskModal();
     }
 
-
+    sort(){
+      // this.descending = !this.descending;
+      this.order = this.descending ? 1 : -1;
+    }
 
     async editModal() {
       const modal = await this.modalController.create({

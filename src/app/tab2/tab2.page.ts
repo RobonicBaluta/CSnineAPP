@@ -27,6 +27,8 @@ export class Tab2Page {
   myTasksForm: FormGroup;
   givenTasksForm: FormGroup;
   taskStatusForm: FormGroup;
+  order: number;
+  descending: boolean = true;
   
 
   
@@ -101,10 +103,16 @@ export class Tab2Page {
       });
       await loading.present();
       return this.api.getMyTasks(this.myTasksForm.value).subscribe(data=>{this.myTasks=data
+        this.sort();
         loading.dismiss();
+   
       });
     }
-
+    sort(){
+      console.log('hello');
+      // this.descending = !this.descending;
+      this.order = this.descending ? 1 : -1;
+    }
 
     async getGivenTasks() {
       const loading = await this.loadingController.create({
