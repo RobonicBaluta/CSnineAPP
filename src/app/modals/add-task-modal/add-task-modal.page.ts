@@ -140,7 +140,7 @@ export class AddTaskModalPage implements OnInit {
       .subscribe(res => {
         this.closeModal();
         this.setTaskId(res.id);
-        this.presentAlert();
+        // this.presentAlert();
       });
       
     }

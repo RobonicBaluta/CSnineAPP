@@ -133,7 +133,7 @@
                     <input type="file" id="file" (change)="handleFileInput($event.target.files,task.id)" multiple>
                 <ion-label><strong>Documents: </strong></ion-label>
                 
-                <ion-item class="profile-info" *ngFor="let document of documents|async" (click)="getDocumentById(document?.id)">
+                <ion-item class="profile-info" *ngFor="let document of documents|async" (click)="getDocumentById(document?.id,document?.documentName)">
                     {{document.documentName}}
                     
                 </ion-item>

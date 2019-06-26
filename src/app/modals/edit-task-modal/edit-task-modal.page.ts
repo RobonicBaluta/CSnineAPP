@@ -138,7 +138,7 @@ export class EditTaskModalPage implements OnInit {
     async getDocuments(){
       this.documents=this.api.getDocuments(this.taskId);
     }
-    async getDocumentById(documentId:number){
+    async getDocumentById(documentId:number,documentName:string){
       this.doc=this.api.getDocumentById(documentId).subscribe(result=>{
              this.doc=result;
         // saveAs(this.doc,'theDoc');
@@ -154,12 +154,12 @@ export class EditTaskModalPage implements OnInit {
 
     // this.platform.ready();
 
-    this.file.writeFile(filePath, 'testaso.txt', this.doc, { replace: true }).then((fileEntry: FileEntry) => {
+    this.file.writeFile(filePath, documentName, this.doc, { replace: true }).then((fileEntry: FileEntry) => {
       window.alert(filePath);
      window.alert("File created!");
 
-      //Open with File Opener plugin
-      this.fileOpener.open(fileEntry.toURL(), 'application/octet-stream')
+      // Open with File Opener plugin
+      this.fileOpener.open(filePath, 'application/octet-stream')
         .then(() => console.log('File is opened'))
         .catch(err => window.alert('Error openening file: ' + err)
         );
