@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { RestApiService } from '../../rest-api.service'
-import { ModalController, AlertController, NavController, NavParams, Events, LoadingController, ActionSheetController } from '@ionic/angular';
+import { ModalController, AlertController, NavController, NavParams, Events, LoadingController, ActionSheetController, IonSegment } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { File, FileEntry } from '@ionic-native/file/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
@@ -61,6 +61,9 @@ export class EditTaskModalPage implements OnInit {
   document: Observable<any>;
   file=new File();
   fileArray:any;
+  @ViewChild (IonSegment) segment:IonSegment;
+  taskTabs: string;
+
   constructor(
     private modalController: ModalController,
     private alertCtrl: AlertController, 
@@ -80,7 +83,7 @@ export class EditTaskModalPage implements OnInit {
     private fileChooser: FileChooser,
     private platform: Platform,) { 
       
-      
+      this.taskTabs = 'general';
       this.taskForm = this.formBuilder.group({
         'id':[null],
         'title':[null],
