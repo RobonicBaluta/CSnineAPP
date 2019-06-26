@@ -82,22 +82,22 @@ export class RestApiService {
             
     //     }
 
-    initDocument(data): Observable<any> {
-        window.alert('into api');
-        const httpUploadOptions = {
-            headers: new HttpHeaders()
-        };
+    // initDocument(data): Observable<any> {
+    //     window.alert('into api');
+    //     const httpUploadOptions = {
+    //         headers: new HttpHeaders()
+    //     };
     
-        // httpUploadOptions.headers.append('enctype','multipart/form-data; boundary=----WebKitFormBoundaryuL67FWkv1CA');
-        httpUploadOptions.headers.append('Content-Type', 'multipart/form-data');
-        httpUploadOptions.headers.append('Cache-Control', 'no-cache');
-        const url = `${this.apiUrl}/Documents/.init`;
-        console.log(httpUploadOptions.headers);
+    //     // httpUploadOptions.headers.append('enctype','multipart/form-data; boundary=----WebKitFormBoundaryuL67FWkv1CA');
+    //     httpUploadOptions.headers.append('Content-Type', 'multipart/form-data');
+    //     httpUploadOptions.headers.append('Cache-Control', 'no-cache');
+    //     const url = `${this.apiUrl}/Documents/.init`;
+    //     console.log(httpUploadOptions.headers);
 
-        return this.http.post(url, data, httpUploadOptions).pipe(
-                catchError(this.handleError)
-        )       
-    }
+    //     return this.http.post(url, data, httpUploadOptions).pipe(
+    //             catchError(this.handleError)
+    //     )       
+    // }
 
        
     getDocuments(id:number) :Observable <any>{
@@ -123,7 +123,7 @@ export class RestApiService {
         const httpUploadOptions = {
             headers: new HttpHeaders()
         };
-        window.alert(`preup:`);
+        // window.alert(`preup:`);
         httpUploadOptions.headers.append('Content-Type', 'multipart/form-gridData');
         httpUploadOptions.headers.append('Cache-Control', 'no-cach e');
         const formData = new FormData();
@@ -132,7 +132,7 @@ export class RestApiService {
         formData.append('documentName', documentName);
         formData.append('files', files, documentName);
         const url = `${this.apiUrl}/Documents/.init`;
-        window.alert(`finishup:`);
+        // window.alert(`finishup:`);
         return this.http.post(url, formData, httpUploadOptions).pipe(
             catchError(this.handleError)
         );
@@ -143,7 +143,7 @@ export class RestApiService {
         const httpUploadOptions = {
             headers: new HttpHeaders()
         };
-        window.alert(`precommit:`);
+        // window.alert(`precommit:`);
         httpUploadOptions.headers.append('Content-Type', 'multipart/form-gridData');
         httpUploadOptions.headers.append('Cache-Control', 'no-cache');
         const formData = new FormData();
@@ -151,7 +151,7 @@ export class RestApiService {
         formData.append('entityId', entityId.toString());
         formData.append('document', JSON.stringify(doc));
         const url = `${this.apiUrl}/Documents/.commit`;
-        window.alert(`finishcommit:`);
+        // window.alert(`finishcommit:`);
         return this.http.post(url, formData, httpUploadOptions).pipe(
             catchError(this.handleError)
         );     
@@ -402,9 +402,8 @@ export class RestApiService {
     }
 
     addTask(data): Observable<any> {
-        console.log(data);
+
         const url = `${this.apiUrl}/Tasks`;
-        console.log(data);
         return this.http.post(url, data, httpOptions).pipe(
             catchError(this.handleError)
         );

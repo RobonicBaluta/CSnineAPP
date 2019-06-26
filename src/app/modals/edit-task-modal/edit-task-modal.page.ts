@@ -42,7 +42,6 @@ export class EditTaskModalPage implements OnInit {
   profile: Observable<any>;
   documentForm: FormGroup;
   
-  
   taskEntity:any;
   taskType:any;
   taskDocument:any;
@@ -111,20 +110,18 @@ export class EditTaskModalPage implements OnInit {
       this.getTaskInfo();
       // this.getCompanyId();
       this.taskForm.get('descriptionHtml').setValue(this.taskForm.get('description'));
-      this.entityId=this.companyId;
-      this.entityType='Company';
+      // this.entityId=this.companyId;
+      // this.entityType='Company';
       
       
-      this.documentForm.get('entityType').setValue(null);
-      this.documentForm.get('entityId').setValue(0);
-      this.documentForm.get('documentName').setValue('file.txt');
-      this.documentForm.get('parentId').setValue(0);
+      // this.documentForm.get('entityType').setValue(null);
+      // this.documentForm.get('entityId').setValue(0);
+      // this.documentForm.get('documentName').setValue('file.txt');
+      // this.documentForm.get('parentId').setValue(0);
       
-      this.formFile= this.documentForm.get('files');
+      // this.formFile= this.documentForm.get('files');
       
-      // this.taskEntity =this.documentForm.get('EntityId');
-      // this.taskType=this.documentForm.get('EntityType').setValue('task');
-      // this.taskDocument =this.documentForm.get('Files');
+
       
       this.getCompanies();
       this.getSimpleUsers();
@@ -134,71 +131,74 @@ export class EditTaskModalPage implements OnInit {
     
    
     
-    // async init(){
-    //   console.log(this.documentForm.value);
-    //   await this.api.initDocument(this.documentForm.value)
-    //   .subscribe(res => {
-    //     // console.log(this.documentForm.value);
-    //     this.closeModal();
-    //   }, (err) => {
-    //     console.log(err);
-    //   });
-    // }
+
     async getDocuments(){
       this.documents=this.api.getDocuments(this.taskId);
     }
     async getDocumentById(documentId:number){
       this.doc=this.api.getDocumentById(documentId).subscribe(result=>{
              this.doc=result;
-        saveAs(this.doc,'theDoc');
-        window.alert('saved');
+        // saveAs(this.doc,'theDoc');
+        // window.alert('saved');
             //  var blob = new Blob([this.doc]);
             
     //Determine a native file path to save to
       
-    // let filePath=this.file.externalRootDirectory;
-    // // let filePath = (this.appConfig.isNativeAndroid) ? this.file.externalRootDirectory : this.file.cacheDirectory;
+    let filePath=this.file.externalRootDirectory;
+    // let filePath = (this.appConfig.isNativeAndroid) ? this.file.externalRootDirectory : this.file.cacheDirectory;
 
-    // //Write the file
+    //Write the file
 
-    // // this.platform.ready();
+    // this.platform.ready();
 
-    // this.file.writeFile(filePath, 'testaso.txt', this.doc, { replace: true }).then((fileEntry: FileEntry) => {
-    //   window.alert(filePath);
-    //  window.alert("File created!");
+    this.file.writeFile(filePath, 'testaso.txt', this.doc, { replace: true }).then((fileEntry: FileEntry) => {
+      window.alert(filePath);
+     window.alert("File created!");
 
-    //   //Open with File Opener plugin
-    //   this.fileOpener.open(fileEntry.toURL(), 'application/octet-stream')
-    //     .then(() => console.log('File is opened'))
-    //     .catch(err => window.alert('Error openening file: ' + err)
-    //     );
-    // })
-    //   .catch((err) => {
-    //     console.error("Error creating file: " + err);
-    //     window.alert("Error creating file: " + err);
+      //Open with File Opener plugin
+      this.fileOpener.open(fileEntry.toURL(), 'application/octet-stream')
+        .then(() => console.log('File is opened'))
+        .catch(err => window.alert('Error openening file: ' + err)
+        );
+    })
+      .catch((err) => {
+        console.error("Error creating file: " + err);
+        window.alert("Error creating file: " + err);
 
-    //     throw err;  //Rethrow - will be caught by caller
-    //   });
+        throw err;  //Rethrow - will be caught by caller
+      });
       
     });
   }
 
-  handleFileInput(files: FileList) {
-    const entityType = 'Ticket';
-    const entityId = 20303;
+  doRefresh(event) {
+    this.getDocuments();
+    console.log('Begin async operation');
+    
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
+  }
+
+  handleFileInput(files: FileList,taskId) {
+  
+    const entityType = 'Task';
+    const entityId = taskId;
     const self = this;
-    window.alert(`prefor`);
+    // window.alert(`prefor`);
     for (let i = 0; i < files.length; i++) {
 
       var blob = new Blob([files[i]] as any);
       self.api.uploadFiles(blob, entityType, entityId, files[i].name).subscribe(data => {
-       window.alert(`Initialized`);
+      //  window.alert(`Initialized`);
         console.log(data);
         self.api.commitFile(entityType,entityId, data.document).subscribe(data=>{
-          window.alert(`Uploaded:`);
+          this.doRefresh(this.events);
           console.log(data);
         })
       });
+      
     }
   }
     
@@ -317,26 +317,6 @@ export class EditTaskModalPage implements OnInit {
     
     
     
-    
-    async selectFile(){ this.fileChooser.open()
-      .then(uri => 
-        {(<any>window).FilePath.resolveNativePath(uri, async (result) => {
-          const fileLoader = await this.loadingController.create({
-            message: "Uploading File..."
-          });
-          fileLoader.present();
-          
-          window.alert('before filepath');
-          // this.fd.append('doc',result);
-          this.testResponse = result;
-          this.nativepath = result;
-          this.readfile(fileLoader);
-          window.alert('after readfile');
-        })
-      })
-      .catch(e => 
-        this.testResponse = 'Error - '+e);
-      }
       
       readfile(fileLoader) {
        
@@ -372,24 +352,7 @@ export class EditTaskModalPage implements OnInit {
       }
 
 
-     async submitDoc(){
-        window.alert('start submit');
-        this.fd.append('entityId',this.documentForm.get('entityId').value);
-        window.alert('first append');
-
-        this.fd.append('entityType',this.documentForm.get('entityType').value);
-        this.fd.append('parentId',this.documentForm.get('parentId').value);
-        this.fd.append('documentName',  this.documentForm.get('documentName').value);
-        
-        window.alert('last append');
-        window.alert(this.documentForm.get('documentName').value);
-        window.alert('before api');
-        this.doc = await this.api.initDocument(this.fd);
-        window.alert('after api');
-        this.doc.subscribe(data => {
-        this.testResponse = JSON.stringify(data);
-      })
-   }
+  
       
       checkDate(){
         

@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController, NavParams, LoadingController, AlertController } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModalController, NavParams, LoadingController, AlertController, IonSegment } from '@ionic/angular';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { RestApiService } from 'src/app/rest-api.service';
+import { EditTaskModalPage } from '../edit-task-modal/edit-task-modal.page';
+
 
 @Component({
   selector: 'app-add-task-modal',
@@ -10,7 +12,7 @@ import { RestApiService } from 'src/app/rest-api.service';
   styleUrls: ['./add-task-modal.page.scss'],
 })
 export class AddTaskModalPage implements OnInit {
-  taskTab: string;
+  taskTabs: string;
   taskForm: FormGroup;
   entityType: any;
   entityId: any;
@@ -29,6 +31,10 @@ export class AddTaskModalPage implements OnInit {
   me:boolean=true;
   profile: Observable<any>;
   info: any;
+  taskId: number;
+  
+
+  @ViewChild (IonSegment) segment:IonSegment;
   
   constructor(
     private modalController: ModalController, 
@@ -38,8 +44,7 @@ export class AddTaskModalPage implements OnInit {
     public loadingController: LoadingController,
     private alertCtrl: AlertController) { 
       
-      
-      this.taskTab = 'description';
+      this.taskTabs = 'general';
       
       this.taskForm = this.formBuilder.group({
         'title':[null],
@@ -133,14 +138,35 @@ export class AddTaskModalPage implements OnInit {
     async addTask(){
       await this.api.addTask(this.taskForm.value)
       .subscribe(res => {
-        console.log(this.taskForm.value);
         this.closeModal();
+        this.setTaskId(res.id);
         this.presentAlert();
-      }, (err) => {
-        console.log(err);
       });
       
     }
+
+
+    setTaskId(id:number){
+      this.taskId=id;
+      this.editModal();
+    }
+    async editModal() {
+      const modal = await this.modalController.create({
+        component: EditTaskModalPage,
+        cssClass: 'addCompanyCustom',
+        componentProps:{
+          taskId: this.taskId,
+
+        }
+      });
+      modal.onDidDismiss().then((dataReturned) => {
+        if (dataReturned !== null) {
+          console.log('Modal Sent Data :', dataReturned);
+        }
+      });
+      return await modal.present();
+    }
+
     async presentAlert() {
 
       const alert = await this.alertCtrl.create({
