@@ -130,7 +130,7 @@ export class EditCompanyModalPage implements OnInit {
     async getCompanyInfo(){
 
       const loading = await this.loadingController.create({
-        message: 'Loading'
+        message: 'Laden'
       });
       await loading.present();
 

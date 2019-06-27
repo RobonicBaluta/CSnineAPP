@@ -85,7 +85,7 @@ this.select='herr';
     await this.getId();
     this.presentAlert('Um den Kontakt erfolgreich zu exportieren, müssen Sie einige erforderliche Felder ausfüllen');
      const loading = await this.loadingController.create({
-        message: 'Loading'
+        message: 'Laden'
       });
     await loading.present();
     this.contacts.find(['id'],{filter: `${this.mobileContacId}`, multiple: true}).then(data => {

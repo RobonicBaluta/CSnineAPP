@@ -35,7 +35,7 @@ export class Tab3Page {
 
     async getCompanies(){
       const loading = await this.loadingController.create({
-        message: 'Loading'
+        message: 'Laden'
       });
       await loading.present();
       this.companies= await this.api.getCompanies();

@@ -90,7 +90,7 @@ export class ShowContactModalPage implements OnInit {
     async getContactInfo(){
       
       const loading = await this.loadingController.create({
-        message: 'Loading'
+        message: 'Laden'
       });
       await loading.present();
       

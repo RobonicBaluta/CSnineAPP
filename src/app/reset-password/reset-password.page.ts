@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AlertController, NavParams, ModalController} from '@ionic/angular';
+import { AlertController, NavParams, ModalController, LoadingController} from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RestApiService } from '../rest-api.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -15,13 +16,24 @@ import { ReactiveFormsModule } from '@angular/forms';
 export class ResetPasswordPage implements OnInit {
   reset: FormGroup;
   select:string='http://csapi.soltystudio.com/api/v1';
+  userEmail: any;
+  servers: any;
   constructor( private alertCtrl: AlertController, 
     public router: Router, 
     public navCtrl: NavController, 
-    private formBuilder: FormBuilder, 
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private activatedRoute: ActivatedRoute, 
     private modalController: ModalController,
+    public loadingController: LoadingController,
     public api: RestApiService,  ) {
-
+      
+      this.activatedRoute.queryParams.subscribe(params => {
+        if (this.router.getCurrentNavigation().extras.state) {
+          this.userEmail = this.router.getCurrentNavigation().extras.state.email;
+          console.log('email: '+this.userEmail);
+        }
+      });
 
       this.reset = this.formBuilder.group({
         'email' : [null],
@@ -65,16 +77,52 @@ export class ResetPasswordPage implements OnInit {
       const onClosedData: string = "Wrapped Up!";
       await this.modalController.dismiss(onClosedData);
     }
-    checkServer(){
+    // checkServer(){
     
-      let server=this.select;
-      // console.log(server);
+    //   let server=this.select;
+    //   // console.log(server);
+    //   switch (server) {
+    //     case 'https://csapi.soltystudio.com/api/v1':
+    //     this.api.setSolty();
+        
+    //     break;
+    //     case 'https://webapi.contentshare.biz/api/v1':
+    //     this.api.setBiz();
+    //     default:
+        
+    //     break;
+    //   }
+    // }
+
+    async getServers(){
+      this.servers=this.api.getServers();
+      console.log(this.servers);
+    }
+    
+    
+    async checkServer(server){
+      
+      
+      console.log(server);
       switch (server) {
-        case 'https://csapi.soltystudio.com/api/v1':
+        
+        case 'CS Test Solty':
+        
+        this.authService.storage.set('server',server);
+        //  this.authService.storage.get('server').then((val) => {
+        //     console.log('Your server is', val);
+        //   });
         this.api.setSolty();
         
         break;
-        case 'https://webapi.contentshare.biz/api/v1':
+        case 'Internal CS':
+        console.log('biz: '+server);
+        
+        this.authService.storage.set('server',server);
+        // console.log('Your server issss', this.authService.storage.get('server'));
+        // this.authService.storage.get('server').then((val) => {
+        //   console.log('Your server is', val);
+        // });
         this.api.setBiz();
         default:
         
@@ -82,5 +130,6 @@ export class ResetPasswordPage implements OnInit {
       }
     }
   ngOnInit() {
+    this.getServers();
   }
 }

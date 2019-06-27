@@ -86,7 +86,7 @@ export class LoginPage implements OnInit {
     
     async getServers(){
       const loading = await this.loadingController.create({
-        message: 'Loading'
+        message: 'Laden'
       });
       await loading.present();
       await this.api.checkServer(this.userEmail).subscribe(info=>{this.servers=info

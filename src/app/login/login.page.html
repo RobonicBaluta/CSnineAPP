@@ -20,11 +20,11 @@
     <form [formGroup]="credentialsForm" (ngSubmit)="onSubmit()">
         <ion-item class="ion-margin-top">
             <ion-label>E-mail</ion-label>
-            <ion-input required type="email" placeholder="Email" value='{{userEmail}}' [(ngModel)]='userEmail'  class="ion-padding" formControlName="username" ></ion-input>
+            <ion-input required type="email" placeholder="E-mail" value='{{userEmail}}' [(ngModel)]='userEmail'  class="ion-padding" formControlName="username" ></ion-input>
         </ion-item>
         <ion-item>
             <ion-label>Passwort</ion-label>
-            <ion-input required type="password" placeholder="Password" class="ion-padding" formControlName="password"> </ion-input>
+            <ion-input required type="password" placeholder="Passwort" class="ion-padding" formControlName="password"> </ion-input>
         </ion-item>
         
         

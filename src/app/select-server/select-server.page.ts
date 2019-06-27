@@ -24,7 +24,7 @@ export class SelectServerPage implements OnInit {
     }
     async getServers(){
       const loading = await this.loadingController.create({
-        message: 'Conecting'
+        message: 'Anschließen'
       });
       await loading.present();
       await this.api.checkServer(this.email).subscribe(info=>{
