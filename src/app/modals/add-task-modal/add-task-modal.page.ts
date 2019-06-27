@@ -90,7 +90,7 @@ export class AddTaskModalPage implements OnInit {
     }
     async getCompanies(){
       const loading = await this.loadingController.create({
-        message: 'Loading'
+        message: 'Laden'
       });
       await loading.present();
       this.clients=this.api.getCompanies();
@@ -98,7 +98,7 @@ export class AddTaskModalPage implements OnInit {
     }
     async getProfile(){
       const loading = await this.loadingController.create({
-        message: 'Loading'
+        message: 'Laden'
       });
       await loading.present();
       return this.api.getProfile().subscribe(profile=>{this.info=profile
@@ -122,7 +122,7 @@ export class AddTaskModalPage implements OnInit {
     }
     async getSimpleUsers(){
       const loading = await this.loadingController.create({
-        message: 'Loading'
+        message: 'Laden'
       });
       await loading.present();
       this.simpleUsers=this.api.getSimpleUsers();

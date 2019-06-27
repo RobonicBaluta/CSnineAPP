@@ -121,7 +121,7 @@ export class Tab4Page implements OnInit {
         
         async getApiContacts() {
             const loading = await this.loadingController.create({
-                message: 'Loading'
+                message: 'Laden'
             });
             await loading.present();
            this.csContacts= await this.api.getContacts();
@@ -131,7 +131,7 @@ export class Tab4Page implements OnInit {
         
         async getContacts() {
             const loading = await this.loadingController.create({
-                message: 'Loading'
+                message: 'Laden'
             });
             await loading.present();
             this.contacts.find(['id','displayName', 'name', 'phoneNumbers', 'emails'], {filter: "", multiple: true})

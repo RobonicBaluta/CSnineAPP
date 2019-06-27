@@ -99,7 +99,7 @@ export class Tab2Page {
 
     async getMyTasks() {
       const loading = await this.loadingController.create({
-        message: 'Loading'
+        message: 'Laden'
       });
       await loading.present();
       return this.api.getMyTasks(this.myTasksForm.value).subscribe(data=>{this.myTasks=data
@@ -116,7 +116,7 @@ export class Tab2Page {
 
     async getGivenTasks() {
       const loading = await this.loadingController.create({
-        message: 'Loading'
+        message: 'Laden'
       });
       await loading.present();
       return this.api.getGivenTasks(this.givenTasksForm.value).subscribe(data=>{this.givenTasks=data
