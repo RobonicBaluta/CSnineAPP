@@ -36,7 +36,7 @@ export class SelectServerPage implements OnInit {
           this.api.setServers(this.servers,this.email);
           // this.router.navigate(['/login']);
         }else{
-          window.alert('Email not found in the system')
+          window.alert('E-Mail nicht im System gefunden')
           loading.dismiss();
         }
       });   

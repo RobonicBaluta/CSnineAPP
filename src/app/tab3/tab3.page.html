@@ -1,61 +1,58 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Companies
+      Unternehmen
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
- <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+  
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
     refreshingSpinner="circles"
     refreshingText="Refreshing...">
   </ion-refresher-content>
 </ion-refresher>
 <ion-row>
-  <ion-searchbar  class="search" side='start' [(ngModel)]="comps"></ion-searchbar>
+  <ion-searchbar  class="search" side='start' [(ngModel)]="comps" placeholder='Suche'></ion-searchbar>
   <ion-icon  side='end' class="searchLogo" src="assets/logo.svg"></ion-icon>
-
+  
 </ion-row>
 <!-- Default Segment -->
 
 
 
 <ion-list>
-
-
+  
+  
   <ion-virtual-scroll [items]="companies |async| search : comps| sort: {property: column, order: order}">
     <ion-item-sliding *virtualItem="let company">
-
+      
       <ion-item (click)='setCompanyId(company.id)'>
         <ion-title mode='md'>
           {{company?.name}}
         </ion-title>
       </ion-item>
       <ion-item-options side="end" >
-
+        
         <ion-button ion-button color="warning" (click)="setCompanyIdNote(company.id)"  class='sliderButtons'>
           <ion-icon name="today"></ion-icon>
         </ion-button>
-
+        
         <ion-button ion-button color="secondary" (click)="setCompanyIdTask(company.id)" class='sliderButtons'>
           <ion-icon name="clipboard"></ion-icon>
         </ion-button>
-
-
-        <!-- <ion-button color="primary" [routerLink]="['/','detail',item.id]"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
-          <ion-button  color="danger" (click)="delete(item.id)"><ion-icon name="time"></ion-icon></ion-button> -->
-        </ion-item-options>
-      </ion-item-sliding>
-    </ion-virtual-scroll>
-    
-  </ion-list>
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="addCompanyModal()">
-      <ion-icon name="add" id="add" ></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+        
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-virtual-scroll>
+  
+</ion-list>
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button (click)="addCompanyModal()">
+    <ion-icon name="add" id="add" ></ion-icon>
+  </ion-fab-button>
+</ion-fab>
 
 </ion-content>

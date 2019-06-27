@@ -78,7 +78,7 @@ export class ShowContactModalPage implements OnInit {
       console.log(this.contactForm.value);
       await this.api.updateContact(this.contactForm.value).subscribe();
       
-      this.presentAlert();
+      // this.presentAlert();
       this.doRefresh(this.events);
       // window.location.reload();
       //this.router.navigate(['/home']);

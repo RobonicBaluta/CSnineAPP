@@ -9,7 +9,7 @@
   <form [formGroup]='exportForm'>
     <div class="profile-info">
       <ion-item class="ion-margin-top">
-        <ion-label class="labelsDark"><strong>Salutation: </strong></ion-label>
+        <ion-label class="labelsDark"><strong>Anrede: </strong></ion-label>
         <ion-select required placeholder="Select a salutation" [(ngModel)]="select" (ionChange)="checkSalutation()" >
           <ion-select-option value="herr" selected>Herr</ion-select-option>
           <ion-select-option value="frau">Frau</ion-select-option>
@@ -17,23 +17,23 @@
       </ion-item>
       
       <ion-item class="ion-margin-top" *ngIf="contact?.displayName!=null">
-        <ion-label class="labelsDark"><strong>First Name*: </strong></ion-label>
+        <ion-label class="labelsDark"><strong>Vorname*: </strong></ion-label>
         <ion-input value="{{contact?.displayName}}" [(ngModel)]="contact.displayName" formControlName='firstName'></ion-input>  
       </ion-item>
       
       <ion-item class="ion-margin-top" *ngIf="contact?.displayName==null">
-        <ion-label class="labelsDark"><strong>First Name*: </strong></ion-label>
+        <ion-label class="labelsDark"><strong>Vorname*: </strong></ion-label>
         <ion-input formControlName='firstName'></ion-input> 
       </ion-item>
       
       <ion-item class="ion-margin-top">
-        <ion-label class="labelsDark"><strong>Last Name*: </strong></ion-label>
+        <ion-label class="labelsDark"><strong>Nachname*: </strong></ion-label>
         <ion-input formControlName='lastName'></ion-input>
         
       </ion-item>
       
       <ion-item class="ion-margin-top" *ngIf="contact?.emails!=null">
-        <ion-label><strong>Email*: </strong></ion-label>
+        <ion-label><strong>E-mail*: </strong></ion-label>
         <ion-input value={{contact?.emails[0]?.value}} [(ngModel)]="contact.emails[0].value" formControlName='email'></ion-input>
       </ion-item>
       
@@ -41,12 +41,12 @@
       
       
       <ion-item class="ion-margin-top" *ngIf="contact?.emails==null">
-        <ion-label><strong>Email*:</strong></ion-label>
+        <ion-label><strong>E-mail*:</strong></ion-label>
         <ion-input formControlName='email'></ion-input>
       </ion-item>
       
       <div class="btnsavep">
-        <ion-label text-align="center"><b>Personal info</b></ion-label>
+        <ion-label text-align="center"><b>persönliche Informationen</b></ion-label>
       </div>
       
       
@@ -59,14 +59,14 @@
       </ion-item>
       
       <ion-item class="ion-margin-top" *ngIf="contact?.phoneNumbers==null">
-        <ion-label><strong>Mobile: </strong></ion-label>
+        <ion-label><strong>Mobiltelefon: </strong></ion-label>
         
         <ion-input  formControlName='mobile'></ion-input>
         
       </ion-item>
       
       <ion-item class="ion-margin-top" *ngIf="contact?.phoneNumbers!=null">
-        <ion-label><strong>Telephone: </strong></ion-label>
+        <ion-label><strong>Telefon: </strong></ion-label>
         
         <ion-input value={{contact?.phoneNumbers[1]?.value}} [(ngModel)]="contact.phoneNumbers[1].value" formControlName='telephone'></ion-input>
         
@@ -74,7 +74,7 @@
       </ion-item>
       
       <ion-item class="ion-margin-top"  *ngIf="contact?.phoneNumbers==null">
-        <ion-label><strong>Telephone: </strong></ion-label>
+        <ion-label><strong>Telefon: </strong></ion-label>
         
         <ion-input  formControlName='telephone'></ion-input>
         
@@ -89,38 +89,38 @@
         <div formGroupName='address'>
           
           
-          <ion-label><strong>Address: </strong></ion-label>
+          <ion-label><strong>Adresse: </strong></ion-label>
           
           <ion-item>
-            <ion-label><strong>Country: </strong></ion-label>
+            <ion-label><strong>Staat: </strong></ion-label>
             <div formGroupName='country' >
               <ion-input value={{contact?.addresses[0]?.country}} [(ngModel)]="contact.addresses[0].country" formControlName='name'></ion-input>
             </div>
           </ion-item>
           
           <ion-item>
-            <ion-label><strong>Region: </strong></ion-label>
+            <ion-label><strong>Bundesland: </strong></ion-label>
             <div formGroupName='region' >
               <ion-input value={{contact?.addresses[0]?.region}} [(ngModel)]="contact.addresses[0].region" formControlName='name'></ion-input>
             </div>
           </ion-item>
           
           <ion-item>
-            <ion-label><strong>City: </strong></ion-label>
+            <ion-label><strong>Ort: </strong></ion-label>
             <div formGroupName='city' >
               
               <ion-input value={{contact?.addresses[0]?.locality}} [(ngModel)]="contact.addresses[0].locality" formControlName='name'></ion-input>
             </div>
           </ion-item>
           <ion-item>
-            <ion-label><strong>Postal Code: </strong></ion-label>
+            <ion-label><strong>PLZ: </strong></ion-label>
             <div formGroupName='zip' >
               
               <ion-input value={{contact?.addresses[0]?.postalCode}} [(ngModel)]="contact.addresses[0].postalCode" formControlName='number'></ion-input>
             </div>
           </ion-item>
           <ion-item>
-            <ion-label><strong>Street: </strong></ion-label>
+            <ion-label><strong>Strasse: </strong></ion-label>
             <ion-input value={{contact?.addresses[0]?.streetAddress}} [(ngModel)]="contact.addresses[0].streetAddress" formControlName='street'></ion-input>
           </ion-item>
           
@@ -134,24 +134,24 @@
         <div formGroupName='address'>
           
           
-          <ion-label><strong>Address: </strong></ion-label>
+          <ion-label><strong>Adresse: </strong></ion-label>
           
           <ion-item>
-            <ion-label><strong>Country: </strong></ion-label>
+            <ion-label><strong>Staat: </strong></ion-label>
             <div formGroupName='country' >
               <ion-input  formControlName='name'></ion-input>
             </div>
           </ion-item>
           
           <ion-item>
-            <ion-label><strong>Region: </strong></ion-label>
+            <ion-label><strong>Bundesland: </strong></ion-label>
             <div formGroupName='region'> 
               <ion-input formControlName='name'></ion-input>
             </div>
           </ion-item>
           
           <ion-item>
-            <ion-label><strong>City: </strong></ion-label>
+            <ion-label><strong>Ort: </strong></ion-label>
             <div formGroupName='city'>
               <ion-input  formControlName='name'></ion-input>
             </div>
@@ -159,14 +159,14 @@
           
           
           <ion-item>
-            <ion-label><strong>Zip Code: </strong></ion-label>
+            <ion-label><strong>Postleitzahl: </strong></ion-label>
             <div formGroupName='zip' >
               <ion-input  formControlName='number'></ion-input>
             </div>
           </ion-item>
 
           <ion-item>
-            <ion-label><strong>Street: </strong></ion-label>
+            <ion-label><strong>Strasse: </strong></ion-label>
             <ion-input formControlName='name'></ion-input>
           </ion-item>
           

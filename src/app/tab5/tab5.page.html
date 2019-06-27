@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Profile</ion-title>
+    <ion-title>Profil</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,48 +13,48 @@
   <form [formGroup]='profileForm'>
     <div class="profile-info">
       <ion-item class="ion-margin-top">
-        <ion-label class="labelsDark"><strong>First Name: </strong></ion-label>
-        <ion-input placeholder="First name" value={{info?.firstName}} disabled class="ion-padding"></ion-input>
+        <ion-label class="labelsDark"><strong>Vorname: </strong></ion-label>
+        <ion-input placeholder="Vorname" value={{info?.firstName}} disabled class="ion-padding"></ion-input>
       </ion-item>
       <ion-item class="ion-margin-top">
-        <ion-label><strong>Last Name: </strong></ion-label>
-        <ion-input placeholder="Last name"  value={{info?.lastName}} disabled></ion-input>
+        <ion-label><strong>Nachname: </strong></ion-label>
+        <ion-input placeholder="Nachname"  value={{info?.lastName}} disabled></ion-input>
       </ion-item>
       <ion-item class="ion-margin-top">
-        <ion-label><strong>Email: </strong></ion-label>
-        <ion-input placeholder="email" type="email"  value={{info?.email}} disabled></ion-input>
+        <ion-label><strong>E-mail: </strong></ion-label>
+        <ion-input placeholder="E-mail" type="email"  value={{info?.email}} disabled></ion-input>
       </ion-item>
     </div>
     <div class="btnsavep">
-      <ion-label text-align="center"><b>Your personal info</b></ion-label>
+      <ion-label text-align="center"><b>persönliche Informationen</b></ion-label>
     </div>
     <div class="profile-info">
       <ion-item class="ion-margin-top">
-        <ion-label><strong>Mobile: </strong></ion-label>
-        <ion-input placeholder="Phone" value='{{info?.mobile}}'formControlName='mobile'></ion-input>
+        <ion-label><strong>Mobiltelefon: </strong></ion-label>
+        <ion-input placeholder="Mobiltelefon" value='{{info?.mobile}}'formControlName='mobile'></ion-input>
       </ion-item>
       <!-- <ion-input placeholder="Company"  value={{info.companyId}}></ion-input> -->
       <ion-item class="ion-margin-top">
-        <ion-label><strong>Street: </strong></ion-label>
-        <ion-input placeholder="Street"  value={{info?.street}} formControlName='street'></ion-input>
+        <ion-label><strong>Strasse: </strong></ion-label>
+        <ion-input placeholder="Strasse"  value={{info?.street}} formControlName='street'></ion-input>
       </ion-item>
       
       <ion-item class="ion-margin-top">
-        <ion-label><strong>City: </strong></ion-label>
-        <ion-input placeholder="City"  value={{info?.city}} formControlName='city'></ion-input>
+        <ion-label><strong>Ort: </strong></ion-label>
+        <ion-input placeholder="Ort"  value={{info?.city}} formControlName='city'></ion-input>
       </ion-item>
       
       <ion-item class="ion-margin-top">
-        <ion-label><strong>Region: </strong></ion-label>
-        <ion-input placeholder="Region"  value={{info?.region}} formControlName='region'></ion-input>
+        <ion-label><strong>Bundesland: </strong></ion-label>
+        <ion-input placeholder="Bundesland"  value={{info?.region}} formControlName='region'></ion-input>
       </ion-item>
       <ion-item class="ion-margin-top">
-        <ion-label><strong>Country: </strong></ion-label>
-        <ion-input placeholder="Country"  value={{info?.country}} formControlName='country'></ion-input>
+        <ion-label><strong>Staat: </strong></ion-label>
+        <ion-input placeholder="Staat"  value={{info?.country}} formControlName='country'></ion-input>
       </ion-item>
       <ion-item class="ion-margin-top">
-        <ion-label><strong>Zip code: </strong></ion-label>
-        <ion-input placeholder="Zip code"  value={{info?.zip}} formControlName='zip'></ion-input>
+        <ion-label><strong>PLZ: </strong></ion-label>
+        <ion-input placeholder="PLZ"  value={{info?.zip}} formControlName='zip'></ion-input>
       </ion-item>
       <ion-item class="ion-margin-top">
         <ion-label><strong>Fax: </strong></ion-label>

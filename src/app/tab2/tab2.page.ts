@@ -154,23 +154,23 @@ export class Tab2Page {
       this.taskStatusForm.get('title').setValue(title);
       this.taskStatusForm.get('deadline').setValue(deadline);
       const alert = await this.alertController.create({
-          header: 'Task done',
+          header: 'Aufgabe erledigt',
           cssClass: 'alert',
-          message: '<strong>Do you want to mark this task as done?</strong>',
+          message: '<strong>Haben Sie diese Aufgabe erledigt?</strong>',
           buttons: [
               {
-                  text: 'No',
+                  text: 'Nein',
                   role: 'cancel',
                   cssClass: 'secondary',
                   handler: () => {
                   }
               }, {
-                  text: 'Yes',
+                  text: 'Ja',
                   handler: () => {
                     this.api.updateTask(this.taskStatusForm.value)
                     .subscribe(res => {
                       this.doRefresh(event);
-                      this.presentAlert();
+                      // this.presentAlert();
                     }, (err) => {
                       console.log(err);
                     });

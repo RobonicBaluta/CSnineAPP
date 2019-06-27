@@ -3,7 +3,7 @@
     <ion-grid>
         <ion-row>
             <ion-col text-center>
-                Add new task
+                neue Aufgabe 
             </ion-col>
         </ion-row>
         
@@ -11,12 +11,12 @@
         <ion-row>
             <ion-segment [(ngModel)]="taskTabs" size='start'>
                 <ion-segment-button value="general" >
-                    <ion-label>General</ion-label>
+                    <ion-label>Allgemein</ion-label>
                     <ion-icon name='clipboard'></ion-icon>
                 </ion-segment-button>
                 
                 <ion-segment-button value="docs" disabled>
-                    <ion-label>Documents</ion-label>
+                    <ion-label>Dokumente</ion-label>
                     <ion-icon name="attach"></ion-icon>
                 </ion-segment-button>
             </ion-segment>
@@ -29,18 +29,18 @@
                     
                     <ion-row>
                         <ion-col text-center>
-                            <ion-label color="primary">Task Title*</ion-label>
+                            <ion-label color="primary">Betreff*</ion-label>
                             <ion-input  type='Text' formControlName="title"  placeholder='My new Task'></ion-input>
                         </ion-col>
                     </ion-row>
                     
                     <ion-row>
                         <ion-col>
-                            <ion-label>Asigned User*:</ion-label>
+                            <ion-label>zuständiger Kollege*:</ion-label>
                             <ion-select placeholder="Asigned User" formControlName="assignedUserId" > 
                                 <ion-select-option *ngFor="let user of simpleUsers|async;" [value]="user.id"  (ionChange)="setUser(user.id)"> {{user.lastName}} {{user.firstName}}</ion-select-option>
                             </ion-select>
-                            <ion-button size='small' color="primary">Me: <ion-checkbox checked id="meCheck" [(ngModel)]='me' (ionChange)="getProfile()" [ngModelOptions]="{standalone: true}"></ion-checkbox></ion-button>
+                            <ion-button size='small' color="primary">für mich <ion-checkbox checked id="meCheck" [(ngModel)]='me' (ionChange)="getProfile()" [ngModelOptions]="{standalone: true}"></ion-checkbox></ion-button>
                         </ion-col>
                     </ion-row>
                     
@@ -49,7 +49,7 @@
                     
                     <ion-row>
                         <ion-col>
-                            <ion-label>Client*:</ion-label>
+                            <ion-label>Unternehmen*:</ion-label>
                             <ion-select  formControlName="clientId" placeholder="Client"> 
                                 <ion-select-option *ngFor="let client of clients|async;" [value]="client.id" (ionChange)="setClient(client.id)">{{client.name}}</ion-select-option>
                             </ion-select>
@@ -59,7 +59,7 @@
                     
                     <ion-row>
                         <ion-col>
-                            <ion-label>Description*:</ion-label>
+                            <ion-label>Beschreibung*:</ion-label>
                             <ion-textarea formControlName="description" [(ngModel)]="description" placeholder='Enter a description'></ion-textarea>  
                         </ion-col>
                     </ion-row>
@@ -75,22 +75,22 @@
                     
                     <div>
                         <ion-item>
-                            <ion-label>Deadline*:</ion-label>
-                            <ion-select required placeholder="Select a date" [(ngModel)]='select' [ngModelOptions]="{standalone: true}" (ionChange)="checkDate()" >
-                                <ion-select-option value="immediately" >Immediately</ion-select-option>
-                                <ion-select-option value="forYouInfomation">For your infomation</ion-select-option>
-                                <ion-select-option value="enableOn">On</ion-select-option>
-                                <ion-select-option value="enableFrom">To</ion-select-option>
+                            <ion-label>spätestens*:</ion-label>
+                            <ion-select required placeholder="Datum" [(ngModel)]='select' [ngModelOptions]="{standalone: true}" (ionChange)="checkDate()" >
+                                <ion-select-option value="immediately" >sofort</ion-select-option>
+                                <ion-select-option value="forYouInfomation">zur Info</ion-select-option>
+                                <ion-select-option value="enableOn">am</ion-select-option>
+                                <ion-select-option value="enableFrom">bis</ion-select-option>
                             </ion-select>
                         </ion-item>
                         
                         <div [hidden]="!showFrom == true">
-                            <ion-label>From:</ion-label>
+                            <ion-label>von:</ion-label>
                             <ion-datetime displayFormat="MMM/DD/YYYY HH:mm" max="2100-12-31" (ionChange)='setFrom()' placeholder="Pick a date" [(ngModel)]="fromDate" [ngModelOptions]="{standalone: true}"></ion-datetime>
                         </div>
                         
                         <div [hidden]="!showTo == true">
-                            <ion-label>To:</ion-label>
+                            <ion-label>bis:</ion-label>
                             <ion-datetime displayFormat="MMM/DD/YYYY HH:mm" max="2100-12-31" (ionChange)='setTo()' placeholder="Pick a date" [(ngModel)]="toDate" [ngModelOptions]="{standalone: true}"></ion-datetime>
                         </div>
                     </div>
@@ -105,7 +105,7 @@
                 </form>
             </div>
             <div *ngSwitchCase="'docs'" >
-                    Documents
+                Dokumente
             </div>
         </div>
     </ion-grid>

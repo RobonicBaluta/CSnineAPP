@@ -52,7 +52,7 @@ export class NoteModalPage implements OnInit {
     async addNote(){
       await this.api.addNote(this.noteForm.value)
       .subscribe(res => {        
-        this.presentAlert()
+        // this.presentAlert()
         this.closeModal();
         // window.location.reload();
         //this.router.navigate(['/home']);

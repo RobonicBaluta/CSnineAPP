@@ -75,7 +75,7 @@ export class AddCompanyModalPage implements OnInit {
         await this.api.addCompany(this.company.value)
         .subscribe(res => {
           this.closeModal();
-          this.createCompanyAlert();
+          // this.createCompanyAlert();
         }, (err) => {
           console.log(err);
         });

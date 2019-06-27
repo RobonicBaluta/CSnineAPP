@@ -83,7 +83,7 @@ this.select='herr';
   }
   async getContact() {
     await this.getId();
-    this.presentAlert('To export contact successfully you should fill some required fields');
+    this.presentAlert('Um den Kontakt erfolgreich zu exportieren, müssen Sie einige erforderliche Felder ausfüllen');
      const loading = await this.loadingController.create({
         message: 'Loading'
       });
@@ -124,7 +124,7 @@ this.select='herr';
     await this.api.exportContact(this.exportForm.value)
     .subscribe(res => {
       this.closeModal();
-      this.exportAlert();
+      // this.exportAlert();
     }, (err) => {
       console.log(err);
     });

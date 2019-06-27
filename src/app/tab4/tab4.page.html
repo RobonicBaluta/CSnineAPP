@@ -4,7 +4,7 @@
     <ion-toolbar>
 
         <ion-title>
-            Contacts
+            Kontakte
 
         </ion-title>
 
@@ -21,7 +21,7 @@
             </ion-refresher>
     <ion-row>
         <!-- <ion-searchbar  class="search" side='start' [(ngModel)]="conts"></ion-searchbar> -->
-        <ion-searchbar  class="search"  #filter side='start' [(ngModel)]="conts" (input)="getFilteredContacts(filter.value)"></ion-searchbar>
+        <ion-searchbar  class="search"  #filter side='start' [(ngModel)]="conts" placeholder='Suche' (input)="getFilteredContacts(filter.value)"></ion-searchbar>
         <ion-icon  side='end' class="searchLogo" src="assets/logo.svg"></ion-icon>
        
     </ion-row>
@@ -30,12 +30,12 @@
     <ion-row>
         <ion-segment [(ngModel)]="contactTab" size='start'>
             <ion-segment-button value="cs">
-                <ion-label>CS Contacts</ion-label>
+                <ion-label>CS Kontakte</ion-label>
                 <ion-icon src="assets/logo.svg"></ion-icon>
             </ion-segment-button>
 
             <ion-segment-button value="mobile">
-                <ion-label>Mobile Contacts</ion-label>
+                <ion-label>Mobile Kontakte</ion-label>
                 <ion-icon name="phone-portrait"></ion-icon>
             </ion-segment-button>
         </ion-segment>

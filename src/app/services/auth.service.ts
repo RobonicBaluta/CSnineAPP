@@ -132,27 +132,29 @@ export class AuthService {
           }
           switch (error.status) {
             case 400:
-            window.alert('400:The request made was not successful');
+            window.alert('Die Anfrage war nicht erfolgreich');
             break;
             case 401:
-            window.alert('Invalid username or password');
+            window.alert('Ungültiger Benutzer oder Passwort');
             break;
             case 403:
-            window.alert('403:Permision denied');
+            window.alert('Zugang verweigert');
             break;
             case 500:
-            window.alert('500:Server error, contact with admin');
+            window.alert('Serverfehler, Kontakt mit Admin');
             break;
             default:
+  
+            if(error.error.message==null ||error.error.message==''){
+              window.alert('Verbindungsfehler');
+            }else{
+              window.alert(error.error.message);
+            }
             break;
           }
           // return an observable with a user-facing error message
           // window.alert(error.error);
-          if(error.error.message==null ||error.error.message==''){
-            window.alert('Connection error');
-          }else{
-            window.alert(error.error.message);
-          }
+       
           return throwError('Something bad happened; please try again later.');
         }
       }

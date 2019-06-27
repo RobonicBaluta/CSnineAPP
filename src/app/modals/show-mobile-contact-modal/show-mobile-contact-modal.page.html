@@ -17,7 +17,7 @@
     
     
     <ion-item class="ion-margin-top">
-      <ion-label><strong>Emails: </strong></ion-label>
+      <ion-label><strong>E-mails: </strong></ion-label>
       <div class="profile-info" *ngFor="let email of contact?.emails">
           {{email.value}}
     </div>
@@ -25,11 +25,11 @@
 
     </ion-item>
     <div class="btnsavep">
-      <ion-label text-align="center"><b>Personal info</b></ion-label>
+      <ion-label text-align="center"><b>persönliche Informationen</b></ion-label>
     </div>
     
     <div class="ion-margin-top" >
-      <ion-label><strong>Numbers: </strong></ion-label>
+      <ion-label><strong>Telefonnummern: </strong></ion-label>
       
       <ion-item class="profile-info" *ngFor="let number of contact?.phoneNumbers">
         {{number.value}}
@@ -40,7 +40,7 @@
     
     
     <ion-item class="ion-margin-top" >
-      <ion-label><strong>Addresses: </strong></ion-label>
+      <ion-label><strong>Adressen: </strong></ion-label>
       <div class="profile-info" *ngFor="let address of contact?.addresses">
         
         {{address?.streetAddress}}

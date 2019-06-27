@@ -157,7 +157,7 @@ export class EditTaskModalPage implements OnInit {
     // this.platform.ready();
 
     this.file.writeFile(filePath, documentName, this.doc, { replace: true }).then((fileEntry: FileEntry) => {
-      window.alert(fileEntry.toURL());
+      // window.alert(fileEntry.toURL());
      window.alert("File saved!");
 
 
