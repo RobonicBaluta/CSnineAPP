@@ -61,6 +61,8 @@ export class EditTaskModalPage implements OnInit {
   document: Observable<any>;
   file=new File();
   fileArray:any;
+  generalTab:boolean=true;
+  documentsTab:boolean=false;
   @ViewChild (IonSegment) segment:IonSegment;
   taskTabs: string;
 
@@ -459,6 +461,15 @@ export class EditTaskModalPage implements OnInit {
           buttons: ['OK']
         });
         alert.present();
+      }
+
+      showGeneral(){
+        this.generalTab=true;
+        this.documentsTab=false;
+      }
+      showDocs(){
+        this.documentsTab=true;
+        this.generalTab=false;
       }
     }
     

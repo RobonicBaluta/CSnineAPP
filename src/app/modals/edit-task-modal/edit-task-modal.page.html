@@ -9,137 +9,139 @@
         
         <ion-row>
             <ion-segment [(ngModel)]="taskTabs" size='start'>
-                <ion-segment-button value="general" >
+                <ion-segment-button value="general" checked='true' (click)="showGeneral()" >
                     <ion-label>General</ion-label>
                     <ion-icon name='clipboard'></ion-icon>
                 </ion-segment-button>
                 
-                <ion-segment-button value="docs" >
+                <ion-segment-button value="docs" (click)="showDocs()" >
                     <ion-label>Documents</ion-label>
                     <ion-icon name="attach"></ion-icon>
                 </ion-segment-button>
             </ion-segment>
             
         </ion-row>
-        <div [ngSwitch]="taskTabs">
-            <div *ngSwitchCase="'general'" >
-                <form [formGroup]="taskForm">
-                    <ion-input value='{{task?.id}}' hidden formControlName='id'></ion-input>
-                    <ion-row>
-                        <ion-col text-center>
-                            <ion-label color="primary">Task Title</ion-label>
-                            <ion-input  type='Text' formControlName="title" value={{task?.title}} placeholder='My new Task'></ion-input>
-                        </ion-col>
-                    </ion-row>
-                    
-                    <ion-row>
-                        <ion-col>
-                            <ion-label>Asigned User:</ion-label>
-                            <ion-select placeholder="Asigned User" formControlName="assignedUserId"> 
-                                <ion-select-option *ngFor="let user of simpleUsers|async;" [value]="user.id" (ionChange)="setUser(user.id)" [value]="user"> {{user.lastName}} {{user.firstName}}</ion-select-option>
-                            </ion-select>
-                            <ion-button size='small' color="primary">Me: <ion-checkbox checked id="meCheck" [(ngModel)]='me'[ngModelOptions]="{standalone: true}" (ionChange)='meOrNot()' ></ion-checkbox></ion-button>
-                        </ion-col>
-                    </ion-row>
-                    
-                    
-                    <ion-row>
-                        <ion-col>
-                            <ion-label>Client:</ion-label>
-                            <ion-select  formControlName="clientId" placeholder="Client"> 
-                                <ion-select-option *ngFor="let client of clients|async;" [value]="client.id" (ionChange)="setClient(client.id)">{{client.name}}</ion-select-option>
-                            </ion-select>
-                        </ion-col>
-                    </ion-row>
-                    
-                    
-                    <ion-row>
-                        <ion-col>
-                            <ion-label>Description:</ion-label>
-                            <ion-textarea formControlName="description" value={{task?.description}} [(ngModel)]="description" placeholder='Enter a description'></ion-textarea>  
-                        </ion-col>
-                    </ion-row>
-                    
-                    <ion-input type='text' hidden  value="{{description}}" formControlName="descriptionHtml"></ion-input>
-                    
-                    
-                    
-                    <!-- <div formGroupName="entityRelatedTo">     
-                        <ion-input type='text' hidden [(ngModel)]="entityId" formControlName="entityId"></ion-input>
-                        <ion-input  type='text'  hidden [(ngModel)]="entityType" formControlName="entityType"></ion-input>
-                    </div> -->
-                    
-                    <div>
-                        <ion-item>
-                            <ion-label>Deadline:</ion-label>
-                            <ion-select required placeholder="Select a date" [(ngModel)]='select' [ngModelOptions]="{standalone: true}" (ionChange)="checkDate()" >
-                                <ion-select-option value="immediately" >Immediately</ion-select-option>
-                                <ion-select-option value="forYouInfomation">For your infomation</ion-select-option>
-                                <ion-select-option value="enableOn">On</ion-select-option>
-                                <ion-select-option value="enableFrom">To</ion-select-option>
-                            </ion-select>
-                        </ion-item>
-                        
-                        <div [hidden]="!showFrom == true">
-                            <ion-label>From:</ion-label>
-                            <ion-datetime displayFormat="MMM/DD/YYYY HH:mm"  max="2100-12-31" (ionChange)='setFrom()' placeholder="Pick a date" [(ngModel)]="fromDate" [ngModelOptions]="{standalone: true}"></ion-datetime>
-                        </div>
-                        
-                        <div [hidden]="!showTo == true">
-                            <ion-label>To:</ion-label>
-                            <ion-datetime displayFormat="MMM/DD/YYYY HH:mm" max="2100-12-31" (ionChange)='setTo()' placeholder="Pick a date" [(ngModel)]="toDate" [ngModelOptions]="{standalone: true}"></ion-datetime>
-                        </div>
-                    </div>
-                    
-                    <ion-row>
-                        <ion-col text-center>
-                            <ion-button color="warning" (click)="closeModal()"> <ion-icon name="close-circle"> </ion-icon> </ion-button>
-                            <ion-button color="secondary"  (click)="updateTask()"><ion-icon name="save"></ion-icon> </ion-button>                  
-                        </ion-col>
-                    </ion-row>
-                    
-                </form>
-                
-                <!-- enctype="multipart/form-data" -->
-                
-                
-                <!-- <ion-row>
-                    <ion-col>
-                        <ion-label>Document:</ion-label>
-                        <ion-input formControlName="files"  type='file'  ></ion-input>
+        
+        <div [hidden]="!generalTab == true" > 
+            <form [formGroup]="taskForm">
+                <ion-input value='{{task?.id}}' hidden formControlName='id'></ion-input>
+                <ion-row>
+                    <ion-col >
+                        <ion-label >Task Title*:</ion-label>
+                        <ion-input  type='Text' formControlName="title" value={{task?.title}} placeholder='My new Task'></ion-input>
                     </ion-col>
-                </ion-row> -->
+                </ion-row>
+                
+                <ion-row>
+                    <ion-col>
+                        <ion-label>Asigned User*:</ion-label>
+                        <ion-select placeholder="Asigned User" formControlName="assignedUserId"> 
+                            <ion-select-option *ngFor="let user of simpleUsers|async;" [value]="user.id" (ionChange)="setUser(user.id)" [value]="user"> {{user.lastName}} {{user.firstName}}</ion-select-option>
+                        </ion-select>
+                        <ion-button size='small' color="primary">Me: <ion-checkbox checked id="meCheck" [(ngModel)]='me'[ngModelOptions]="{standalone: true}" (ionChange)='meOrNot()' ></ion-checkbox></ion-button>
+                    </ion-col>
+                </ion-row>
                 
                 
-                <ion-input type='text' hidden value='{{task?.id}}' [(ngModel)]="entityId"></ion-input>
+                <ion-row>
+                    <ion-col>
+                        <ion-label>Client*:</ion-label>
+                        <ion-select  formControlName="clientId" placeholder="Client"> 
+                            <ion-select-option *ngFor="let client of clients|async;" [value]="client.id" (ionChange)="setClient(client.id)">{{client.name}}</ion-select-option>
+                        </ion-select>
+                    </ion-col>
+                </ion-row>
                 
-                <ion-input type='text' hidden [(ngModel)]="entityType"></ion-input>
+                
+                <ion-row>
+                    <ion-col>
+                        <ion-label>Description*:</ion-label>
+                        <ion-textarea formControlName="description" value={{task?.description}} [(ngModel)]="description" placeholder='Enter a description'></ion-textarea>  
+                    </ion-col>
+                </ion-row>
+                
+                <ion-input type='text' hidden  value="{{description}}" formControlName="descriptionHtml"></ion-input>
                 
                 
-                <!-- <ion-button name='attach' (click)="readFile()"></ion-button> -->
-                <!-- <ion-item>
-                    <ion-label>Select File</ion-label>
-                    <ion-icon name="md-add-circle" item-end color="secondary" (click)="selectFile()"></ion-icon>
-                </ion-item> -->
                 
-               
-                <!-- <div padding> 
-                    <button ion-button type="submit" type="submit"  block>Submit</button>
+                <!-- <div formGroupName="entityRelatedTo">     
+                    <ion-input type='text' hidden [(ngModel)]="entityId" formControlName="entityId"></ion-input>
+                    <ion-input  type='text'  hidden [(ngModel)]="entityType" formControlName="entityType"></ion-input>
                 </div> -->
                 
-                
-            </div>
-            <div class="ion-margin-top"  *ngSwitchCase="'docs'">
-                    <input type="file" id="file" (change)="handleFileInput($event.target.files,task.id)" multiple>
-                <ion-label><strong>Documents: </strong></ion-label>
-                
-                <ion-item class="profile-info" *ngFor="let document of documents|async" (click)="getDocumentById(document?.id,document?.documentName)">
-                    {{document.documentName}}
+                <div>
+                    <ion-item>
+                        <ion-label>Deadline*:</ion-label>
+                        <ion-select required placeholder="Select a date" [(ngModel)]='select' [ngModelOptions]="{standalone: true}" (ionChange)="checkDate()" >
+                            <ion-select-option value="immediately" >Immediately</ion-select-option>
+                            <ion-select-option value="forYouInfomation">For your infomation</ion-select-option>
+                            <ion-select-option value="enableOn">On</ion-select-option>
+                            <ion-select-option value="enableFrom">To</ion-select-option>
+                        </ion-select>
+                    </ion-item>
                     
-                </ion-item>
+                    <div [hidden]="!showFrom == true">
+                        <ion-label>From:</ion-label>
+                        <ion-datetime displayFormat="MMM/DD/YYYY HH:mm"  max="2100-12-31" (ionChange)='setFrom()' placeholder="Pick a date" [(ngModel)]="fromDate" [ngModelOptions]="{standalone: true}"></ion-datetime>
+                    </div>
+                    
+                    <div [hidden]="!showTo == true">
+                        <ion-label>To:</ion-label>
+                        <ion-datetime displayFormat="MMM/DD/YYYY HH:mm" max="2100-12-31" (ionChange)='setTo()' placeholder="Pick a date" [(ngModel)]="toDate" [ngModelOptions]="{standalone: true}"></ion-datetime>
+                    </div>
+                </div>
                 
-            </div>
+                <ion-row>
+                    <ion-col text-center>
+                        <ion-button color="warning" (click)="closeModal()"> <ion-icon name="close-circle"> </ion-icon> </ion-button>
+                        <ion-button color="secondary"  (click)="updateTask()"><ion-icon name="save"></ion-icon> </ion-button>                  
+                    </ion-col>
+                </ion-row>
+                
+            </form>
+            
+            <!-- enctype="multipart/form-data" -->
+            
+            
+            <!-- <ion-row>
+                <ion-col>
+                    <ion-label>Document:</ion-label>
+                    <ion-input formControlName="files"  type='file'  ></ion-input>
+                </ion-col>
+            </ion-row> -->
+            
+            
+            <ion-input type='text' hidden value='{{task?.id}}' [(ngModel)]="entityId"></ion-input>
+            
+            <ion-input type='text' hidden [(ngModel)]="entityType"></ion-input>
+            
+            
+            <!-- <ion-button name='attach' (click)="readFile()"></ion-button> -->
+            <!-- <ion-item>
+                <ion-label>Select File</ion-label>
+                <ion-icon name="md-add-circle" item-end color="secondary" (click)="selectFile()"></ion-icon>
+            </ion-item> -->
+            
+            
+            <!-- <div padding> 
+                <button ion-button type="submit" type="submit"  block>Submit</button>
+            </div> -->
+            
+            
         </div>
+        
+        <div class="ion-margin-top" [hidden]="!documentsTab == true" >
+            <ion-label><strong>Upload a document: </strong></ion-label>
+            <input type="file" id="file" (change)="handleFileInput($event.target.files,task.id)" multiple>
+            <ion-label><strong>Documents: </strong></ion-label>
+            
+            <ion-item class="profile-info" *ngFor="let document of documents|async" (click)="getDocumentById(document?.id,document?.documentName)">
+                {{document.documentName}}
+                
+            </ion-item>
+            
+        </div>
+        
     </ion-grid>
     
 </ion-content>

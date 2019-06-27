@@ -22,6 +22,7 @@ export class AppComponent {
     private headerColor: HeaderColor,
     public api: RestApiService,
     private location:Location,
+
   ) {
     this.initializeApp();
     //console.log("Hola: " + this.router.url);
@@ -29,11 +30,15 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-
+      if(this.router.url==='/login'){
+        this.api.setBiz();
+        
+      }
       this.platform.backButton.subscribeWithPriority(0,() => {
        if(this.router.url=='/login'){
          this.router.navigate(['select-server']);
        this.api.setBiz();
+       this.authService.storage.set('server','Internal CS');
        }else{
         this.location.back();
        }

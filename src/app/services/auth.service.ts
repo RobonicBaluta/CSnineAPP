@@ -1,11 +1,11 @@
 import { Platform, AlertController, LoadingController } from '@ionic/angular';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Storage } from '@ionic/storage';
 import { environment } from '../../environments/environment';
 import { tap, catchError } from 'rxjs/operators';
-import { BehaviorSubject, from } from 'rxjs';
+import { BehaviorSubject, from, throwError } from 'rxjs';
 import { RestApiService } from '../rest-api.service';
 // import { HTTP } from '@ionic-native/http/ngx';
 
@@ -55,24 +55,24 @@ export class AuthService {
     }
     
     checkServer() {
-     
-        this.storage.get('server').then(server => {
-          console.log('serverOnInit'+server);
-          switch (server) {
-
-            case 'CS Test Solty':
-            this.api.setSolty();
-            
-            break;
-            case 'Internal CS':
-            this.api.setBiz();
-            default:
-            this.api.apiUrl='https://webapi.contentshare.biz/api/v1';
-            break;
-          }
-          console.log('the api url at init'+this.api.apiUrl);
-        });
-     
+      
+      this.storage.get('server').then(server => {
+        console.log('serverOnInit'+server);
+        switch (server) {
+          
+          case 'CS Test Solty':
+          this.api.setSolty();
+          
+          break;
+          case 'Internal CS':
+          this.api.setBiz();
+          default:
+          this.api.apiUrl='https://webapi.contentshare.biz/api/v1';
+          break;
+        }
+        console.log('the api url at init'+this.api.apiUrl);
+      });
+      
     }
     
     
@@ -87,16 +87,7 @@ export class AuthService {
           this.user = this.helper.decodeToken(res['accessToken']);
           this.authenticationState.next(true);
         }),
-        catchError(e => {
-          console.log(e.error);
-          if(e.error==null|| e.error==''){
-            this.showAlert('Connection error');
-          }else{
-            this.showAlert(e.error.message);
-          }
-          
-          throw new Error(e);
-        })
+        catchError(this.handleError)
         );
       }
       
@@ -109,7 +100,7 @@ export class AuthService {
           this.api.setBiz();
           this.storage.set('server','Internal CS');
         });
-       
+        
       }
       
       
@@ -126,4 +117,42 @@ export class AuthService {
         });
         alert.then(alert => alert.present());
       }
-    }
+      
+      
+      handleError(error: HttpErrorResponse) {
+        if (error.error instanceof ErrorEvent) {
+          // A client-side or network error occurred. Handle it accordingly.
+          console.error('An error occurred:', error.error.message);
+        } else {
+          // The backend returned an unsuccessful response code.
+          // The response body may contain clues as to what went wrong,
+          console.error(
+            `Backend returned code ${error.status}, ` +
+            `body was: ${error.error}`);
+          }
+          switch (error.status) {
+            case 400:
+            window.alert('400:The request made was not successful');
+            break;
+            case 401:
+            window.alert('Invalid username or password');
+            break;
+            case 403:
+            window.alert('403:Permision denied');
+            break;
+            case 500:
+            window.alert('500:Server error, contact with admin');
+            break;
+            default:
+            break;
+          }
+          // return an observable with a user-facing error message
+          // window.alert(error.error);
+          if(error.error.message==null ||error.error.message==''){
+            window.alert('Connection error');
+          }else{
+            window.alert(error.error.message);
+          }
+          return throwError('Something bad happened; please try again later.');
+        }
+      }
