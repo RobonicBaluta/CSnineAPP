@@ -130,7 +130,7 @@ export class EditCompanyModalPage implements OnInit {
     async getCompanyInfo(){
 
       const loading = await this.loadingController.create({
-        message: 'Loading'
+        message: 'Laden'
       });
       await loading.present();
 
@@ -160,7 +160,7 @@ export class EditCompanyModalPage implements OnInit {
     async deleteNote(itemId:number){
       this.api.deleteNote(itemId)
       .subscribe(res => {
-        this.deleteAlert();
+        // this.deleteAlert();
         this.doRefresh(this.events);
       }, err => {
         console.log(err);
@@ -173,7 +173,7 @@ export class EditCompanyModalPage implements OnInit {
         await this.api.updateCompany( this.companyForm.value)
         .subscribe(res => {
 
-          this.updateAlert();
+          // this.updateAlert();
           this.closeModal();
         }, (err) => {
           console.log(err);

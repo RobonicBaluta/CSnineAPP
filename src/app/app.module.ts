@@ -26,6 +26,15 @@ import { HTTP } from '@ionic-native/http/ngx';
 import { HeaderColor } from '@ionic-native/header-color/ngx';
 import { EditTaskModalPageModule } from './modals/edit-task-modal/edit-task-modal.module';
 import { ShowContactModalPageModule } from './modals/show-contact-modal/show-contact-modal.module';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
+import { File } from '@ionic-native/file/ngx';
+import { FilePath } from '@ionic-native/file-path/ngx';
+import { ShowMobileContactModalPageModule } from './modals/show-mobile-contact-modal/show-mobile-contact-modal.module';
+import { ExportContactModalPageModule } from './modals/export-contact-modal/export-contact-modal.module';
+import { FileChooser } from '@ionic-native/file-chooser/ngx';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
+
+
 
 
 export function jwtOptionsFactory(storage) {
@@ -51,6 +60,8 @@ export function jwtOptionsFactory(storage) {
     AddTaskModalPageModule,
     EditTaskModalPageModule,
     ShowContactModalPageModule,
+    ShowMobileContactModalPageModule,
+    ExportContactModalPageModule,
     IonicStorageModule.forRoot(),
     JwtModule.forRoot({
       jwtOptionsProvider: {
@@ -69,6 +80,11 @@ export function jwtOptionsFactory(storage) {
       { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
       { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
       HTTP,
+      FileTransfer,
+      File,
+      FilePath,
+      FileChooser,
+      FileOpener,
 
     ],
     

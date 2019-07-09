@@ -7,6 +7,8 @@ import { IonSegment } from '@ionic/angular';
 import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts/ngx';
 import { EditCompanyModalPage } from '../modals/edit-company-modal/edit-company-modal.page';
 import { ShowContactModalPage } from '../modals/show-contact-modal/show-contact-modal.page';
+import { ShowMobileContactModalPage } from '../modals/show-mobile-contact-modal/show-mobile-contact-modal.page';
+import { ExportContactModalPage } from '../modals/export-contact-modal/export-contact-modal.page';
 
 
 @Component({
@@ -23,8 +25,12 @@ export class Tab4Page implements OnInit {
     items:any;
     contactTab: string;
     contactId: number;
+    mobileContactId: number;
     contact:Observable<any>;
-    
+    displayNameFilter: any;
+    descending: boolean = true;
+    order: number;
+    column: string = 'firstName';
     constructor(public api: RestApiService,
         public modalController: ModalController,
         private contacts: Contacts,
@@ -40,7 +46,10 @@ export class Tab4Page implements OnInit {
             this.contactTab = 'cs';
         }
         
-        
+        sort(){
+            // this.descending = !this.descending;
+            this.order = this.descending ? 1 : -1;
+          }
         
         
         setContactId(id:number){
@@ -49,8 +58,33 @@ export class Tab4Page implements OnInit {
             this.showContactModal();
         }
         
- 
+        setMobileContactId(id:number){
+            this.mobileContactId=id;
+            // console.log(this.companyId);
+            this.showMobileContactModal();
+        }
         
+        setExportContactId(id:number){
+            this.mobileContactId=id;
+            // console.log(this.companyId);
+            this.showExportContactModal();
+        }
+        
+        async showExportContactModal() {
+            const modal = await this.modalController.create({
+                component: ExportContactModalPage,
+                componentProps:{
+                    exportContactId: this.mobileContactId,
+                    
+                }
+            });
+            modal.onDidDismiss().then((dataReturned) => {
+                if (dataReturned !== null) {
+                    console.log('Modal Sent Data :', dataReturned);
+                }
+            });
+            return await modal.present();
+        }
         async showContactModal() {
             const modal = await this.modalController.create({
                 component: ShowContactModalPage,
@@ -68,29 +102,57 @@ export class Tab4Page implements OnInit {
         }
         
         
+        async showMobileContactModal() {
+            const modal = await this.modalController.create({
+                component: ShowMobileContactModalPage,
+                componentProps:{
+                    mobileContactId: this.mobileContactId,
+                    
+                }
+            });
+            modal.onDidDismiss().then((dataReturned) => {
+                if (dataReturned !== null) {
+                    console.log('Modal Sent Data :', dataReturned);
+                }
+            });
+            return await modal.present();
+        }
+        
         
         async getApiContacts() {
-            this.csContacts=this.api.getContacts();
+            const loading = await this.loadingController.create({
+                message: 'Laden'
+            });
+            await loading.present();
+           this.csContacts= await this.api.getContacts();
+           this.sort();
+            loading.dismiss();
         }
         
         async getContacts() {
-            this.contacts.find(['displayName', 'name', 'phoneNumbers', 'emails'], {filter: "", multiple: true})
+            const loading = await this.loadingController.create({
+                message: 'Laden'
+            });
+            await loading.present();
+            this.contacts.find(['id','displayName', 'name', 'phoneNumbers', 'emails'], {filter: "", multiple: true})
             .then(data => {
                 this.mobileContacts = data
+                console.log(this.mobileContacts);
             });
+            loading.dismiss();
         }
         
-        // async delete(itemId:string){
-        //   // this.api.deleteItem(itemId);
         
-        //   this.api.deleteItem(itemId)
-        //   .subscribe(res => {
-        //     this.router.navigate(['/home']);
-        //   }, err => {
-        //     console.log(err);
-        //   });
-        //   location.reload();
-        // }
+        async getFilteredContacts(filterValue) {
+            
+            
+            this.contacts.find(['displayName'], {filter: `${filterValue}`, multiple: true})
+            .then(data => {
+                this.mobileContacts = data
+                console.log(this.mobileContacts);
+            });
+            
+        }
         
         
         

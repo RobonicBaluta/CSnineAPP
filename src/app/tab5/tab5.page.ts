@@ -28,10 +28,10 @@ export class Tab5Page implements OnInit {
     public navctrl: NavController,
     public loadingController: LoadingController) { 
 
-    platform.backButton.subscribeWithPriority(1, () => {
-      event.preventDefault();
-      alert("Hello :-)");
-    });
+    // platform.backButton.subscribeWithPriority(1, () => {
+    //   event.preventDefault();
+    //   alert("Hello :-)");
+    // });
     
 
 
@@ -58,7 +58,7 @@ export class Tab5Page implements OnInit {
       console.log(this.profileForm.value);
       await this.api.updateProfile(this.profileForm.value).subscribe();
       
-      this.presentAlert();
+      // this.presentAlert();
       this.doRefresh(this.events);
       // window.location.reload();
       //this.router.navigate(['/home']);
@@ -66,12 +66,12 @@ export class Tab5Page implements OnInit {
     }
     
     async getProfile() {
-      // const loading = await this.loadingController.create({
-      //   message: 'Loading'
-      // });
-      // await loading.present();
+      const loading = await this.loadingController.create({
+        message: 'Laden'
+      });
+      await loading.present();
       return this.api.getProfile().subscribe(profile=>{this.info=profile
-        // loading.dismiss()
+        loading.dismiss()
       });   
     }
     

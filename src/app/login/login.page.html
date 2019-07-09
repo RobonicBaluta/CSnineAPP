@@ -1,13 +1,13 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>LOGIN</ion-title>
+        <ion-title>EINLOGGEN</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
     <ion-img id="profile-photo" src="assets/logo.svg"></ion-img>
     
-    <ion-row class="ion-margin-top">
+    <!-- <ion-row class="ion-margin-top">
         <ion-item>
             <ion-label>Pick a server:</ion-label>
             <ion-select required placeholder="Select a server" [(ngModel)]="select" (ionChange)="checkServer()" >
@@ -15,72 +15,48 @@
                 <ion-select-option value="http://webapi.contentshare.biz/api/v1">CS biz</ion-select-option>
             </ion-select>
         </ion-item>
-    </ion-row>
+    </ion-row> -->
     
     <form [formGroup]="credentialsForm" (ngSubmit)="onSubmit()">
         <ion-item class="ion-margin-top">
-            <ion-label>Email</ion-label>
-            <ion-input required type="email" placeholder="Email" class="ion-padding" formControlName="username" ></ion-input>
+            <ion-label>E-mail</ion-label>
+            <ion-input required type="email" placeholder="E-mail" value='{{userEmail}}' [(ngModel)]='userEmail'  class="ion-padding" formControlName="username" ></ion-input>
         </ion-item>
         <ion-item>
-            <ion-label>Password</ion-label>
-            <ion-input required type="password" placeholder="Password" class="ion-padding" formControlName="password"> </ion-input>
+            <ion-label>Passwort</ion-label>
+            <ion-input required type="password" placeholder="Passwort" class="ion-padding" formControlName="password"> </ion-input>
         </ion-item>
         
         
-        <!-- <ion-radio-group>
+        <ion-radio-group>
             <ion-list-header>
-                <ion-label>Server</ion-label>
+                <ion-label>CONTENTShare Auswahl:</ion-label>
             </ion-list-header>
+
             
-            <ion-item>
-                <ion-label>CS SoltyStudio</ion-label>
-                <ion-radio slot="start" (ionSelect)="soltyStudio()" value="biff" checked></ion-radio>
-            </ion-item>
-            
-            <ion-item>
-                <ion-label>Biz</ion-label>
-                <ion-radio slot="start" (ionSelect)="csBiz()" value="griff"></ion-radio>
-            </ion-item>
+                <ion-item *ngFor="let server of servers, let i = index">
+                    <ion-label>{{server.clientName}}</ion-label>
+                    <ion-radio checked="{{i == 0}}" value="{{server.clientName}}"  (ionSelect)="checkServer(server.clientName)"></ion-radio>
+                </ion-item>
+   
             
             
-        </ion-radio-group> -->
+        </ion-radio-group>
         
         
-        
-        <ion-row class="ion-padding">
-            <ion-label>Remember</ion-label>
-            <ion-checkbox class="ion-margin-start"></ion-checkbox>
-        </ion-row>
         
         <ion-row>
             <ion-col>
-                <ion-button type="submit" [disabled]="!credentialsForm.valid" class="ion-padding" expand='block'>Login</ion-button>
+                <ion-button type="submit" [disabled]="!credentialsForm.valid" class="ion-padding" expand='block'>Einloggen</ion-button>
             </ion-col>
         </ion-row>
         
     </form>
     <ion-row class="ion-justify-content-center ion-margin-top">
         <ion-col size="8">
-            <ion-text color="primary" routerLink="/reset">Forgot your password?</ion-text>
+            <ion-text color="primary" routerLink="/reset">Haben Sie Ihr Passwort vergessen?</ion-text>
         </ion-col>
         
     </ion-row>
     
-    <!-- <form [formGroup]="credentialsForm" (ngSubmit)="onSubmit()">
-        
-        <ion-item>
-            <ion-label position="floating">Email</ion-label>
-            <ion-input type="email" formControlName="username"></ion-input>
-        </ion-item>
-        
-        <ion-item>
-            <ion-label position="floating">Password</ion-label>
-            <ion-input type="password" formControlName="password"></ion-input>
-        </ion-item>
-        
-        <ion-button expand="full" type="submit" [disabled]="!credentialsForm.valid">Login</ion-button>
-        
-        
-    </form> -->
 </ion-content>

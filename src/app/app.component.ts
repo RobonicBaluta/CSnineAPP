@@ -6,7 +6,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthService } from './services/auth.service';
 import { Router } from '@angular/router';
 import { HeaderColor } from '@ionic-native/header-color/ngx';
-
+import { RestApiService } from './rest-api.service';
+import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html'
@@ -19,6 +20,9 @@ export class AppComponent {
     private authService: AuthService,
     private router: Router,
     private headerColor: HeaderColor,
+    public api: RestApiService,
+    private location:Location,
+
   ) {
     this.initializeApp();
     //console.log("Hola: " + this.router.url);
@@ -26,6 +30,19 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
+      if(this.router.url==='/login'){
+        this.api.setBiz();
+        
+      }
+      this.platform.backButton.subscribeWithPriority(0,() => {
+       if(this.router.url=='/login'){
+         this.router.navigate(['select-server']);
+       this.api.setBiz();
+       this.authService.storage.set('server','Internal CS');
+       }else{
+        this.location.back();
+       }
+      })
       // this.statusBar.overlaysWebView(false);
 
       // set status bar to white
@@ -36,10 +53,12 @@ export class AppComponent {
         if (state) {
           this.router.navigate(['tabs']);
         } else {
-          this.router.navigate(['login']);
+          this.router.navigate(['select-server']);
         }
       });
     });
   }
+
+  
 } 
   

@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-title>EINLOGGEN</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-img id="profile-photo" src="assets/logo.svg"></ion-img>
+  
+
+  
+
+      <ion-item class="ion-margin-top">
+          <ion-label>E-mail</ion-label>
+          <ion-input required type="email" placeholder="E-mail" class="ion-padding" [(ngModel)]='email' ></ion-input>
+      </ion-item>
+
+      
+      <ion-row>
+          <ion-col>
+              <ion-button (click)='getServers(email)'  class="ion-padding" expand='block'>Einloggen</ion-button>
+          </ion-col>
+      </ion-row>
+      
+ 
+
+  
+  <!-- <form [formGroup]="credentialsForm" (ngSubmit)="onSubmit()">
+      
+      <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input type="email" formControlName="username"></ion-input>
+      </ion-item>
+      
+      <ion-item>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input type="password" formControlName="password"></ion-input>
+      </ion-item>
+      
+      <ion-button expand="full" type="submit" [disabled]="!credentialsForm.valid">Login</ion-button>
+      
+      
+  </form> -->
+</ion-content>

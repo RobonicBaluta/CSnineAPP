@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{contact?.displayName}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+  
+  <div class="profile-info">
+    <ion-item class="ion-margin-top">
+      <ion-label class="labelsDark"><strong>Name: </strong></ion-label>
+      {{contact?.displayName}}
+    </ion-item>
+    
+    
+    
+    
+    <ion-item class="ion-margin-top">
+      <ion-label><strong>E-mails: </strong></ion-label>
+      <div class="profile-info" *ngFor="let email of contact?.emails">
+          {{email.value}}
+    </div>
+   
+
+    </ion-item>
+    <div class="btnsavep">
+      <ion-label text-align="center"><b>persönliche Informationen</b></ion-label>
+    </div>
+    
+    <div class="ion-margin-top" >
+      <ion-label><strong>Telefonnummern: </strong></ion-label>
+      
+      <ion-item class="profile-info" *ngFor="let number of contact?.phoneNumbers">
+        {{number.value}}
+ 
+      </ion-item>
+      
+    </div>
+    
+    
+    <ion-item class="ion-margin-top" >
+      <ion-label><strong>Adressen: </strong></ion-label>
+      <div class="profile-info" *ngFor="let address of contact?.addresses">
+        
+        {{address?.streetAddress}}
+        {{address?.region}}
+        {{address?.postalCode}}
+        {{address?.country}}
+
+      </div>
+    </ion-item>
+  </div>
+  
+  
+  <!-- <div class="btnsavep">
+    <ion-button color="secondary" ><ion-icon name="save"></ion-icon></ion-button>
+  </div> -->
+</ion-content>

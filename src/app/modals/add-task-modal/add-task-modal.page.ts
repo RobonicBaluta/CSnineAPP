@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController, NavParams, LoadingController } from '@ionic/angular';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModalController, NavParams, LoadingController, AlertController, IonSegment } from '@ionic/angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { RestApiService } from 'src/app/rest-api.service';
+import { EditTaskModalPage } from '../edit-task-modal/edit-task-modal.page';
+
 
 @Component({
   selector: 'app-add-task-modal',
@@ -10,7 +12,7 @@ import { RestApiService } from 'src/app/rest-api.service';
   styleUrls: ['./add-task-modal.page.scss'],
 })
 export class AddTaskModalPage implements OnInit {
-  taskTab: string;
+  taskTabs: string;
   taskForm: FormGroup;
   entityType: any;
   entityId: any;
@@ -29,26 +31,30 @@ export class AddTaskModalPage implements OnInit {
   me:boolean=true;
   profile: Observable<any>;
   info: any;
+  taskId: number;
+  
+
+  @ViewChild (IonSegment) segment:IonSegment;
   
   constructor(
     private modalController: ModalController, 
     private formBuilder: FormBuilder,
     private navParams:NavParams,
     public api: RestApiService,
-    public loadingController: LoadingController) { 
+    public loadingController: LoadingController,
+    private alertCtrl: AlertController) { 
       
-      
-      this.taskTab = 'description';
+      this.taskTabs = 'general';
       
       this.taskForm = this.formBuilder.group({
-        'title':[null],
+        'title':[null,[Validators.required]],
         'description' : [null],
         'descriptionHtml':[null],
-        'assignedUserId': [null],
-        'deadline':[null],
-        'deadlineType':[null],
+        'assignedUserId': [null,[Validators.required]],
+        'deadline':[null,[Validators.required]],
+        'deadlineType':[null,[Validators.required]],
         'fromDate':[null],
-        'clientId':[null],
+        'clientId':[null,[Validators.required]],
         
         'entityRelatedTo': this.formBuilder.group({
           'entityId': [null],
@@ -62,9 +68,18 @@ export class AddTaskModalPage implements OnInit {
     
     ngOnInit() {
       this.getCompanyId();
-      this.taskForm.get('descriptionHtml').setValue(this.taskForm.get('description'));
-      this.entityId=this.companyId;
-      this.entityType='Company';
+      
+      if(this.taskForm.get('description').value!=null && this.taskForm.get('description').value!=''){
+       this.taskForm.get('descriptionHtml').setValue(this.taskForm.get('description').value);
+ 
+      }else{
+        this.taskForm.get('descriptionHtml').setValue('');
+      }
+      if(this.companyId!=null && this.companyId!=''){
+        this.entityId=this.companyId;
+        this.entityType='Company';
+      }
+  
       this.getCompanies();
       this.getSimpleUsers();
       this.getProfile();
@@ -84,7 +99,7 @@ export class AddTaskModalPage implements OnInit {
     }
     async getCompanies(){
       const loading = await this.loadingController.create({
-        message: 'Loading'
+        message: 'Laden'
       });
       await loading.present();
       this.clients=this.api.getCompanies();
@@ -92,7 +107,7 @@ export class AddTaskModalPage implements OnInit {
     }
     async getProfile(){
       const loading = await this.loadingController.create({
-        message: 'Loading'
+        message: 'Laden'
       });
       await loading.present();
       return this.api.getProfile().subscribe(profile=>{this.info=profile
@@ -116,7 +131,7 @@ export class AddTaskModalPage implements OnInit {
     }
     async getSimpleUsers(){
       const loading = await this.loadingController.create({
-        message: 'Loading'
+        message: 'Laden'
       });
       await loading.present();
       this.simpleUsers=this.api.getSimpleUsers();
@@ -132,14 +147,53 @@ export class AddTaskModalPage implements OnInit {
     async addTask(){
       await this.api.addTask(this.taskForm.value)
       .subscribe(res => {
-        console.log(this.taskForm.value);
         this.closeModal();
-      }, (err) => {
-        console.log(err);
+        this.setTaskId(res.id);
+        // this.presentAlert();
       });
       
     }
-    
+
+
+    setTaskId(id:number){
+      this.taskId=id;
+      this.editModal();
+    }
+    async editModal() {
+      const modal = await this.modalController.create({
+        component: EditTaskModalPage,
+        cssClass: 'addCompanyCustom',
+        componentProps:{
+          taskId: this.taskId,
+
+        }
+      });
+      modal.onDidDismiss().then((dataReturned) => {
+        if (dataReturned !== null) {
+          console.log('Modal Sent Data :', dataReturned);
+        }
+      });
+      return await modal.present();
+    }
+
+    async presentAlert() {
+
+      const alert = await this.alertCtrl.create({
+        header: 'Alert',
+        message: 'Task successfully created',
+        buttons: [
+          {
+            text: 'Ok',
+            cssClass: 'secondary',
+            handler: (blah) => {
+              console.log('Confirm Cancel: blah');
+            }
+          }
+        ]
+      });
+
+      await alert.present();
+    }
     
     checkDate(){
       
@@ -161,7 +215,7 @@ export class AddTaskModalPage implements OnInit {
         this.taskForm.get('deadline').setValue(this.currentDate);
         break;
         
-        case 'enableTo':
+        case 'enableOn':
         this.showFrom=false;
         this.showTo=true;
         break;

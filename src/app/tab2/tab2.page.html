@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Tasks
+      Aufgaben
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,11 +9,11 @@
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
     refreshingSpinner="circles"
-    refreshingText="Refreshing...">
+    refreshingText="erfrischend...">
   </ion-refresher-content>
 </ion-refresher>
 <ion-row>
-  <ion-searchbar  class="search" side='start' [(ngModel)]="tsks"></ion-searchbar> 
+  <ion-searchbar  class="search" side='start' [(ngModel)]="tsks" placeholder='Suche'></ion-searchbar> 
   <ion-icon  side='end' class="searchLogo" src="assets/logo.svg"></ion-icon>
 </ion-row>
 <!-- Default Segment -->
@@ -23,12 +23,12 @@
 
 <ion-segment [(ngModel)]="tasksTab" size='start'>
   <ion-segment-button value="myTasks">
-    <ion-label>My Tasks</ion-label>
+    <ion-label>meine Aufgaben</ion-label>
     <ion-icon name="person"></ion-icon>
   </ion-segment-button>
   
   <ion-segment-button value="givenTasks">
-    <ion-label>Given Tasks</ion-label>
+    <ion-label>versendete Aufgabe</ion-label>
     <ion-icon name="people"></ion-icon>
   </ion-segment-button>
 </ion-segment>
@@ -40,9 +40,9 @@
     <ion-list>
       
       
-      
-      <ion-virtual-scroll [items]="myTasks?.items| search : tsks">
-        <ion-item-sliding  *virtualItem="let myTask">
+      <ion-item-sliding *ngFor="let myTask of myTasks?.items|search: tsks| sort: {property: column, order: order}">
+      <!-- <ion-virtual-scroll [items]="myTasks?.items| search : tsks">
+        <ion-item-sliding  *virtualItem="let myTask"> -->
           
           <ion-item *ngIf="myTask.status!=3" (click)='setTaskId(myTask?.id)'>
             <ion-title mode='md'>
@@ -52,13 +52,13 @@
           
           <ion-item-options side="end" >
             
-            <ion-button ion-button  size='large' class='sliderButtons'>
+            <ion-button ion-button  size='large' (click)='setTaskAsDone(myTask?.id, myTask?.title, myTask?.deadline)' class='sliderButtons'>
               <ion-icon name="checkbox"></ion-icon>
             </ion-button>
             
           </ion-item-options>   
         </ion-item-sliding> 
-      </ion-virtual-scroll>
+      <!-- </ion-virtual-scroll> -->
       
     </ion-list> 
   </div>
@@ -70,9 +70,9 @@
       
       
       
-      <ion-virtual-scroll [items]="givenTasks?.items| search : tsks">
-        <ion-item-sliding *virtualItem="let givenTask">
-          
+      <!-- <ion-virtual-scroll [items]="givenTasks?.items| search : tsks">
+        <ion-item-sliding *virtualItem="let givenTask"> -->
+          <ion-item-sliding *ngFor="let givenTask of givenTasks?.items|search: tsks"> 
           <ion-item (click)='setTaskId(givenTask?.id)'>
             <ion-title mode='md'>
               {{givenTask?.title}}
@@ -81,21 +81,21 @@
           
           <ion-item-options side="end" >
             
-            <ion-button ion-button  size='large' class='sliderButtons'>
+            <ion-button ion-button  size='large' (click)='setTaskAsDone(givenTask?.id, givenTask?.title, givenTask?.deadline)' class='sliderButtons'>
               <ion-icon name="checkbox"></ion-icon>
             </ion-button>
             
           </ion-item-options>   
         </ion-item-sliding> 
-      </ion-virtual-scroll>
+      <!-- </ion-virtual-scroll> -->
       
     </ion-list> 
   </div>
 </div>
 <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-  <!-- <ion-fab-button (click)="addTaskModal()">
+  <ion-fab-button (click)="addTaskModal()">
     <ion-icon name="add" id="add" ></ion-icon>
-  </ion-fab-button> -->
+  </ion-fab-button>
 </ion-fab>
 
 </ion-content>

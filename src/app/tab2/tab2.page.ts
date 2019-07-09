@@ -8,6 +8,7 @@ import { AddTaskModalPage } from '../modals/add-task-modal/add-task-modal.page';
 import { RestApiService } from '../rest-api.service';
 import { map } from 'rxjs/operators';
 import { EditTaskModalPage } from '../modals/edit-task-modal/edit-task-modal.page';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 
 
@@ -23,6 +24,11 @@ export class Tab2Page {
   givenTasks: Observable<any>;
   taskId: number;
   tasksTab:string;
+  myTasksForm: FormGroup;
+  givenTasksForm: FormGroup;
+  taskStatusForm: FormGroup;
+  order: number;
+  descending: boolean = true;
   
 
   
@@ -45,7 +51,29 @@ export class Tab2Page {
   constructor(public modalController: ModalController,
     public api: RestApiService,private alertController: AlertController ,
     public router: Router,
-    public loadingController: LoadingController,) {}
+    public loadingController: LoadingController,
+    private formBuilder: FormBuilder) {
+
+
+      this.myTasksForm = this.formBuilder.group({
+        "taskListKind": 3,
+        "take": 2147483647,
+      
+    });
+
+    this.taskStatusForm = this.formBuilder.group({
+      'id':[null],
+      "status": 3,
+      "title":[null],
+      "deadline":[null],
+  });
+
+    this.givenTasksForm = this.formBuilder.group({
+      "taskListKind": 2,
+      "take": 2147483647,
+    
+  });
+    }
     
 
 
@@ -71,21 +99,27 @@ export class Tab2Page {
 
     async getMyTasks() {
       const loading = await this.loadingController.create({
-        message: 'Loading'
+        message: 'Laden'
       });
       await loading.present();
-      return this.api.getMyTasks().subscribe(data=>{this.myTasks=data
+      return this.api.getMyTasks(this.myTasksForm.value).subscribe(data=>{this.myTasks=data
+        this.sort();
         loading.dismiss();
+   
       });
     }
-
+    sort(){
+      console.log('hello');
+      // this.descending = !this.descending;
+      this.order = this.descending ? 1 : -1;
+    }
 
     async getGivenTasks() {
       const loading = await this.loadingController.create({
-        message: 'Loading'
+        message: 'Laden'
       });
       await loading.present();
-      return this.api.getGivenTasks().subscribe(data=>{this.givenTasks=data
+      return this.api.getGivenTasks(this.givenTasksForm.value).subscribe(data=>{this.givenTasks=data
         loading.dismiss();
       });
     }
@@ -94,7 +128,6 @@ export class Tab2Page {
 
     setTaskId(id:number){
       this.taskId=id;
-      console.log(this.taskId);
       this.editModal();
     }
     async editModal() {
@@ -116,16 +149,52 @@ export class Tab2Page {
 
 
 
-
-
+    async setTaskAsDone(id:number, title:string, deadline){
+      this.taskStatusForm.get('id').setValue(id);
+      this.taskStatusForm.get('title').setValue(title);
+      this.taskStatusForm.get('deadline').setValue(deadline);
+      const alert = await this.alertController.create({
+          header: 'Aufgabe erledigt',
+          cssClass: 'alert',
+          message: '<strong>Haben Sie diese Aufgabe erledigt?</strong>',
+          buttons: [
+              {
+                  text: 'Nein',
+                  role: 'cancel',
+                  cssClass: 'secondary',
+                  handler: () => {
+                  }
+              }, {
+                  text: 'Ja',
+                  handler: () => {
+                    this.api.updateTask(this.taskStatusForm.value)
+                    .subscribe(res => {
+                      this.doRefresh(event);
+                      // this.presentAlert();
+                    }, (err) => {
+                      console.log(err);
+                    });
+                  }
+              }
+          ]
+      });
+      await alert.present();
+      
+  }
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Alert',
+      cssClass: 'alert',
+      message: 'Task successfully updated',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
 
     doRefresh(event) {
       this.getMyTasks();
       this.getGivenTasks();
-      console.log('Begin async operation');
-
       setTimeout(() => {
-        console.log('Async operation has ended');
         event.target.complete();
       }, 2000);
     }

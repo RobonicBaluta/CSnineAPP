@@ -145,3 +145,8 @@ ion-refresher{
 // ion-content{
 //   --overflow: hidden;
 // }
+
+ion-item-sliding.active-slide {
+ 
+  pointer-events: none;
+}

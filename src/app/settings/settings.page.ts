@@ -26,9 +26,9 @@ export class SettingsPage implements OnInit {
     this.booleanFlag2;
     //console.log(this.router.url);
 
-    platform.backButton.subscribeWithPriority(1, () => {
-      this.router.navigateByUrl("/tabs/tabs/tabs5");
-    });
+    // platform.backButton.subscribeWithPriority(1, () => {
+    //   this.router.navigateByUrl("/tabs/tabs/tabs5");
+    // });
    }
 
   myChange(booleanFlag2) {
