@@ -28,16 +28,16 @@
                 <form [formGroup]="taskForm">
                     
                     <ion-row>
-                        <ion-col text-center>
-                            <ion-label color="primary">Betreff*</ion-label>
-                            <ion-input  type='Text' formControlName="title"  placeholder='My new Task'></ion-input>
+                        <ion-col>
+                            <ion-label >Betreff*</ion-label>
+                            <ion-input required type='Text' formControlName="title"  placeholder='Betreff'></ion-input>
                         </ion-col>
                     </ion-row>
                     
                     <ion-row>
                         <ion-col>
                             <ion-label>zuständiger Kollege*:</ion-label>
-                            <ion-select placeholder="Asigned User" formControlName="assignedUserId" > 
+                            <ion-select placeholder="zuständiger Kollege" formControlName="assignedUserId" > 
                                 <ion-select-option *ngFor="let user of simpleUsers|async;" [value]="user.id"  (ionChange)="setUser(user.id)"> {{user.lastName}} {{user.firstName}}</ion-select-option>
                             </ion-select>
                             <ion-button size='small' color="primary">für mich <ion-checkbox checked id="meCheck" [(ngModel)]='me' (ionChange)="getProfile()" [ngModelOptions]="{standalone: true}"></ion-checkbox></ion-button>
@@ -50,7 +50,7 @@
                     <ion-row>
                         <ion-col>
                             <ion-label>Unternehmen*:</ion-label>
-                            <ion-select  formControlName="clientId" placeholder="Client"> 
+                            <ion-select  formControlName="clientId" placeholder="Unternehmen"> 
                                 <ion-select-option *ngFor="let client of clients|async;" [value]="client.id" (ionChange)="setClient(client.id)">{{client.name}}</ion-select-option>
                             </ion-select>
                         </ion-col>
@@ -59,8 +59,8 @@
                     
                     <ion-row>
                         <ion-col>
-                            <ion-label>Beschreibung*:</ion-label>
-                            <ion-textarea formControlName="description" [(ngModel)]="description" placeholder='Enter a description'></ion-textarea>  
+                            <ion-label>Beschreibung:</ion-label>
+                            <ion-textarea formControlName="description" [(ngModel)]="description" placeholder='Beschreibung'></ion-textarea>  
                         </ion-col>
                     </ion-row>
                     
@@ -86,19 +86,19 @@
                         
                         <div [hidden]="!showFrom == true">
                             <ion-label>von:</ion-label>
-                            <ion-datetime displayFormat="MMM/DD/YYYY HH:mm" max="2100-12-31" (ionChange)='setFrom()' placeholder="Pick a date" [(ngModel)]="fromDate" [ngModelOptions]="{standalone: true}"></ion-datetime>
+                            <ion-datetime displayFormat="MMM/DD/YYYY HH:mm" max="2100-12-31" (ionChange)='setFrom()' placeholder="Wählen sie ein Datum" [(ngModel)]="fromDate" [ngModelOptions]="{standalone: true}"></ion-datetime>
                         </div>
                         
                         <div [hidden]="!showTo == true">
                             <ion-label>bis:</ion-label>
-                            <ion-datetime displayFormat="MMM/DD/YYYY HH:mm" max="2100-12-31" (ionChange)='setTo()' placeholder="Pick a date" [(ngModel)]="toDate" [ngModelOptions]="{standalone: true}"></ion-datetime>
+                            <ion-datetime displayFormat="MMM/DD/YYYY HH:mm" max="2100-12-31" (ionChange)='setTo()' placeholder="Wählen sie ein Datum" [(ngModel)]="toDate" [ngModelOptions]="{standalone: true}"></ion-datetime>
                         </div>
                     </div>
                     
                     <ion-row>
                         <ion-col text-center>
                             <ion-button color="warning" (click)="closeModal()"> <ion-icon name="close-circle"> </ion-icon> </ion-button>
-                            <ion-button color="secondary"  (click)="addTask()"><ion-icon name="save"></ion-icon> </ion-button>                  
+                            <ion-button color="secondary" [disabled]="!taskForm.valid" (click)="addTask()"><ion-icon name="save"></ion-icon> </ion-button>                  
                         </ion-col>
                     </ion-row>
                     

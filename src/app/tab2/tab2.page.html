@@ -70,9 +70,9 @@
       
       
       
-      <ion-virtual-scroll [items]="givenTasks?.items| search : tsks">
-        <ion-item-sliding *virtualItem="let givenTask">
-          
+      <!-- <ion-virtual-scroll [items]="givenTasks?.items| search : tsks">
+        <ion-item-sliding *virtualItem="let givenTask"> -->
+          <ion-item-sliding *ngFor="let givenTask of givenTasks?.items|search: tsks"> 
           <ion-item (click)='setTaskId(givenTask?.id)'>
             <ion-title mode='md'>
               {{givenTask?.title}}
@@ -87,15 +87,15 @@
             
           </ion-item-options>   
         </ion-item-sliding> 
-      </ion-virtual-scroll>
+      <!-- </ion-virtual-scroll> -->
       
     </ion-list> 
   </div>
 </div>
 <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-  <!-- <ion-fab-button (click)="addTaskModal()">
+  <ion-fab-button (click)="addTaskModal()">
     <ion-icon name="add" id="add" ></ion-icon>
-  </ion-fab-button> -->
+  </ion-fab-button>
 </ion-fab>
 
 </ion-content>

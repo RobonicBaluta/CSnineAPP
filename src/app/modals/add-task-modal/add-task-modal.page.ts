@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalController, NavParams, LoadingController, AlertController, IonSegment } from '@ionic/angular';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { RestApiService } from 'src/app/rest-api.service';
 import { EditTaskModalPage } from '../edit-task-modal/edit-task-modal.page';
@@ -47,14 +47,14 @@ export class AddTaskModalPage implements OnInit {
       this.taskTabs = 'general';
       
       this.taskForm = this.formBuilder.group({
-        'title':[null],
+        'title':[null,[Validators.required]],
         'description' : [null],
         'descriptionHtml':[null],
-        'assignedUserId': [null],
-        'deadline':[null],
-        'deadlineType':[null],
+        'assignedUserId': [null,[Validators.required]],
+        'deadline':[null,[Validators.required]],
+        'deadlineType':[null,[Validators.required]],
         'fromDate':[null],
-        'clientId':[null],
+        'clientId':[null,[Validators.required]],
         
         'entityRelatedTo': this.formBuilder.group({
           'entityId': [null],
@@ -68,9 +68,18 @@ export class AddTaskModalPage implements OnInit {
     
     ngOnInit() {
       this.getCompanyId();
-      this.taskForm.get('descriptionHtml').setValue(this.taskForm.get('description'));
-      this.entityId=this.companyId;
-      this.entityType='Company';
+      
+      if(this.taskForm.get('description').value!=null && this.taskForm.get('description').value!=''){
+       this.taskForm.get('descriptionHtml').setValue(this.taskForm.get('description').value);
+ 
+      }else{
+        this.taskForm.get('descriptionHtml').setValue('');
+      }
+      if(this.companyId!=null && this.companyId!=''){
+        this.entityId=this.companyId;
+        this.entityType='Company';
+      }
+  
       this.getCompanies();
       this.getSimpleUsers();
       this.getProfile();

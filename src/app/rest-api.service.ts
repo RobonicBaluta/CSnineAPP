@@ -42,63 +42,6 @@ export class RestApiService {
         );       
     }
 
-    // commitFile(entityType: string, entityId: number, document: object): Observable<any> {
-    //     const httpUploadOptions = {
-    //       headers: new HttpHeaders()
-    //     };
-    
-    //     httpUploadOptions.headers.append('Content-Type', 'multipart/form-gridData');
-    //     httpUploadOptions.headers.append('Cache-Control', 'no-cache');
-    //     const formData = new FormData();
-    //     formData.append('entityType', entityType);
-    //     formData.append('entityId', entityId.toString());
-    //     formData.append('document', JSON.stringify(document));
-    
-    //     return this.httpClient.post(EndpointsUtils.COMMIT_DOCUMENT, formData, httpUploadOptions);
-    //   }
-    
-    
-    
-    // initDocument(entityType: string, entityId: number, document: object): Observable<any> {
-        
-        // const httpUploadOptions = {
-        //     headers: new HttpHeaders()
-        // };
-        // httpUploadOptions.headers.append('Content-Type', 'multipart/form-gridData');
-        // httpUploadOptions.headers.append('Cache-Control', 'no-cache');
-    //     const formData = new FormData();
-    //     formData.append('entityType', entityType);
-    //     formData.append('entityId', entityId.toString());
-    //     formData.append('document', JSON.stringify(document));
-        
-        
-    //     const url = `${this.apiUrl}/Documents/.init`;
-        
-        
-    //     return this.http.post(url, formData, httpUploadOptions)
-    //     .pipe(
-    //         catchError(this.handleError)
-    //         );
-            
-    //     }
-
-    // initDocument(data): Observable<any> {
-    //     window.alert('into api');
-    //     const httpUploadOptions = {
-    //         headers: new HttpHeaders()
-    //     };
-    
-    //     // httpUploadOptions.headers.append('enctype','multipart/form-data; boundary=----WebKitFormBoundaryuL67FWkv1CA');
-    //     httpUploadOptions.headers.append('Content-Type', 'multipart/form-data');
-    //     httpUploadOptions.headers.append('Cache-Control', 'no-cache');
-    //     const url = `${this.apiUrl}/Documents/.init`;
-    //     console.log(httpUploadOptions.headers);
-
-    //     return this.http.post(url, data, httpUploadOptions).pipe(
-    //             catchError(this.handleError)
-    //     )       
-    // }
-
        
     getDocuments(id:number) :Observable <any>{
         const url = `${this.apiUrl}/documents/GetView?EntityId=${id}&EntityType=task`;
@@ -361,36 +304,41 @@ export class RestApiService {
 
     handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
-            // A client-side or network error occurred. Handle it accordingly.
-            console.error('An error occurred:', error.error.message);
+          // A client-side or network error occurred. Handle it accordingly.
+          console.error('An error occurred:', error.error.message);
         } else {
-            // The backend returned an unsuccessful response code.
-            // The response body may contain clues as to what went wrong,
-            console.error(
-                `Backend returned code ${error.status}, ` +
-                `body was: ${error.error}`);
-            }
-            switch (error.status) {
-                case 400:
-                        window.alert('400:The request made was not successful');
-                    break;
-                case 403:
-                        window.alert('403:Permision denied');
-                    break;
-                case 500:
-                        window.alert('500:Server error, contact with admin');
-                    break;
-                default:
-                    break;
-            }
-            // return an observable with a user-facing error message
-            // window.alert(error.error);
+          // The backend returned an unsuccessful response code.
+          // The response body may contain clues as to what went wrong,
+          console.error(
+            `Backend returned code ${error.status}, ` +
+            `body was: ${error.error}`);
+          }
+          switch (error.status) {
+            case 400:
+            window.alert('Die Anfrage war nicht erfolgreich');
+            break;
+            case 401:
+            window.alert('Ungültiger Benutzer oder Passwort');
+            break;
+            case 403:
+            window.alert('Zugang verweigert');
+            break;
+            case 500:
+            window.alert('Serverfehler, Kontakt mit Admin');
+            break;
+            default:
+  
             if(error.error.message==null ||error.error.message==''){
-                window.alert('Connection error');
+              window.alert('Verbindungsfehler');
             }else{
-                window.alert(error.error.message);
+              window.alert(error.error.message);
             }
-            return throwError('Something bad happened; please try again later.');
+            break;
+          }
+          // return an observable with a user-facing error message
+          // window.alert(error.error);
+       
+          return throwError('Something bad happened; please try again later.');
         }
 
     setStatus(stat){
@@ -402,7 +350,7 @@ export class RestApiService {
     }
 
     addTask(data): Observable<any> {
-
+        console.log(data);
         const url = `${this.apiUrl}/Tasks`;
         return this.http.post(url, data, httpOptions).pipe(
             catchError(this.handleError)

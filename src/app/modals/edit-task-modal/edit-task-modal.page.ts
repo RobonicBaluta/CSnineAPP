@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
-import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { RestApiService } from '../../rest-api.service'
 import { ModalController, AlertController, NavController, NavParams, Events, LoadingController, ActionSheetController, IonSegment } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -88,12 +88,12 @@ export class EditTaskModalPage implements OnInit {
       this.taskTabs = 'general';
       this.taskForm = this.formBuilder.group({
         'id':[null],
-        'title':[null],
+        'title':[null,[Validators.required]],
         'description' : [null],
         'descriptionHtml':[null],
-        'assignedUserId': [null],
-        'deadline':[null],
-        'deadlineType':[null],
+        'assignedUserId': [null,[Validators.required]],
+        'deadline':[null,[Validators.required]],
+        'deadlineType':[null,[Validators.required]],
         'fromDate':[null],
         'clientId':[null],
         
@@ -113,18 +113,16 @@ export class EditTaskModalPage implements OnInit {
     
     ngOnInit() {
       this.getTaskInfo();
-      // this.getCompanyId();
-      this.taskForm.get('descriptionHtml').setValue(this.taskForm.get('description'));
-      // this.entityId=this.companyId;
-      // this.entityType='Company';
-      
-      
-      // this.documentForm.get('entityType').setValue(null);
-      // this.documentForm.get('entityId').setValue(0);
-      // this.documentForm.get('documentName').setValue('file.txt');
-      // this.documentForm.get('parentId').setValue(0);
-      
-      // this.formFile= this.documentForm.get('files');
+
+
+
+      if(this.taskForm.get('description').value!=null && this.taskForm.get('description').value!=''){
+        this.taskForm.get('descriptionHtml').setValue(this.taskForm.get('description').value);
+  
+       }else{
+         this.taskForm.get('descriptionHtml').setValue('');
+       }
+
       
 
       
@@ -172,8 +170,8 @@ export class EditTaskModalPage implements OnInit {
       //   );
     })
       .catch((err) => {
-        console.error("Error creating file: " + err);
-        window.alert("Error creating file: " + err);
+        console.error("Error : " + err);
+        window.alert("Error : " + err);
 
         throw err;  //Rethrow - will be caught by caller
       });
@@ -441,7 +439,7 @@ export class EditTaskModalPage implements OnInit {
           await this.api.updateTask( this.taskForm.value)
           .subscribe(res => {
             
-            this.updateAlert();
+            // this.updateAlert();
             this.closeModal();
             
           }, (err) => {
