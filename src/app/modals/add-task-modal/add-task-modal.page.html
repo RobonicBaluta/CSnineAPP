@@ -50,9 +50,12 @@
                     <ion-row>
                         <ion-col>
                             <ion-label>Unternehmen*:</ion-label>
-                            <ion-select  formControlName="clientId" placeholder="Unternehmen"> 
+                            <!-- <ion-select  formControlName="clientId" placeholder="Unternehmen"> 
                                 <ion-select-option *ngFor="let client of clients|async;" [value]="client.id" (ionChange)="setClient(client.id)">{{client.name}}</ion-select-option>
-                            </ion-select>
+                            </ion-select> -->
+                            
+                            <ion-input placeholder='Unternehmen'(click)='selectCompanyModal()' [value]='selectedCompany?.name'></ion-input>
+                            <ion-input hidden formControlName="clientId" [value]='selectedCompany?.id'></ion-input>
                         </ion-col>
                     </ion-row>
                     

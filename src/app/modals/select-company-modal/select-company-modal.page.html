@@ -1,0 +1,31 @@
+
+<ion-content>
+  
+<ion-row>
+  <ion-searchbar  class="search" side='start' [(ngModel)]="comps" placeholder='Suche'></ion-searchbar>
+  <ion-icon  side='end' class="searchLogo" src="assets/logo.svg"></ion-icon>
+  
+</ion-row>
+<!-- Default Segment -->
+
+
+
+<ion-list>
+  
+  
+  <ion-virtual-scroll [items]="companies |async| search : comps| sort: {property: column, order: order}">
+    <ion-item-sliding *virtualItem="let company">
+      
+      <ion-item (click)='setCompanyData(company)'>
+        <ion-title mode='md'>
+          {{company?.name}}
+        </ion-title>
+      </ion-item>
+
+    </ion-item-sliding>
+  </ion-virtual-scroll>
+  
+</ion-list>
+
+
+</ion-content>

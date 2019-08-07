@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { RestApiService } from 'src/app/rest-api.service';
 import { EditTaskModalPage } from '../edit-task-modal/edit-task-modal.page';
+import { SelectCompanyModalPage } from '../select-company-modal/select-company-modal.page';
 
 
 @Component({
@@ -32,6 +33,8 @@ export class AddTaskModalPage implements OnInit {
   profile: Observable<any>;
   info: any;
   taskId: number;
+  selectedCompany:string;
+
   
 
   @ViewChild (IonSegment) segment:IonSegment;
@@ -171,6 +174,24 @@ export class AddTaskModalPage implements OnInit {
       modal.onDidDismiss().then((dataReturned) => {
         if (dataReturned !== null) {
           console.log('Modal Sent Data :', dataReturned);
+        }
+      });
+      return await modal.present();
+    }
+
+
+    async selectCompanyModal() {
+      const modal = await this.modalController.create({
+        component: SelectCompanyModalPage,
+        cssClass: 'addCompanyCustom',
+        componentProps:{
+
+        }
+      });
+      modal.onDidDismiss().then((dataReturned) => {
+        if (dataReturned !== null) {
+         this.selectedCompany=dataReturned['data'];
+         console.log(this.selectedCompany);
         }
       });
       return await modal.present();

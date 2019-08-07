@@ -33,6 +33,7 @@ import { ShowMobileContactModalPageModule } from './modals/show-mobile-contact-m
 import { ExportContactModalPageModule } from './modals/export-contact-modal/export-contact-modal.module';
 import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { SelectCompanyModalPageModule } from './modals/select-company-modal/select-company-modal.module';
 
 
 
@@ -55,6 +56,7 @@ export function jwtOptionsFactory(storage) {
     NoteModalPageModule,
     AddCompanyModalPageModule,
     EditCompanyModalPageModule,
+    SelectCompanyModalPageModule,
     FormsModule,
     ReactiveFormsModule,
     AddTaskModalPageModule,

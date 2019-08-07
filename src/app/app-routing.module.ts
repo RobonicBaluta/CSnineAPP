@@ -30,6 +30,7 @@ const routes: Routes = [
   { path: 'show-mobile-contact-modal', loadChildren: './modals/show-mobile-contact-modal/show-mobile-contact-modal.module#ShowMobileContactModalPageModule' },
   { path: 'export-contact-modal', loadChildren: './modals/export-contact-modal/export-contact-modal.module#ExportContactModalPageModule' },
   { path: 'select-server', loadChildren: './select-server/select-server.module#SelectServerPageModule' },
+  { path: 'select-company-modal', loadChildren: './modals/select-company-modal/select-company-modal.module#SelectCompanyModalPageModule' },
  
  
   
