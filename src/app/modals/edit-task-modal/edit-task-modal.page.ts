@@ -12,6 +12,7 @@ import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { cordova } from '@ionic-native/core';
 import { Platform } from '@ionic/angular';
 import { saveAs } from 'file-saver';
+import { SelectCompanyModalPage } from '../select-company-modal/select-company-modal.page';
 
 
 @Component({
@@ -41,7 +42,8 @@ export class EditTaskModalPage implements OnInit {
   showTo: boolean=false;
   profile: Observable<any>;
   documentForm: FormGroup;
-  
+  selectedCompany:string;
+
   taskEntity:any;
   taskType:any;
   taskDocument:any;
@@ -468,6 +470,23 @@ export class EditTaskModalPage implements OnInit {
       showDocs(){
         this.documentsTab=true;
         this.generalTab=false;
+      }
+      
+      async selectCompanyModal() {
+        const modal = await this.modalController.create({
+          component: SelectCompanyModalPage,
+          cssClass: 'addCompanyCustom',
+          componentProps:{
+  
+          }
+        });
+        modal.onDidDismiss().then((dataReturned) => {
+          if (dataReturned !== null) {
+           this.selectedCompany=dataReturned['data'];
+           console.log(this.selectedCompany);
+          }
+        });
+        return await modal.present();
       }
     }
     
